@@ -36,7 +36,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import HotelIcon from '@mui/icons-material/Hotel';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-export const gridOrderImage = (props) => (
+export const gridImage = (props) => (
     <div>
         <img
             className="rounded-xl h-20 md:ml-3"
@@ -46,7 +46,7 @@ export const gridOrderImage = (props) => (
     </div>
 );
 
-export const gridOrderStatus = (props) => (
+export const gridFacturaStatus = (props) => (
     <button
         type="button"
         style={{ background: props.StatusBg }}
@@ -443,6 +443,7 @@ export const barCustomSeries = [
         },
     },
 ];
+ 
 export const colorMappingData = [
     [
         { x: 'Jan', y: 6.96 },
@@ -955,7 +956,7 @@ export const userProfileData = [
 export const ordersGrid = [
     {
         headerText: 'Image',
-        template: gridOrderImage,
+        template: gridImage,
         textAlign: 'Center',
         width: '120',
     },
@@ -982,7 +983,7 @@ export const ordersGrid = [
     },
     {
         headerText: 'Status',
-        template: gridOrderStatus,
+        template: gridFacturaStatus,
         field: 'OrderItems',
         textAlign: 'Center',
         width: '120',
@@ -3152,6 +3153,7 @@ export const lineChartData = [
         { x: new Date(2011, 0, 1), y: 100 },
     ],
 ];
+
 export const dropdownData = [
     {
         Id: '1',
@@ -3165,6 +3167,7 @@ export const dropdownData = [
         Time: 'May 2021',
     },
 ];
+
 export const SparklineAreaData = [
     { x: 1, yval: 2 },
     { x: 2, yval: 6 },
