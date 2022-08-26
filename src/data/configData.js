@@ -49,10 +49,10 @@ export const gridImage = (props) => (
 export const gridFacturaStatus = (props) => (
     <button
         type="button"
-        style={{ background: props.StatusBg }}
+        style={{ background: props.colorEstado }}
         className="text-white py-1 px-2 capitalize rounded-2xl text-md"
     >
-        {props.Status}
+        {props.estado}
     </button>
 );
 
