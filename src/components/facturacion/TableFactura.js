@@ -1,32 +1,20 @@
-import { React, useEffect, useState } from 'react'
+import { React } from 'react'
 // import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
 // import { gridFacturaStatus, contextMenuItems } from '../../data/configData';
 import Header from '../Head';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
-function TableFactura() {
-
-  const [factura, setfactura] = useState([])
-
-  useEffect(() => {
-    fetch('http://localhost:5063/api/Factura/ListarFacturas')
-      .then((res) => res.json())
-      .then((data) => {
-        let facturas = data.facturas
-        setfactura(facturas)
-      })
-  }, [])
-
-  const gridFacturaStatus = (props) => (
-    <button
-      type="button"
-      style={{ background: props.colorEstado }}
-      className="text-white py-1 px-2 capitalize rounded-2xl text-md"
-    >
-      {props.estado}
-    </button>
-  );
+function TableFactura({ dataFactura }) {
+  // const gridFacturaStatus = (props) => (
+  //   <button
+  //     type="button"
+  //     style={{ background: props.colorEstado }}
+  //     className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+  //   >
+  //     {props.estado}
+  //   </button>
+  // );
 
   const facturaColumn = [
     {
@@ -74,7 +62,7 @@ function TableFactura() {
 
       <Box sx={{ height: 600, width: '100%' }}>
         <DataGrid
-          rows={factura}
+          rows={dataFactura}
           columns={facturaColumn}
           pageSize={5}
           rowsPerPageOptions={[5]}

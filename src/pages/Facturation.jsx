@@ -17,6 +17,6 @@ export default function Facturation() {
   console.table(factura)
 
   return (
-    <TableFactura />
+    <TableFactura dataFactura={factura} />
   );
 }
