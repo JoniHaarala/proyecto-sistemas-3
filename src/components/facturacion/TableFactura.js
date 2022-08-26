@@ -1,11 +1,10 @@
 import { React } from 'react'
-// import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
-// import { gridFacturaStatus, contextMenuItems } from '../../data/configData';
 import Header from '../Head';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import { facturaColumn } from '../../data/configData';
 
-function TableFactura({ dataFactura }) {
+function TableFactura({ data }) {
   // const gridFacturaStatus = (props) => (
   //   <button
   //     type="button"
@@ -16,43 +15,6 @@ function TableFactura({ dataFactura }) {
   //   </button>
   // );
 
-  const facturaColumn = [
-    {
-      field: 'id',
-      headerName: 'Id factura',
-      textAlign: 'Center',
-      width: '100',
-    },
-    {
-      field: 'categoria',
-      headerName: 'Categoria',
-      width: 250,
-      editable: true,
-    },
-    {
-      field: 'total',
-      headerName: 'Monto total',
-      width: '150',
-    },
-    {
-      field: 'estado',
-      headerName: 'Estado',
-      width: '150',
-    },
-    {
-      field: 'fechaFactura',
-      headerName: 'Fecha factura',
-      width: '180',
-      textAlign: 'Center',
-    },
-    {
-      field: 'proveedor',
-      headerName: 'Nombre de proveedor',
-      width: '250',
-      editable: true
-    },
-  ];
-
   // const editing = { allowDeleting: true, allowEditing: false };
 
   return (
@@ -60,9 +22,11 @@ function TableFactura({ dataFactura }) {
 
       <Header category="" title="Facturas" />
 
+      {/* A component called Box and DataGrid used from Material UI grid API that is being used to create a table. 
+      This table containe data from Facturas fetch in the component FActuration.jsx */}
       <Box sx={{ height: 600, width: '100%' }}>
         <DataGrid
-          rows={dataFactura}
+          rows={data}
           columns={facturaColumn}
           pageSize={5}
           rowsPerPageOptions={[5]}
@@ -71,21 +35,6 @@ function TableFactura({ dataFactura }) {
           experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
-      {/* <GridComponent
-        id="gridcomp"
-        dataSource={dataFactura}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        contextMenuItems={contextMenuItems}
-        editSettings={editing}
-      >
-        <ColumnsDirective>
-          {facturaGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-        </ColumnsDirective>
-        <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, Edit, PdfExport]} />
-      </GridComponent> */}
     </div>
   );
 }

@@ -443,7 +443,7 @@ export const barCustomSeries = [
         },
     },
 ];
- 
+
 export const colorMappingData = [
     [
         { x: 'Jan', y: 6.96 },
@@ -950,6 +950,43 @@ export const userProfileData = [
         desc: 'To-do and Daily Tasks',
         iconColor: 'rgb(255, 244, 229)',
         iconBg: 'rgb(254, 201, 15)',
+    },
+];
+
+export const facturaColumn = [
+    {
+        field: 'id',
+        headerName: 'Id factura',
+        textAlign: 'Center',
+        width: '100',
+    },
+    {
+        field: 'categoria',
+        headerName: 'Categoria',
+        width: 250,
+        editable: true,
+    },
+    {
+        field: 'total',
+        headerName: 'Monto total',
+        width: '150',
+    },
+    {
+        field: 'estado',
+        headerName: 'Estado',
+        width: '150',
+    },
+    {
+        field: 'fechaFactura',
+        headerName: 'Fecha factura',
+        width: '180',
+        textAlign: 'Center',
+    },
+    {
+        field: 'proveedor',
+        headerName: 'Nombre de proveedor',
+        width: '250',
+        editable: true
     },
 ];
 
