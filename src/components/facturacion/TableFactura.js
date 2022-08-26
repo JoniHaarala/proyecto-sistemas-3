@@ -52,7 +52,7 @@ function TableFactura() {
       width: '150',
     },
     {
-      field: 'fecha',
+      field: 'fechaFactura',
       headerName: 'Fecha factura',
       width: '180',
       textAlign: 'Center',
