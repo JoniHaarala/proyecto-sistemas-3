@@ -31,9 +31,9 @@ function TableFactura() {
   const facturaColumn = [
     {
       field: 'id',
-      headerName: 'Id de factura',
+      headerName: 'Id factura',
       textAlign: 'Center',
-      width: '150',
+      width: '100',
     },
     {
       field: 'categoria',
