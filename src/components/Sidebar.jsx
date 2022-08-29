@@ -21,8 +21,8 @@ const Sidebar = () => {
   const activeLink = 'flex flex-col h-auto gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md dark:text-gray-400';
   const normalLink = 'flex flex-col overflow-hidden gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200';
 
-  const activeSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md m-2 bg-gray-50 dark:text-black';
-  const normalSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black dark:hover:bg-light-gray m-2';
+  const activeSubLink = 'flex items-center gap-3 pr-12 pl-8 pt-3 pb-2.5 rounded-lg text-md m-2 bg-gray-50 dark:text-black';
+  const normalSubLink = 'flex items-center gap-3 pr-12 pl-8 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black dark:hover:bg-light-gray m-2';
 
   return (
     <div className="ml-3 h-screen overflow-auto md:overflow-hidden md:hover:overflow-auto pb-10">
