@@ -84,6 +84,8 @@ function App() {
               <Route path="/empleados" element={<Empleados />} />
               <Route path="/informes" element={<Informes />} />
               <Route path="/reservas" element={<Reservas />} />
+
+              {/* Tesoreria */}
               <Route path="/tesoreria" element={<Tesoreria />} />
 
               {/* Apps or enterprise functionalities */}
