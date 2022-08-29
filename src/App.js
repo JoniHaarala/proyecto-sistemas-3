@@ -3,7 +3,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Tesoreria, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes } from './pages';
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Tesoreria, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact } from './pages';
 import { useStateContext } from './context/ContextProvider';
 
 function App() {
@@ -69,11 +69,17 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/Dashboard" element={<Home />} />
 
-              {/* Funtion Pages */}
-              <Route path="/facturas" element={<Facturation />} />
+              {/* Modules for each Funtion Pages */}
+              {/* Facturacion */}
+              <Route path='/Facturas' element={<Home />} />
+              <Route path="/listarFacturas" element={<Facturation />} />
+              <Route path='/editarFactura' element={<EditFact />} />
+              <Route path='/borrarFactura' element={<DelFact />} />
+              <Route path='/pagarFactura' element={<PayFact />} />
+              {/* other pages */}
               <Route path="/propiedades" element={<Propiedades />} />
               <Route path="/contable" element={<Contable />} />
-              <Route path="/alquileres" element={<Alquileres />} />
+              <Route path="/alquiler" element={<Alquileres />} />
               <Route path="/Contratos" element={<Contratos />} />
               <Route path="/empleados" element={<Empleados />} />
               <Route path="/informes" element={<Informes />} />
@@ -100,9 +106,9 @@ function App() {
           </section>
 
           <Footer />
-        
+
         </div>
-  
+
       </div>
 
     </div>

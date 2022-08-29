@@ -56,6 +56,216 @@ export const gridFacturaStatus = (props) => (
     </button>
 );
 
+// Aca van las opciones de cada pagina descripta en la funcion links.
+export const subLinks = [
+    {
+        title : "Alquiler",
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar alquiler',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'pagar alquiler',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'listar alquileres temporarios',
+            },
+            {
+                id: 4,
+                name:'',
+                subname: 'cancelar alquiler',
+            },
+        ],
+    },
+    {
+        title: 'Contable',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar contable',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'pagar contable',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'listar contable',
+            },
+            {
+                id: 4,
+                name:'',
+                subname: 'cancelar contable',
+            },
+        ],
+    },
+    {
+        title: 'Contratos',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar contrato',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'pagar contrato',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'editar contrato',
+            },
+            {
+                id: 4,
+                name:'',
+                subname: 'borrar contrato',
+            },
+        ],
+    },
+    {
+        title: 'Empleados',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar empleado',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'editar rol',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'editar permisos',
+            },
+            {
+                id: 4,
+                name:'',
+                subname: 'borrar empleado',
+            },
+        ],
+    },
+    {
+        title: 'Facturas',
+        links: [
+            {
+                id: 1,
+                name:'listarFacturas',
+                subname: 'listar facturas',
+            },
+            {
+                id: 2,
+                name:'pagarFactura',
+                subname: 'pagar factura',
+            },
+            {
+                id: 3,
+                name:'editarFactura',
+                subname: 'editar factura',
+            },
+            {
+                id: 4,
+                name:'borrarFactura',
+                subname: 'borrar factura',
+            },
+        ],
+    },
+    {
+        title: 'Informes',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'generar informe',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'generar ranking',
+            },
+        ],
+    },
+    {
+        title: 'Propiedades',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar propiedad',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'editar propiedad',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'borrar propiedad',
+            },
+        ],
+    },
+    {
+        title: 'Reservas',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'agregar Reservas',
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'pagar Reservas',
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'editar Reservas',
+            },
+            {
+                id: 4,
+                name:'',
+                subname: 'borrar Reservas',
+            },
+        ],
+    },
+    {
+        title: 'Tesoreria',
+        links: [
+            {
+                id: 1,
+                name:'',
+                subname: 'generar constancia de pago'
+            },
+            {
+                id: 2,
+                name:'',
+                subname: 'pagar factura'
+            },
+            {
+                id: 3,
+                name:'',
+                subname: 'liquidar salarios'
+            },
+
+        ],
+    }
+
+]
 export const links = [
     {
         title: 'Dashboard',
@@ -70,44 +280,49 @@ export const links = [
     {
         title: 'Pages',
         links: [
-            {
-                name: 'Alquiler',
-                icon: <EventSeatIcon />,
-            },
-            {
-                name: 'Contable',
-                icon: <PointOfSaleIcon />,
-            },
-            {
-                name: 'Contratos',
-                icon: <CreditCardIcon />,
-            },
-            {
-                name: 'Empleados',
-                icon: <PersonIcon />,
-            },
+            // {
+            //     name: 'Alquiler',
+            //     icon: <EventSeatIcon />,          
+            // },
+            // {
+            //     name: 'Contable',
+            //     icon: <PointOfSaleIcon />,
+            // },
+            // {
+            //     name: 'Contratos',
+            //     icon: <CreditCardIcon />,
+            // },
+            // {
+            //     name: 'Empleados',
+            //     icon: <PersonIcon />,
+            // },
             {
                 name: 'Facturas',
                 icon: <RequestQuoteIcon />,
+                
             },
-            {
-                name: 'Informes',
-                icon: <ArticleIcon />,
-            },
-            {
-                name: 'Propiedades',
-                icon: <HomeIcon />,
-            },
-            {
-                name: 'Reservas',
-                icon: <HotelIcon />,
-            },
-            {
-                name: 'Tesoreria',
-                icon: <AttachMoneyIcon />,
-            }
+            // {
+            //     name: 'Informes',
+            //     icon: <ArticleIcon />,
+            // },
+            // {
+            //     name: 'Propiedades',
+            //     icon: <HomeIcon />,
+                
+            // },
+            // {
+            //     name: 'Reservas',
+            //     icon: <HotelIcon />,
+                
+            // },
+            // {
+            //     name: 'Tesoreria',
+            //     icon: <AttachMoneyIcon />,
+                
+            // }
         ],
     },
+
     // {
     //     title: 'Apps',
     //     links: [

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import TableFactura from '../components/facturacion/TableFactura';
+import TableFactura from '../../components/facturacion/TableFactura';
 
 export default function Facturation() {
 
