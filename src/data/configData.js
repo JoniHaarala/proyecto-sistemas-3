@@ -280,108 +280,107 @@ export const links = [
     {
         title: 'Pages',
         links: [
-            // {
-            //     name: 'Alquiler',
-            //     icon: <EventSeatIcon />,          
-            // },
-            // {
-            //     name: 'Contable',
-            //     icon: <PointOfSaleIcon />,
-            // },
-            // {
-            //     name: 'Contratos',
-            //     icon: <CreditCardIcon />,
-            // },
-            // {
-            //     name: 'Empleados',
-            //     icon: <PersonIcon />,
-            // },
+            {
+                name: 'Alquiler',
+                icon: <EventSeatIcon />,          
+            },
+            {
+                name: 'Contable',
+                icon: <PointOfSaleIcon />,
+            },
+            {
+                name: 'Contratos',
+                icon: <CreditCardIcon />,
+            },
+            {
+                name: 'Empleados',
+                icon: <PersonIcon />,
+            },
             {
                 name: 'Facturas',
                 icon: <RequestQuoteIcon />,
                 
             },
-            // {
-            //     name: 'Informes',
-            //     icon: <ArticleIcon />,
-            // },
-            // {
-            //     name: 'Propiedades',
-            //     icon: <HomeIcon />,
+            {
+                name: 'Informes',
+                icon: <ArticleIcon />,
+            },
+            {
+                name: 'Propiedades',
+                icon: <HomeIcon />,
                 
-            // },
-            // {
-            //     name: 'Reservas',
-            //     icon: <HotelIcon />,
+            },
+            {
+                name: 'Reservas',
+                icon: <HotelIcon />,
                 
-            // },
-            // {
-            //     name: 'Tesoreria',
-            //     icon: <AttachMoneyIcon />,
-                
-            // }
+            },
+            {
+                name: 'Tesoreria',
+                icon: <AttachMoneyIcon />, 
+            }
         ],
     },
 
-    // {
-    //     title: 'Apps',
-    //     links: [
-    //         {
-    //             name: 'calendar',
-    //             icon: <CalendarMonthIcon />,
-    //         },
-    //         {
-    //             name: 'kanban',
-    //             icon: <ViewKanbanIcon />,
-    //         },
-    //         {
-    //             name: 'editor',
-    //             icon: <ModeEditOutlineIcon />,
-    //         },
-    //         {
-    //             name: 'color-picker',
-    //             icon: <PaletteIcon />,
-    //         },
-    //     ],
-    // },
-    // {
-    //     title: 'Charts',
-    //     links: [
-    //         {
-    //             name: 'line',
-    //             icon: <ShowChartIcon />,
-    //         },
-    //         {
-    //             name: 'area',
-    //             icon: <AssessmentIcon />,
-    //         },
+    {
+        title: 'Apps',
+        links: [
+            {
+                name: 'calendar',
+                icon: <CalendarMonthIcon />,
+            },
+            {
+                name: 'kanban',
+                icon: <ViewKanbanIcon />,
+            },
+            {
+                name: 'editor',
+                icon: <ModeEditOutlineIcon />,
+            },
+            {
+                name: 'color-picker',
+                icon: <PaletteIcon />,
+            },
+        ],
+    },
+    {
+        title: 'Charts',
+        links: [
+            {
+                name: 'line',
+                icon: <ShowChartIcon />,
+            },
+            {
+                name: 'area',
+                icon: <AssessmentIcon />,
+            },
 
-    //         {
-    //             name: 'bar',
-    //             icon: <BarChartIcon />,
-    //         },
-    //         {
-    //             name: 'pie',
-    //             icon: <PieChartIcon />,
-    //         },
-    //         {
-    //             name: 'financial',
-    //             icon: <CandlestickChartIcon />,
-    //         },
-    //         {
-    //             name: 'color-mapping',
-    //             icon: <SignalCellularAltIcon />,
-    //         },
-    //         {
-    //             name: 'pyramid',
-    //             icon: <ChangeHistoryIcon />,
-    //         },
-    //         {
-    //             name: 'stacked',
-    //             icon: < StackedBarChartIcon />,
-    //         },
-    //     ],
-    // },
+            {
+                name: 'bar',
+                icon: <BarChartIcon />,
+            },
+            {
+                name: 'pie',
+                icon: <PieChartIcon />,
+            },
+            {
+                name: 'financial',
+                icon: <CandlestickChartIcon />,
+            },
+            {
+                name: 'color-mapping',
+                icon: <SignalCellularAltIcon />,
+            },
+            {
+                name: 'pyramid',
+                icon: <ChangeHistoryIcon />,
+            },
+            {
+                name: 'stacked',
+                icon: < StackedBarChartIcon />,
+            },
+        ],
+    },
 ];
 
 export const kanbanGrid = [
