@@ -8,10 +8,7 @@ export default function Facturation() {
   useEffect(() => {
     fetch('http://localhost:5063/api/Factura/ListarFacturas')
       .then((res) => res.json())
-      .then((data) => {
-        let facturas = data.facturas
-        setfactura(facturas)
-      })
+      .then((data) => { setfactura(data.facturas) })
   }, [])
 
   console.table(factura)
