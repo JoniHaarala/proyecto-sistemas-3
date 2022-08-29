@@ -33,6 +33,7 @@ function TableFactura({ data }) {
           checkboxSelection
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
+          className="bg-main-bg dark:bg-gray-400"
         />
       </Box>
     </div>

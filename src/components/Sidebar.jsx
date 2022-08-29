@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
@@ -18,20 +18,11 @@ const Sidebar = () => {
     }
   };
 
-  const activeLink = 'flex flex-col h-auto gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md m-2 ';
-  const normalLink = 'flex flex-col h-12 overflow-hidden gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
+  const activeLink = 'flex flex-col h-auto gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md dark:text-gray-400';
+  const normalLink = 'flex flex-col overflow-hidden gap-3 pl-2 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200';
 
-  const activeSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md m-2 bg-gray-50';
-  const normalSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black m-2';
-  
-  const [isActive, setisActive] = useState(false)
-  
-  const hadleActiveMenu = () => {
-    if(activeMenu === true){
-      setisActive(true)
-    }
-  }
-  
+  const activeSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md m-2 bg-gray-50 dark:text-black';
+  const normalSubLink = 'flex items-center gap-3 pl-8 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black dark:hover:bg-light-gray m-2';
 
   return (
     <div className="ml-3 h-screen overflow-auto md:overflow-hidden md:hover:overflow-auto pb-10">
@@ -44,7 +35,9 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
               <DiamondIcon />
-              <p>Fischer Inmobiliaria</p>
+              <p>
+                <span className='dark:text-blue-500'>Fischer </span><span className='dark:text-red-500'>Inmo<span className='dark:text-green-500'>bili</span>aria</span>
+              </p>
             </Link>
 
             {/* A tooltip component that is used to display a tooltip when the user hovers over the
@@ -80,10 +73,10 @@ const Sidebar = () => {
                       <NavLink
                         key={link.name}
                         to={`/${link.name}`}
-                        onClick={() => {}}
-                        className={({ isActive }) => isActive ? activeLink : normalLink }
+                        onClick={() => { }}
+                        className={({ isActive }) => isActive ? activeLink : normalLink}
                       >
-                        <div className='flex gap-3'>
+                        <div className='flex gap-3 pl-1.5 py-2 mr-2 rounded-lg dark:hover:text-black dark:hover:bg-light-gray'>
                           {link.icon}
                           <span className="capitalize">
                             {link.name}
@@ -129,3 +122,6 @@ const Sidebar = () => {
 }
 
 export default Sidebar
+
+// para la proxima ya se como voy a arreglar el tema de los menues desplegables... para eso cambiar el navLInk 
+// por un button para despues que el boton al ser clikeado cambie de estado para cadad una delas paginas
