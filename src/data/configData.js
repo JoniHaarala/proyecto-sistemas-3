@@ -280,108 +280,146 @@ export const links = [
     {
         title: 'Pages',
         links: [
-            {
-                name: 'Alquiler',
-                icon: <EventSeatIcon />,          
-            },
-            {
-                name: 'Contable',
-                icon: <PointOfSaleIcon />,
-            },
-            {
-                name: 'Contratos',
-                icon: <CreditCardIcon />,
-            },
-            {
-                name: 'Empleados',
-                icon: <PersonIcon />,
-            },
+            // {
+            //     name: 'Alquiler',
+            //     icon: <EventSeatIcon />,          
+            // },
+            // {
+            //     name: 'Contable',
+            //     icon: <PointOfSaleIcon />,
+            // },
+            // {
+            //     name: 'Contratos',
+            //     icon: <CreditCardIcon />,
+            // },
+            // {
+            //     name: 'Empleados',
+            //     icon: <PersonIcon />,
+            // },
             {
                 name: 'Facturas',
                 icon: <RequestQuoteIcon />,
                 
             },
-            {
-                name: 'Informes',
-                icon: <ArticleIcon />,
-            },
-            {
-                name: 'Propiedades',
-                icon: <HomeIcon />,
+            // {
+            //     name: 'Informes',
+            //     icon: <ArticleIcon />,
+            // },
+            // {
+            //     name: 'Propiedades',
+            //     icon: <HomeIcon />,
                 
-            },
-            {
-                name: 'Reservas',
-                icon: <HotelIcon />,
+            // },
+            // {
+            //     name: 'Reservas',
+            //     icon: <HotelIcon />,
                 
-            },
-            {
-                name: 'Tesoreria',
-                icon: <AttachMoneyIcon />, 
-            }
+            // },
+            // {
+            //     name: 'Tesoreria',
+            //     icon: <AttachMoneyIcon />, 
+            // }
         ],
     },
 
+    // {
+    //     title: 'Apps',
+    //     links: [
+    //         {
+    //             name: 'calendar',
+    //             icon: <CalendarMonthIcon />,
+    //         },
+    //         {
+    //             name: 'kanban',
+    //             icon: <ViewKanbanIcon />,
+    //         },
+    //         {
+    //             name: 'editor',
+    //             icon: <ModeEditOutlineIcon />,
+    //         },
+    //         {
+    //             name: 'color-picker',
+    //             icon: <PaletteIcon />,
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: 'Charts',
+    //     links: [
+    //         {
+    //             name: 'line',
+    //             icon: <ShowChartIcon />,
+    //         },
+    //         {
+    //             name: 'area',
+    //             icon: <AssessmentIcon />,
+    //         },
+
+    //         {
+    //             name: 'bar',
+    //             icon: <BarChartIcon />,
+    //         },
+    //         {
+    //             name: 'pie',
+    //             icon: <PieChartIcon />,
+    //         },
+    //         {
+    //             name: 'financial',
+    //             icon: <CandlestickChartIcon />,
+    //         },
+    //         {
+    //             name: 'color-mapping',
+    //             icon: <SignalCellularAltIcon />,
+    //         },
+    //         {
+    //             name: 'pyramid',
+    //             icon: <ChangeHistoryIcon />,
+    //         },
+    //         {
+    //             name: 'stacked',
+    //             icon: < StackedBarChartIcon />,
+    //         },
+    //     ],
+    // },
+];
+// Aca van los titulos de los grid de las diferentes tablas proximas a crear
+export const facturaColumn = [
     {
-        title: 'Apps',
-        links: [
-            {
-                name: 'calendar',
-                icon: <CalendarMonthIcon />,
-            },
-            {
-                name: 'kanban',
-                icon: <ViewKanbanIcon />,
-            },
-            {
-                name: 'editor',
-                icon: <ModeEditOutlineIcon />,
-            },
-            {
-                name: 'color-picker',
-                icon: <PaletteIcon />,
-            },
-        ],
+        field: 'id',
+        headerName: 'Id factura',
+        textAlign: 'Center',
+        width: '100',
     },
     {
-        title: 'Charts',
-        links: [
-            {
-                name: 'line',
-                icon: <ShowChartIcon />,
-            },
-            {
-                name: 'area',
-                icon: <AssessmentIcon />,
-            },
-
-            {
-                name: 'bar',
-                icon: <BarChartIcon />,
-            },
-            {
-                name: 'pie',
-                icon: <PieChartIcon />,
-            },
-            {
-                name: 'financial',
-                icon: <CandlestickChartIcon />,
-            },
-            {
-                name: 'color-mapping',
-                icon: <SignalCellularAltIcon />,
-            },
-            {
-                name: 'pyramid',
-                icon: <ChangeHistoryIcon />,
-            },
-            {
-                name: 'stacked',
-                icon: < StackedBarChartIcon />,
-            },
-        ],
+        field: 'fechaVencimiento',
+        headerName: 'fecha vencimiento',
+        width: 250,
+        editable: true,
+    },
+    {
+        field: 'total',
+        headerName: 'Monto total',
+        width: '150',
+    },
+    {
+        field: 'estado',
+        headerName: 'Estado',
+        width: '150',
+    },
+    {
+        field: 'fechaFactura',
+        headerName: 'Fecha factura',
+        width: '180',
+        textAlign: 'Center',
+    },
+    {
+        field: 'proveedor',
+        headerName: 'Nombre de proveedor',
+        width: '250',
+        editable: true
     },
 ];
+
 
 export const kanbanGrid = [
     {
@@ -1164,43 +1202,6 @@ export const userProfileData = [
         desc: 'To-do and Daily Tasks',
         iconColor: 'rgb(255, 244, 229)',
         iconBg: 'rgb(254, 201, 15)',
-    },
-];
-
-export const facturaColumn = [
-    {
-        field: 'id',
-        headerName: 'Id factura',
-        textAlign: 'Center',
-        width: '100',
-    },
-    {
-        field: 'categoria',
-        headerName: 'Categoria',
-        width: 250,
-        editable: true,
-    },
-    {
-        field: 'total',
-        headerName: 'Monto total',
-        width: '150',
-    },
-    {
-        field: 'estado',
-        headerName: 'Estado',
-        width: '150',
-    },
-    {
-        field: 'fechaFactura',
-        headerName: 'Fecha factura',
-        width: '180',
-        textAlign: 'Center',
-    },
-    {
-        field: 'proveedor',
-        headerName: 'Nombre de proveedor',
-        width: '250',
-        editable: true
     },
 ];
 

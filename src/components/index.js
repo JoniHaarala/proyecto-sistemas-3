@@ -13,3 +13,4 @@ export { default as Stacked } from './Charts/Stacked';
 export { default as PieChart } from './Charts/PieChart';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header} from './Head';
+export { default as SimpleBackdrop} from './BackDrop'
