@@ -145,4 +145,80 @@ export const proveedoresData = [
     }
 ]
 
+export const bancoData = [
+    {
+        id: 10,
+        nombre: 'Wintheiser, Streich and VonRueden',
+        correo: 'fbairstow0@jiathis.com',
+        telefono: '+55 (384) 374-0374',
+        direccion: '01685 Pleasure Hill',
+        pais: 'Brazil',
+        cod_postal: 70330
+    },
+    // {
+    //     id: 11,
+    //     nombre: 'Bahringer-Erdman',
+    //     correo: 'wmcfie1@europa.eu',
+    //     telefono: '+55 (566) 639-8157',
+    //     direccion: '17686 Forster Road',
+    //     pais: 'Brazil',
+    //     cod_postal: 29500
+    // },
+    {
+        id: 12,
+        nombre: 'Leffler-Keebler',
+        correo: 'vrigardeau2@vinaora.com',
+        telefono: '+55 (929) 972-9131',
+        direccion: '42 Stuart Center',
+        pais: 'Brazil',
+        cod_postal: 78275
+    },
+    // {
+    //     id: 13,
+    //     nombre: 'Funk LLC',
+    //     correo: 'gcarbert3@ebay.com',
+    //     telefono: '+358 (195) 793-3161',
+    //     direccion: '0 1st Place',
+    //     pais: 'Finland',
+    //     cod_postal: 66999
+    // },
+    {
+        id: 14,
+        nombre: 'Lehner and Sons',
+        correo: 'tmckibbin4@istock.com',
+        telefono: '+1 (915) 601-3405',
+        direccion: '71200 Ramsey Hill',
+        pais: 'United States',
+        cod_postal: 79940
+    }
+]
+export const cuentasData = [
+    {
+      id: 400000,
+      tipoCuenta: 'Caja de ahorro pago remuneraciones',
+      moneda: 'pesos',
+      cbu: '4302680111100086451098',
+      saldo: 59831000,
+      idbanco: 10
+    },
+    {
+      id: 401000,
+      tipoCuenta: 'Caja de ahorro pago remuneraciones',
+      moneda: 'pesos',
+      cbu: '3238494711100014926959',
+      saldo: 510920000,
+      idbanco: 12
+    },
+    {
+      id: 402000,
+      tipoCuenta: 'Caja de ahorro pago remuneraciones',
+      moneda: 'dolares',
+      cbu: '2728256411100033342534',
+      saldo: 758000,
+      idbanco: 14
+    }
+  ]
+
+export const pagoFacturaData = []
+
 // holaholahola
