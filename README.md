@@ -28,7 +28,10 @@ If you have any feedback, please reach out to us at jonatan.haaralaorosco@gmail.
 
 ## Tech Stack
 
-**Server:** ASP.net Core 6, SQL Server 2019, React 18
+
+**Client:** React, Redux, TailwindCSS, Material UI
+
+**Server:** ASP.net Core 6, SQL Server 2019
 
 ## Acknowledgements
 
