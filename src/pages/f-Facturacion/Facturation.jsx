@@ -1,5 +1,7 @@
 import { React } from 'react'
 import TableFactura from '../../components/facturacion/TableFactura';
+import { facturaData } from '../../data/localData';
+
 
 export default function Facturation() {
 
@@ -13,6 +15,6 @@ export default function Facturation() {
 
 
   return (
-    <TableFactura data={''} />
+    <TableFactura data={facturaData} />
   );
 }
