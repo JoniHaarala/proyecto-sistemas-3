@@ -23,19 +23,19 @@ If you have any feedback, please reach out to us at jonatan.haaralaorosco@gmail.
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/JoniHaarala/proyecto-sistemas-3-.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd proyecto-sistemas-3-
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+  npm install -E
 ```
 
 Start the server
