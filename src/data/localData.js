@@ -219,6 +219,4 @@ export const cuentasData = [
     }
   ]
 
-export const pagoFacturaData = []
-
 // holaholahola

@@ -1,23 +1,36 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Header from '../../components/Head';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 // import IdFactura from '../../components/facturacion/Factura';
-import { facturaData, cuentasData, bancoData, pagoFacturaData } from '../../data/localData';
+import { facturaData, cuentasData, bancoData } from '../../data/localData';
 
 
 function PayFact() {
 
+  // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
+  /* A way to get the value of an uncontrolled input field in React: */
+
+  // Initialize a ref using the useRef hook.
+  // Set the ref prop on the input field.
+  // Access the value of the input field as ref.current.value
+  const inputCuentaRef = useRef(null);
+  const inputCbuRef = useRef(null);
+  const inputTotalRef = useRef(null);
+
+  const diaHoy = Date.now()
+  const hoy = new Date(diaHoy)
+
   const idFacPend = facturaData.filter((item) => item.estado === "pendiente")
   // los estados iniciales de todas las variables
 
+  /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
   const [dataBanco, setdataBanco] = useState(['banco'])
-  const [cuenta, setCuenta] = useState('')
-
+  let [idPago, setidPago] = useState(1)
 
   //ids para manejar los datos
   const [idFactura, setIdFactura] = useState(0)
@@ -30,27 +43,34 @@ function PayFact() {
   // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
 
-  // para el manejo de los datos que se van a guardar
-  const [datosPagos, setDatosPagos] = useState(
-    {
-      IdPagos: 0,
-      Importe: 0,
-      Aprobado: false,
-      FechaPago: '',
-      idTipoPago: 0,
-      idcuenta: 0,
-      idFactura: 0
-    })
+  const pagoFacturaData = []
 
 
   // todas las funciones tipo handle que cambian de estado y el submit
+  /**
+   * When the user clicks the close button, the modal will close.
+   */
   const handleClose = () => {
     setOpen(false)
   };
+
+  /**
+   * When the user clicks on the button, the state of the button will change from open to closed or
+   * closed to open.
+   */
   const handleToggle = () => {
     setOpen(!Open)
   };
+
+  /**
+   * If the value of the event target is not equal to zero, then filter the facturaData array and
+   * return the item where the id is equal to the event target value. 
+   * 
+   * If the value of the event target is equal to zero, then set the dataFactura state to an array with
+   * one element, 'proveedor'.
+   */
   const handleChangeFactura = (event) => {
+    event.preventDefault();
     setIdFactura(event.target.value);
 
     if (event.target.value !== 0) {
@@ -62,8 +82,8 @@ function PayFact() {
     }
   }
   const handleChangeBanco = (event) => {
+    event.preventDefault();
     setidBanco(event.target.value);
-    console.log(event.target.value)
     if (event.target.value !== 0) {
       const datBank = bancoData.filter(item => item.id == event.target.value)
       setdataBanco(datBank)
@@ -72,44 +92,76 @@ function PayFact() {
       setdataBanco(['banco'])
     }
   }
+
+  /**
+   * When the user clicks on the button, the function will be called and the value of the input will be
+   * set to the state.
+   */
   const handleChangePago = (event) => {
+    event.preventDefault();
     setPago(event.target.value)
   }
   const handleChangetxtTarjeta = (event) => {
+    event.preventDefault();
     settxtTarjeta(event.target.value)
   }
 
-  // const handleChangetxtCBU = (event) => {
-  //   settxtCBU(event.target.value)
-  //   console.log(event.target.value)
-  // }
-
-  const handleSubmit = (event) => {
-    alert('tu factura es: ' + idFactura);
-    alert('tu metodo de pago es: ' + pago)
-    alert('tu banco es: ' + idBanco);
-    alert('tu cuenta es: ' + cuenta);
-    alert('tu tarjeta es: ' + txtTarjeta)
-    alert('tu cbu es: ' + txtCBU);
-
+  const handleChangetxtCBU = (event) => {
     event.preventDefault();
-    setDatosPagos()
-    pagoFacturaData.concat(JSON.stringify(datosPagos))
+    settxtCBU(event.target.value)
+    console.log(event.target.value)
+  }
+
+  /**
+   * When the user clicks the submit button, the function will alert the user with the values of the
+   * form, then prevent the default action of the form, then set the state of the datosPagos object,
+   * then concatenate the stringified datosPagos object to the pagoFacturaData array.
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // alert('tu factura es: ' + idFactura);
+    // alert('tu metodo de pago es: ' + pago)
+    // alert('tu banco es: ' + idBanco);
+    // alert('tu tarjeta es: ' + txtTarjeta)
+    // alert('tu cuenta es: ' + inputCuentaRef.current.value);
+    // alert('el total es: ' + inputTotalRef.current.value);
+    alert('tu cbu es: ' + inputCbuRef.current.value);
+    console.log(pagoFacturaData)
+    idPago = Math.ceil(Math.random() * 31)
+
+    const datosPagos =
+  {
+    IdPagos: idPago,
+    Importe: inputTotalRef.current.value,
+    Aprobado: true,
+    FechaPago: hoy.toLocaleDateString(),
+    idTipoPago: pago,
+    idcuenta: inputCuentaRef.current.value,
+    idFactura: idFactura
+  }
+
+    alert(JSON.stringify(datosPagos))
+    setidPago(idPago)
+    pagoFacturaData.push(JSON.stringify(datosPagos))
+    console.log(pagoFacturaData)
   }
 
 
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
-  });
+  /* Creating a new component called Alert that is a forwardRef. */
+  // const Alert = React.forwardRef(function Alert(props, ref) {
+  //   return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
+  // });
 
   return (
     <div className="flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
 
       <Header category="Facturas" title="Pagar factura" />
 
+      {/* The above code is a form that is used to pay a bill. */}
       <form onSubmit={handleSubmit} className="my-4 flex flex-col gap-5">
-        {/* <IdFactura value={factura} click={handleChangeFactura} /> */}
+
         <>
+          {/* Creating a dropdown menu with the id of the invoices that are pending. */}
           <label>
             Seleccione la factura a pagar:
             <select
@@ -123,12 +175,12 @@ function PayFact() {
               ))}
             </select>
           </label>
-
         </>
 
         {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
 
         <>
+          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show supplier Name */}
           <label>
             Proveedor:
             {
@@ -157,7 +209,9 @@ function PayFact() {
           </label>
 
         </>
+
         <>
+          {/* Creating a dropdown menu with the data from the bancoData array. */}
           <label>
             Banco Seleccionado:
             <select
@@ -171,9 +225,10 @@ function PayFact() {
               ))}
             </select>
           </label>
-
         </>
+
         <>
+          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show bank account number */}
           <label>
             Num. de cuenta:
             {
@@ -189,21 +244,22 @@ function PayFact() {
                 :
                 cuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
                   <input
+                    ref={inputCuentaRef}
                     type="text"
                     name=""
                     id=""
                     placeholder='Num. de cuenta'
                     readOnly
                     value={item.id}
-                    onChange={event => setCuenta(event.target.value)}
                     className='bg-gray-100 p-4 mx-3 rounded-lg'
                   />
                 ))
             }
           </label>
         </>
-        {/*  */}
+
         <>
+          {/* Creating a dropdown menu with the options of "tarjeta de credito/debito" and "transferencia Bancaria" */}
           <label>
             Seleccione el metodo de pago:
             <select
@@ -214,13 +270,11 @@ function PayFact() {
               <option value="null">Seleccione un metodo de pago</option>
               <option value="tarjeta de credito/debito">tarjeta de credito/debito</option>
               <option value="transferencia Bancaria">transferencia Bancaria</option>
-              <option value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
             </select>
           </label>
-
         </>
         {
+          // A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
           pago === "tarjeta de credito/debito"
             ?
             <>
@@ -238,12 +292,14 @@ function PayFact() {
                   className='bg-gray-100 p-4 mx-3 rounded-lg'
                 />
               </label>
-
             </>
             :
+            // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
             <></>
         }
+
         <>
+          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the total bill amount */}
           <label>
             Importe total:
             {
@@ -260,6 +316,7 @@ function PayFact() {
                 :
                 facturaData.filter(item => item.id == idFactura).map((item2) => (
                   <input
+                    ref={inputTotalRef}
                     type="text"
                     name=""
                     id=""
@@ -273,11 +330,13 @@ function PayFact() {
             }
           </label>
         </>
+
         <>
+          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the CBU */}
           <label>
             Ingrese el CBU:
             {
-              idBanco == 'null'
+              idBanco == 0
                 ?
                 <input
                   type="text"
@@ -289,6 +348,7 @@ function PayFact() {
                 :
                 cuentasData.filter(item => item.idbanco == idBanco).map((item) => (
                   <input
+                    ref={inputCbuRef}
                     type="text"
                     name="txtCBU"
                     id='txtCBU'
@@ -297,7 +357,7 @@ function PayFact() {
                     readOnly
                     required
                     value={item.cbu}
-                    onChange={event => settxtCBU(event.target.value)}
+                    onChange={handleChangetxtCBU}
                     className='bg-gray-100 p-4 mx-3 rounded-lg'
                   />
                 ))
@@ -307,7 +367,8 @@ function PayFact() {
 
         <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer" onClick={handleToggle} />
 
-        <Backdrop
+        {/* The above code is a React component that is used to display a loading screen while the user is waiting for the data to be loaded. */}
+        {/* <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={Open}
           onClick={handleClose}
@@ -324,7 +385,7 @@ function PayFact() {
               :
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="error">Error al cargar los datos</Alert>
           }
-        </Snackbar>
+        </Snackbar> */}
 
       </form>
     </div>
