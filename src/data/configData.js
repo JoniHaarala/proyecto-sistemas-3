@@ -172,15 +172,20 @@ export const subLinks = [
                 subname: 'pagar factura',
             },
             {
+                id: 4,
+                name:'registrarFactura',
+                subname: 'Registrar factura',
+            },
+            {
                 id: 3,
                 name:'editarFactura',
                 subname: 'editar factura',
             },
-            {
-                id: 4,
-                name:'borrarFactura',
-                subname: 'borrar factura',
-            },
+            // {
+            //     id: 4,
+            //     name:'borrarFactura',
+            //     subname: 'borrar factura',
+            // },
         ],
     },
     {

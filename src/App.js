@@ -3,7 +3,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Tesoreria, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact } from './pages';
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Tesoreria, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact, CreateFact } from './pages';
 import { useStateContext } from './context/ContextProvider';
 
 function App() {
@@ -74,8 +74,9 @@ function App() {
               <Route path='/Facturas' element={<Home />} />
               <Route path="/listarFacturas" element={<Facturation />} />
               <Route path='/editarFactura' element={<EditFact />} />
-              <Route path='/borrarFactura' element={<DelFact />} />
+              {/* <Route path='/borrarFactura' element={<DelFact />} /> */}
               <Route path='/pagarFactura' element={<PayFact />} />
+              <Route path='/registrarFactura' element={<CreateFact/>} />
               {/* other pages */}
               <Route path="/propiedades" element={<Propiedades />} />
               <Route path="/contable" element={<Contable />} />

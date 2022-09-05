@@ -20,9 +20,10 @@ export { default as Home } from './Home';
 // Modules and SubModules for each module
 //facturacion
 export { default as Facturation } from './f-Facturacion/Facturation';
-export {default as DelFact} from './f-Facturacion/DelFact'
+// export {default as DelFact} from './f-Facturacion/DelFact'
 export {default as EditFact} from './f-Facturacion/EditFact'
 export {default as PayFact} from './f-Facturacion/PayFact'
+export {default as CreateFact} from './f-Facturacion/CreateFact'
 
 //Alquileres
 export { default as Alquileres } from './f-Alquiler/Alquileres';
