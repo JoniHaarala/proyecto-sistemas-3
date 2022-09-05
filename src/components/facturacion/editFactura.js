@@ -1,7 +1,115 @@
-import { React } from 'react'
+import { React, useState, useEffect } from 'react';
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function editFactura() {
+
+export default function FormEditFactura(idFactura) {
+
+  const [datos, setDatos] = useState([])
+  const [proveedor, setProveedor] = useState([])
+  const [idProveedor, setIdProveedor] = useState(0)
+  const [value, setValue] = useState(null);
+  const [value2, setValue2] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:5063/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
+      .then((set) => set.json())
+      .then((res) => { setDatos([res.factura]) });
+  }, [idFactura.idFactura])
+
+  useEffect(() => {
+    fetch('http://localhost:5063/api/Proveedor/ListarProveedor')
+      .then((set) => set.json())
+      .then((res) => { setProveedor(res.proveedores) });
+  }, [])
+
+  console.log(proveedor)
+  // const handleSubmit = async e => {
+  //   e.preventDefault()
+  //   let data =
+  //   {
+  //   }
+  //   setDatos(data)
+
+  //   try {
+  //     let config = {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(datos)
+  //     }
+  //     let res = await fetch('http://localhost:5063/api/Factura/GuardarFactura', config)
+  //     let json = await res.json()
+  //     console.log(json)
+  //   }
+  //   catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
   return (
-    <div>EditFactura</div>
+    <>
+
+      <form onSubmit={''} className="bg-gray-100 flex flex-col gap-3 mt-5 py-5 pl-3 rounded-lg">
+        {
+          datos.map((item) => (
+            <>
+              <section className="p-4" >
+                <label>
+                  Seleccione una proveedor:
+                  <select
+                    value={idProveedor}
+                    onChange={(event) => setIdProveedor(event.target.value)}
+                    className=" bg-white p-4 mx-3 rounded-lg shadow-md"
+                  >
+                    <option value={0}>Proveedor</option>
+                    {proveedor.map((items) => (
+                      <option key={items.id} value={items.id}>{items.nombre}</option>
+                    ))
+                    }
+                    {console.log(idProveedor, datos)}
+                  </select>
+                </label>
+              </section>
+
+              <section className="p-4">
+                <label>
+                  Importe total:
+                  <input
+                    type="text"
+                    placeholder='Importe total'
+                    readOnly
+                    value={item.Total}
+                    className='bg-white p-4 mx-3 rounded-lg shadow-md'
+                  />
+                </label>
+              </section>
+
+            </>
+          ))
+        }
+
+        <section className="p-4 flex">
+          <label className="self-center pr-3">Seleccione la fecha de vencimiento: </label>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Seleccione una fecha"
+              disablePast={true}
+              value={value2}
+              className='bg-white p-4 mx-3 rounded-lg shadow-md'
+              onChange={(newValue) => {
+                setValue2(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </section>
+        <input type="submit" value="Guardar" onSubmit={'handleSubmit'} className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer hover:shadow-md" />
+      </form>
+    </>
   )
 }
