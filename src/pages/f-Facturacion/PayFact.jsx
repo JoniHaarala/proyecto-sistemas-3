@@ -29,7 +29,6 @@ function PayFact() {
 
   /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
-  const [dataBanco, setdataBanco] = useState(['banco'])
   let [idPago, setidPago] = useState(1)
 
   //ids para manejar los datos
@@ -84,13 +83,6 @@ function PayFact() {
   const handleChangeBanco = (event) => {
     event.preventDefault();
     setidBanco(event.target.value);
-    if (event.target.value !== 0) {
-      const datBank = bancoData.filter(item => item.id == event.target.value)
-      setdataBanco(datBank)
-    }
-    else {
-      setdataBanco(['banco'])
-    }
   }
 
   /**
@@ -148,9 +140,9 @@ function PayFact() {
 
 
   /* Creating a new component called Alert that is a forwardRef. */
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
-  // });
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
+  });
 
   return (
     <div className="flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
@@ -158,7 +150,7 @@ function PayFact() {
       <Header category="Facturas" title="Pagar factura" />
 
       {/* The above code is a form that is used to pay a bill. */}
-      <form onSubmit={handleSubmit} className="my-4 flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="bg-gray-100 mt-5 py-5 pl-10 flex flex-col gap-5 rounded-lg">
 
         <>
           {/* Creating a dropdown menu with the id of the invoices that are pending. */}
@@ -167,7 +159,7 @@ function PayFact() {
             <select
               value={idFactura}
               onChange={handleChangeFactura}
-              className="bg-gray-100 p-4 mx-3 rounded-lg"
+              className="p-4 mx-3 rounded-lg shadow-md"
             >
               <option value={0}>Seleccione una factura</option>
               {idFacPend.map((item) => (
@@ -191,7 +183,7 @@ function PayFact() {
                   maxLength={22}
                   placeholder="Proveedor"
                   readOnly
-                  className='bg-gray-100 p-4 mx-3 rounded-lg'
+                  className='p-4 mx-3 rounded-lg shadow-md'
                 />
                 :
                 dataFactura.map((item) => (
@@ -202,7 +194,7 @@ function PayFact() {
                     placeholder='Proveedor'
                     readOnly
                     value={item.proveedor}
-                    className='bg-gray-100 p-4 mx-3 rounded-lg'
+                    className='p-4 mx-3 rounded-lg shadow-md'
                   />
                 ))
             }
@@ -217,7 +209,7 @@ function PayFact() {
             <select
               value={idBanco}
               onChange={handleChangeBanco}
-              className="bg-gray-100 p-4 mx-3 rounded-lg"
+              className="p-4 mx-3 rounded-lg shadow-md"
             >
               <option value={0}>Seleccione una banco</option>
               {bancoData.map((item) => (
@@ -239,7 +231,7 @@ function PayFact() {
                   maxLength={22}
                   placeholder="Num. de cuenta"
                   readOnly
-                  className='bg-gray-100 p-4 mx-3 rounded-lg'
+                  className='p-4 mx-3 rounded-lg shadow-md'
                 />
                 :
                 cuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
@@ -251,7 +243,7 @@ function PayFact() {
                     placeholder='Num. de cuenta'
                     readOnly
                     value={item.id}
-                    className='bg-gray-100 p-4 mx-3 rounded-lg'
+                    className='bg-gray-100 p-4 mx-3 rounded-lg shadow-md'
                   />
                 ))
             }
@@ -265,7 +257,7 @@ function PayFact() {
             <select
               value={pago}
               onChange={handleChangePago}
-              className="bg-gray-100 p-4 mx-3 rounded-lg"
+              className="p-4 mx-3 rounded-lg shadow-md"
             >
               <option value="null">Seleccione un metodo de pago</option>
               <option value="tarjeta de credito/debito">tarjeta de credito/debito</option>
@@ -289,7 +281,7 @@ function PayFact() {
                   required
                   value={txtTarjeta}
                   onChange={handleChangetxtTarjeta}
-                  className='bg-gray-100 p-4 mx-3 rounded-lg'
+                  className='p-4 mx-3 rounded-lg shadow-md'
                 />
               </label>
             </>
@@ -311,7 +303,7 @@ function PayFact() {
                   placeholder="Importe"
                   readOnly
                   value={txtCBU}
-                  className='bg-gray-100 p-4 mx-3 rounded-lg'
+                  className='p-4 mx-3 rounded-lg shadow-md'
                 />
                 :
                 facturaData.filter(item => item.id == idFactura).map((item2) => (
@@ -324,7 +316,7 @@ function PayFact() {
                     placeholder="Importe"
                     value={item2.total}
                     readOnly
-                    className='bg-gray-100 p-4 mx-3 rounded-lg'
+                    className='p-4 mx-3 rounded-lg shadow-md'
                   />
                 ))
             }
@@ -343,7 +335,7 @@ function PayFact() {
                   maxLength={22}
                   placeholder="CBU"
                   readOnly
-                  className='bg-gray-100 p-4 mx-3 rounded-lg'
+                  className='p-4 mx-3 rounded-lg shadow-md'
                 />
                 :
                 cuentasData.filter(item => item.idbanco == idBanco).map((item) => (
@@ -358,17 +350,17 @@ function PayFact() {
                     required
                     value={item.cbu}
                     onChange={handleChangetxtCBU}
-                    className='bg-gray-100 p-4 mx-3 rounded-lg'
+                    className='p-4 mx-3 rounded-lg shadow-md'
                   />
                 ))
             }
           </label>
         </>
 
-        <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer" onClick={handleToggle} />
+        <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
         {/* The above code is a React component that is used to display a loading screen while the user is waiting for the data to be loaded. */}
-        {/* <Backdrop
+        <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={Open}
           onClick={handleClose}
@@ -385,7 +377,7 @@ function PayFact() {
               :
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="error">Error al cargar los datos</Alert>
           }
-        </Snackbar> */}
+        </Snackbar>
 
       </form>
     </div>
