@@ -18,6 +18,31 @@ If you have any feedback, please reach out to us at jonatan.haaralaorosco@gmail.
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/JoniHaarala/proyecto-sistemas-3-.git
+```
+
+Go to the project directory
+
+```bash
+  cd proyecto-sistemas-3-
+```
+
+Install dependencies
+
+```bash
+  npm install -E
+```
+
+Start the server
+
+```bash
+  npm run start
+```
 
 ## Badges
 
@@ -27,7 +52,6 @@ If you have any feedback, please reach out to us at jonatan.haaralaorosco@gmail.
 
 
 ## Tech Stack
-
 
 **Client:** React, Redux, TailwindCSS, Material UI
 
