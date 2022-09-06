@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from '../../components/Head';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -11,6 +11,14 @@ import { facturaData, cuentasData, bancoData } from '../../data/localData';
 
 function PayFact() {
 
+  const [idFacPend, setidFacPend] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:5063/api/Factura/ListarFacturas')
+      .then((res) => res.json())
+      .then((data) => { setidFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
+
+  }, [])
   // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
   /* A way to get the value of an uncontrolled input field in React: */
 
@@ -21,28 +29,22 @@ function PayFact() {
   const inputCbuRef = useRef(null);
   const inputTotalRef = useRef(null);
 
-  const diaHoy = Date.now()
-  const hoy = new Date(diaHoy)
-
-  const idFacPend = facturaData.filter((item) => item.estado === "pendiente")
+  // const idFacPend = facturaData.filter((item) => item.estado === "pendiente")
   // los estados iniciales de todas las variables
 
   /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
-  let [idPago, setidPago] = useState(1)
-
+  
   //ids para manejar los datos
-  const [idFactura, setIdFactura] = useState(0)
+  const [idFact, setIdFact] = useState(0)
   const [idBanco, setidBanco] = useState(0)
 
-  const [pago, setPago] = useState('')
+  const [pago, setPago] = useState(0)
   const [txtTarjeta, settxtTarjeta] = useState('')
   const [txtCBU, settxtCBU] = useState('')
 
   // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
-
-  const pagoFacturaData = []
 
 
   // todas las funciones tipo handle que cambian de estado y el submit
@@ -70,7 +72,7 @@ function PayFact() {
    */
   const handleChangeFactura = (event) => {
     event.preventDefault();
-    setIdFactura(event.target.value);
+    setIdFact(event.target.value);
 
     if (event.target.value !== 0) {
       let datFact = facturaData.filter(item => item.id == event.target.value)
@@ -109,33 +111,34 @@ function PayFact() {
    * form, then prevent the default action of the form, then set the state of the datosPagos object,
    * then concatenate the stringified datosPagos object to the pagoFacturaData array.
    */
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // alert('tu factura es: ' + idFactura);
-    // alert('tu metodo de pago es: ' + pago)
-    // alert('tu banco es: ' + idBanco);
-    // alert('tu tarjeta es: ' + txtTarjeta)
-    // alert('tu cuenta es: ' + inputCuentaRef.current.value);
-    // alert('el total es: ' + inputTotalRef.current.value);
-    alert('tu cbu es: ' + inputCbuRef.current.value);
-    console.log(pagoFacturaData)
-    idPago = Math.ceil(Math.random() * 31)
-
     const datosPagos =
-  {
-    IdPagos: idPago,
-    Importe: inputTotalRef.current.value,
-    Aprobado: true,
-    FechaPago: hoy.toLocaleDateString(),
-    idTipoPago: pago,
-    idcuenta: inputCuentaRef.current.value,
-    idFactura: idFactura
-  }
+    {
 
+      importe: inputTotalRef.current.value,
+      idTipoPago: pago,
+      idcuenta: inputCuentaRef.current.value,
+      idFactura: idFact
+
+    }
     alert(JSON.stringify(datosPagos))
-    setidPago(idPago)
-    pagoFacturaData.push(JSON.stringify(datosPagos))
-    console.log(pagoFacturaData)
+    try {
+      let config = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosPagos)
+      }
+      let res = await fetch('http://localhost:5063/api/Pagos/GuardarFactura', config)
+      let json = await res.json()
+      console.log(json)
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
 
 
@@ -157,7 +160,7 @@ function PayFact() {
           <label>
             Seleccione la factura a pagar:
             <select
-              value={idFactura}
+              value={idFact}
               onChange={handleChangeFactura}
               className="p-4 mx-3 rounded-lg shadow-md"
             >
@@ -176,7 +179,7 @@ function PayFact() {
           <label>
             Proveedor:
             {
-              idFactura == 0
+              idFact == 0
                 ?
                 <input
                   type="text"
@@ -259,35 +262,35 @@ function PayFact() {
               onChange={handleChangePago}
               className="p-4 mx-3 rounded-lg shadow-md"
             >
-              <option value="null">Seleccione un metodo de pago</option>
-              <option value="tarjeta de credito/debito">tarjeta de credito/debito</option>
-              <option value="transferencia Bancaria">transferencia Bancaria</option>
+              <option value={0}>Seleccione un metodo de pago</option>
+              <option value={1}>transferencia Bancaria</option>
+              <option value={2}>tarjeta de credito/debito</option>
             </select>
           </label>
         </>
         {
           // A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
-          pago === "tarjeta de credito/debito"
-            ?
-            <>
-              <label>
-                Ingrese numero de tarjeta:
-                <input
-                  type="text"
-                  name="txtTarjeta"
-                  id="txtTarjeta"
-                  maxLength={16}
-                  placeholder="Numero de tarjeta"
-                  required
-                  value={txtTarjeta}
-                  onChange={handleChangetxtTarjeta}
-                  className='p-4 mx-3 rounded-lg shadow-md'
-                />
-              </label>
-            </>
-            :
-            // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
-            <></>
+          // pago === 2
+          //   ?
+          //   <>
+          //     <label>
+          //       Ingrese numero de tarjeta:
+          //       <input
+          //         type="text"
+          //         name="txtTarjeta"
+          //         id="txtTarjeta"
+          //         maxLength={16}
+          //         placeholder="Numero de tarjeta"
+          //         required
+          //         value={txtTarjeta}
+          //         onChange={handleChangetxtTarjeta}
+          //         className='p-4 mx-3 rounded-lg shadow-md'
+          //       />
+          //     </label>
+          //   </>
+          //   :
+          //   // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
+          //   <></>
         }
 
         <>
@@ -295,7 +298,7 @@ function PayFact() {
           <label>
             Importe total:
             {
-              idFactura == 0
+              idFact == 0
                 ?
                 <input
                   type="text"
@@ -306,7 +309,7 @@ function PayFact() {
                   className='p-4 mx-3 rounded-lg shadow-md'
                 />
                 :
-                facturaData.filter(item => item.id == idFactura).map((item2) => (
+                facturaData.filter(item => item.id == idFact).map((item2) => (
                   <input
                     ref={inputTotalRef}
                     type="text"
@@ -371,7 +374,7 @@ function PayFact() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            ((idFactura !== null && pago !== null) && (txtTarjeta !== '' || (pago === 'tarjeta de credito/debito' && txtCBU !== '')))
+            (idFact !== null && pago !== null)
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :

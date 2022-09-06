@@ -54,8 +54,8 @@ export default function FormCreateFactura() {
         <section className="bg-green-500">
           <label></label>
         </section>
-        <section className="bg-red-500">
-          <label></label>
+        <section className="bg-red-500 flex flex-col">
+          <label>hola perro: </label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Seleccione una fecha"
