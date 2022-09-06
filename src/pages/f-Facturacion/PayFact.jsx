@@ -34,7 +34,7 @@ function PayFact() {
 
   /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
-  
+
   //ids para manejar los datos
   const [idFact, setIdFact] = useState(0)
   const [idBanco, setidBanco] = useState(0)
@@ -155,29 +155,30 @@ function PayFact() {
       {/* The above code is a form that is used to pay a bill. */}
       <form onSubmit={handleSubmit} className="bg-gray-100 mt-5 py-5 pl-10 flex flex-col gap-5 rounded-lg">
 
-        <>
-          {/* Creating a dropdown menu with the id of the invoices that are pending. */}
-          <label>
+        {/* Creating a dropdown menu with the id of the invoices that are pending. */}
+        <section className="flex flex-col py-3">
+          <label className="pb-4">
             Seleccione la factura a pagar:
+          </label>
             <select
               value={idFact}
               onChange={handleChangeFactura}
-              className="p-4 mx-3 rounded-lg shadow-md"
+              className="p-4 mr-10 rounded-lg shadow-md"
             >
               <option value={0}>Seleccione una factura</option>
               {idFacPend.map((item) => (
                 <option value={item.id}>{item.id}</option>
               ))}
             </select>
-          </label>
-        </>
+        </section>
 
         {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
 
-        <>
+        <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show supplier Name */}
-          <label>
+          <label className="pb-4">
             Proveedor:
+          </label>
             {
               idFact == 0
                 ?
@@ -186,7 +187,7 @@ function PayFact() {
                   maxLength={22}
                   placeholder="Proveedor"
                   readOnly
-                  className='p-4 mx-3 rounded-lg shadow-md'
+                  className='p-4 mr-10 rounded-lg shadow-md'
                 />
                 :
                 dataFactura.map((item) => (
@@ -197,83 +198,82 @@ function PayFact() {
                     placeholder='Proveedor'
                     readOnly
                     value={item.proveedor}
-                    className='p-4 mx-3 rounded-lg shadow-md'
+                    className='p-4 mr-10 rounded-lg shadow-md'
                   />
                 ))
             }
-          </label>
+        </section>
 
-        </>
-
-        <>
+        <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the data from the bancoData array. */}
-          <label>
+          <label className="pb-4">
             Banco Seleccionado:
-            <select
-              value={idBanco}
-              onChange={handleChangeBanco}
-              className="p-4 mx-3 rounded-lg shadow-md"
-            >
-              <option value={0}>Seleccione una banco</option>
-              {bancoData.map((item) => (
-                <option value={item.id}>{item.nombre}</option>
-              ))}
-            </select>
           </label>
-        </>
+          <select
+            value={idBanco}
+            onChange={handleChangeBanco}
+            className="p-4 mr-10 rounded-lg shadow-md"
+          >
+            <option value={0}>Seleccione una banco</option>
+            {bancoData.map((item) => (
+              <option value={item.id}>{item.nombre}</option>
+            ))}
+          </select>
+        </section>
 
-        <>
+        <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show bank account number */}
-          <label>
+          <label className="pb-4">
             Num. de cuenta:
-            {
-              idBanco == 0
-                ?
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Num. de cuenta"
-                  readOnly
-                  className='p-4 mx-3 rounded-lg shadow-md'
-                />
-                :
-                cuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
-                  <input
-                    ref={inputCuentaRef}
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder='Num. de cuenta'
-                    readOnly
-                    value={item.id}
-                    className='bg-gray-100 p-4 mx-3 rounded-lg shadow-md'
-                  />
-                ))
-            }
           </label>
-        </>
+          {
+            idBanco == 0
+              ?
+              <input
+                type="text"
+                maxLength={22}
+                placeholder="Num. de cuenta"
+                readOnly
+                className='p-4 mr-10 rounded-lg shadow-md'
+              />
+              :
+              cuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
+                <input
+                  ref={inputCuentaRef}
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder='Num. de cuenta'
+                  readOnly
+                  value={item.id}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              ))
+          }
 
-        <>
+        </section>
+
+        <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the options of "tarjeta de credito/debito" and "transferencia Bancaria" */}
-          <label>
+          <label className="pb-4">
             Seleccione el metodo de pago:
+          </label>
             <select
               value={pago}
               onChange={handleChangePago}
-              className="p-4 mx-3 rounded-lg shadow-md"
+              className="p-4 mr-10 rounded-lg shadow-md"
             >
               <option value={0}>Seleccione un metodo de pago</option>
               <option value={1}>transferencia Bancaria</option>
               <option value={2}>tarjeta de credito/debito</option>
             </select>
-          </label>
-        </>
+        </section>
         {
           // A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
           // pago === 2
           //   ?
           //   <>
-          //     <label>
+          //     <label className="pb-4">
           //       Ingrese numero de tarjeta:
           //       <input
           //         type="text"
@@ -284,7 +284,7 @@ function PayFact() {
           //         required
           //         value={txtTarjeta}
           //         onChange={handleChangetxtTarjeta}
-          //         className='p-4 mx-3 rounded-lg shadow-md'
+          //         className='p-4 mr-10 rounded-lg shadow-md'
           //       />
           //     </label>
           //   </>
@@ -293,74 +293,76 @@ function PayFact() {
           //   <></>
         }
 
-        <>
+        <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the total bill amount */}
-          <label>
+          <label className="pb-4">
             Importe total:
-            {
-              idFact == 0
-                ?
+          </label>
+          {
+            idFact == 0
+              ?
+              <input
+                type="text"
+                maxLength={22}
+                placeholder="Importe"
+                readOnly
+                value={txtCBU}
+                className='p-4 mr-10 rounded-lg shadow-md'
+              />
+              :
+              facturaData.filter(item => item.id == idFact).map((item2) => (
                 <input
+                  ref={inputTotalRef}
                   type="text"
+                  name=""
+                  id=""
                   maxLength={22}
                   placeholder="Importe"
+                  value={item2.total}
                   readOnly
-                  value={txtCBU}
-                  className='p-4 mx-3 rounded-lg shadow-md'
+                  className='p-4 mr-10 rounded-lg shadow-md'
                 />
-                :
-                facturaData.filter(item => item.id == idFact).map((item2) => (
-                  <input
-                    ref={inputTotalRef}
-                    type="text"
-                    name=""
-                    id=""
-                    maxLength={22}
-                    placeholder="Importe"
-                    value={item2.total}
-                    readOnly
-                    className='p-4 mx-3 rounded-lg shadow-md'
-                  />
-                ))
-            }
-          </label>
-        </>
+              ))
+          }
 
-        <>
+        </section>
+
+        <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the CBU */}
-          <label>
+          <label className="pb-4">
             Ingrese el CBU:
-            {
-              idBanco == 0
-                ?
+          </label>
+          {
+            idBanco == 0
+              ?
+              <input
+                type="text"
+                maxLength={22}
+                placeholder="CBU"
+                readOnly
+                className='p-4 mr-10 rounded-lg shadow-md'
+              />
+              :
+              cuentasData.filter(item => item.idbanco == idBanco).map((item) => (
                 <input
+                  ref={inputCbuRef}
                   type="text"
+                  name="txtCBU"
+                  id='txtCBU'
                   maxLength={22}
                   placeholder="CBU"
                   readOnly
-                  className='p-4 mx-3 rounded-lg shadow-md'
+                  required
+                  value={item.cbu}
+                  onChange={handleChangetxtCBU}
+                  className='p-4 mr-10 rounded-lg shadow-md'
                 />
-                :
-                cuentasData.filter(item => item.idbanco == idBanco).map((item) => (
-                  <input
-                    ref={inputCbuRef}
-                    type="text"
-                    name="txtCBU"
-                    id='txtCBU'
-                    maxLength={22}
-                    placeholder="CBU"
-                    readOnly
-                    required
-                    value={item.cbu}
-                    onChange={handleChangetxtCBU}
-                    className='p-4 mx-3 rounded-lg shadow-md'
-                  />
-                ))
-            }
-          </label>
-        </>
+              ))
+          }
 
-        <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer hover:shadow-md" onClick={handleToggle} />
+        </section>
+
+        <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
         {/* The above code is a React component that is used to display a loading screen while the user is waiting for the data to be loaded. */}
         <Backdrop
