@@ -58,43 +58,42 @@ export default function FormEditFactura(idFactura) {
         {
           datos.map((item) => (
             <>
-              <section className="p-4" >
-                <label>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
                   Seleccione una proveedor:
-                  <select
-                    value={idProveedor}
-                    onChange={(event) => setIdProveedor(event.target.value)}
-                    className=" bg-white p-4 mx-3 rounded-lg shadow-md"
-                  >
-                    <option value={0}>Proveedor</option>
-                    {proveedor.map((items) => (
-                      <option key={items.id} value={items.id}>{items.nombre}</option>
-                    ))
-                    }
-                    {console.log(idProveedor, datos)}
-                  </select>
                 </label>
+                <select
+                  value={idProveedor}
+                  onChange={(event) => setIdProveedor(event.target.value)}
+                  className=" bg-white p-4 mx-3 rounded-lg shadow-md"
+                >
+                  <option value={0}>Proveedor</option>
+                  {proveedor.map((items) => (
+                    <option key={items.id} value={items.id}>{items.nombre}</option>
+                  ))
+                  }
+                  {console.log(idProveedor, datos)}
+                </select>
               </section>
 
-              <section className="p-4">
-                <label>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
                   Importe total:
-                  <input
-                    type="text"
-                    placeholder='Importe total'
-                    readOnly
-                    value={item.Total}
-                    className='bg-white p-4 mx-3 rounded-lg shadow-md'
-                  />
                 </label>
+                <input
+                  type="text"
+                  placeholder='Importe total'
+                  readOnly
+                  value={item.Total}
+                  className='bg-white p-4 mx-3 rounded-lg shadow-md'
+                />
               </section>
-
             </>
           ))
         }
 
-        <section className="p-4 flex">
-          <label className="self-center pr-3">Seleccione la fecha de vencimiento: </label>
+        <section className="flex flex-col py-3">
+          <label className="pb-4">Seleccione la fecha de vencimiento: </label>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Seleccione una fecha"
