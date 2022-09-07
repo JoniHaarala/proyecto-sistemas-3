@@ -25,30 +25,31 @@ export default function FormEditFactura(idFactura) {
   }, [])
 
   console.log(proveedor)
-  // const handleSubmit = async e => {
-  //   e.preventDefault()
-  //   let data =
-  //   {
-  //   }
-  //   setDatos(data)
 
-  //   try {
-  //     let config = {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(datos)
-  //     }
-  //     let res = await fetch('http://localhost:5063/api/Factura/GuardarFactura', config)
-  //     let json = await res.json()
-  //     console.log(json)
-  //   }
-  //   catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  const handleSubmit = async e => {
+    e.preventDefault()
+    let data =
+    {
+    }
+    setDatos(data)
+
+    try {
+      let config = {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+      }
+      let res = await fetch('http://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
+      let json = await res.json()
+      console.log(json)
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -106,7 +107,7 @@ export default function FormEditFactura(idFactura) {
             />
           </LocalizationProvider>
         </section>
-        <input type="submit" value="Guardar" onSubmit={'handleSubmit'} className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer hover:shadow-md" />
+        <input type="submit" value="Guardar" onSubmit={handleSubmit} className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-10 cursor-pointer hover:shadow-md" />
       </form>
     </>
   )
