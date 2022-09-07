@@ -12,29 +12,29 @@ import product6 from './product6.jpg';
 import product7 from './product7.jpg';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import PaletteIcon from '@mui/icons-material/Palette';
+// import PersonIcon from '@mui/icons-material/Person';
+// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+// import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
+// import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+// import PaletteIcon from '@mui/icons-material/Palette';
 
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import PieChartIcon from '@mui/icons-material/PieChart';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
-import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
-import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
+// import ShowChartIcon from '@mui/icons-material/ShowChart';
+// import BarChartIcon from '@mui/icons-material/BarChart';
+// import PieChartIcon from '@mui/icons-material/PieChart';
+// import AssessmentIcon from '@mui/icons-material/Assessment';
+// import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+// import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
+// import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+// import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
-import HomeIcon from '@mui/icons-material/Home';
+// import HomeIcon from '@mui/icons-material/Home';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-import EventSeatIcon from '@mui/icons-material/EventSeat';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import ArticleIcon from '@mui/icons-material/Article';
-import HotelIcon from '@mui/icons-material/Hotel';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+// import EventSeatIcon from '@mui/icons-material/EventSeat';
+// import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+// import CreditCardIcon from '@mui/icons-material/CreditCard';
+// import ArticleIcon from '@mui/icons-material/Article';
+// import HotelIcon from '@mui/icons-material/Hotel';
+// import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const gridImage = (props) => (
     <div>

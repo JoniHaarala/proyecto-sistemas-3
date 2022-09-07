@@ -6,7 +6,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { facturaData, cuentasData, bancoData } from '../../data/localData';
-import { ccRegex } from '../../components/regex';
 
 
 function PayFact() {
@@ -123,22 +122,22 @@ function PayFact() {
 
     }
     alert(JSON.stringify(datosPagos))
-    // try {
-    //   let config = {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(datosPagos)
-    //   }
-    //   let res = await fetch('http://localhost:5063/api/Pagos/GuardarFactura', config)
-    //   let json = await res.json()
-    //   console.log(json)
-    // }
-    // catch (error) {
-    //   console.error(error)
-    // }
+    try {
+      let config = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosPagos)
+      }
+      let res = await fetch('http://www.inmoapi.somee.com/api/Pagos/GuardarFactura', config)
+      let json = await res.json()
+      console.log(json)
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
 
 
@@ -377,7 +376,7 @@ function PayFact() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            ((idFact != 0 && (pago != 0 || pago == 1) && idBanco != 0) || (idFact != 0 && ((pago != 0 && pago == 2) && ccRegex.test(txtTarjeta) == true) && idBanco != 0))
+            ((idFact != 0 && (pago != 0 || pago == 1) && idBanco != 0) || (idFact != 0 && (pago != 0 || pago == 2) && idBanco != 0))
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :
