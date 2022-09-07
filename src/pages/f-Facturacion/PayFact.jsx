@@ -13,7 +13,7 @@ function PayFact() {
   const [idFacPend, setidFacPend] = useState([])
 
   useEffect(() => {
-    fetch('http://www.inmoapi.somee.com/api/Factura/ListarFacturas')
+    fetch('https://www.inmoapi.somee.com/api/Factura/ListarFacturas')
       .then((res) => res.json())
       .then((data) => { setidFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
 

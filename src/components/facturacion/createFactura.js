@@ -28,7 +28,7 @@ export default function FormCreateFactura() {
         },
         body: JSON.stringify(datos)
       }
-      let res = await fetch('http://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
+      let res = await fetch('https://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
       let json = await res.json()
       console.log(json)
     }

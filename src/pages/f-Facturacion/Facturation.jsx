@@ -7,7 +7,7 @@ export default function Facturation() {
   const [factura, setfactura] = useState([])
 
   useEffect(() => {
-    fetch('http://www.inmoapi.somee.com/api/Factura/ListarFacturas')
+    fetch('https://www.inmoapi.somee.com/api/Factura/ListarFacturas')
       .then((res) => res.json())
       .then((data) => { setfactura(data.facturas) })
   }, [])

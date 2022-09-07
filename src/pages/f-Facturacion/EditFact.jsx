@@ -9,7 +9,7 @@ export default function EditFact() {
   const [idSearch, setIdSearch] = useState(0)
 
   useEffect(() => {
-    fetch(`http://www.inmoapi.somee.com/api/Factura/ListarIdFactura`)
+    fetch(`https://www.inmoapi.somee.com/api/Factura/ListarIdFactura`)
       .then((res) => res.json())
       .then((data) => { setDataFactura(data.idfacturas) })
   }, [])

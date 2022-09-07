@@ -13,13 +13,13 @@ export default function FormEditFactura(idFactura) {
   const [value2, setValue2] = useState(null);
 
   useEffect(() => {
-    fetch(`http://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
+    fetch(`https://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
       .then((set) => set.json())
       .then((res) => { setDatos([res.factura]) });
   }, [idFactura.idFactura])
 
   useEffect(() => {
-    fetch('http://www.inmoapi.somee.com/api/Proveedor/ListarProveedor')
+    fetch('https://www.inmoapi.somee.com/api/Proveedor/ListarProveedor')
       .then((set) => set.json())
       .then((res) => { setProveedor(res.proveedores) });
   }, [])
@@ -42,7 +42,7 @@ export default function FormEditFactura(idFactura) {
         },
         body: JSON.stringify(datos)
       }
-      let res = await fetch('http://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
+      let res = await fetch('https://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
       let json = await res.json()
       console.log(json)
     }
