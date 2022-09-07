@@ -40,8 +40,8 @@ function PayFact() {
   const [idBanco, setidBanco] = useState(0)
 
   const [pago, setPago] = useState(0)
-  const [txtTarjeta, settxtTarjeta] = useState('')
-  const [txtCBU, settxtCBU] = useState('')
+  const [txtTarjeta, settxtTarjeta] = useState(null)
+  const [txtCBU, settxtCBU] = useState(null)
 
   // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
@@ -376,7 +376,7 @@ function PayFact() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            (idFact !== null && pago !== null)
+            ((idFact != null && (pago != null || pago == 1) && idBanco != 0) || (idFact != 0 && (pago == 2 && txtTarjeta != null) && idBanco != 0))
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :
