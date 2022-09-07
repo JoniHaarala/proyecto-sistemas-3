@@ -5,8 +5,8 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-// import IdFactura from '../../components/facturacion/Factura';
 import { facturaData, cuentasData, bancoData } from '../../data/localData';
+import { ccRegex } from '../../components/regex';
 
 
 function PayFact() {
@@ -14,7 +14,7 @@ function PayFact() {
   const [idFacPend, setidFacPend] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:5063/api/Factura/ListarFacturas')
+    fetch('http://www.inmoapi.somee.com/api/Factura/ListarFacturas')
       .then((res) => res.json())
       .then((data) => { setidFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
 
@@ -25,9 +25,9 @@ function PayFact() {
   // Initialize a ref using the useRef hook.
   // Set the ref prop on the input field.
   // Access the value of the input field as ref.current.value
-  const inputCuentaRef = useRef(null);
-  const inputCbuRef = useRef(null);
-  const inputTotalRef = useRef(null);
+  const inputCuentaRef = useRef(undefined);
+  const inputCbuRef = useRef(undefined);
+  const inputTotalRef = useRef(undefined);
 
   // const idFacPend = facturaData.filter((item) => item.estado === "pendiente")
   // los estados iniciales de todas las variables
@@ -40,8 +40,8 @@ function PayFact() {
   const [idBanco, setidBanco] = useState(0)
 
   const [pago, setPago] = useState(0)
-  const [txtTarjeta, settxtTarjeta] = useState(null)
-  const [txtCBU, settxtCBU] = useState(null)
+  const [txtTarjeta, settxtTarjeta] = useState('')
+  const [txtCBU, settxtCBU] = useState('')
 
   // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
@@ -123,22 +123,22 @@ function PayFact() {
 
     }
     alert(JSON.stringify(datosPagos))
-    try {
-      let config = {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datosPagos)
-      }
-      let res = await fetch('http://localhost:5063/api/Pagos/GuardarFactura', config)
-      let json = await res.json()
-      console.log(json)
-    }
-    catch (error) {
-      console.error(error)
-    }
+    // try {
+    //   let config = {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(datosPagos)
+    //   }
+    //   let res = await fetch('http://localhost:5063/api/Pagos/GuardarFactura', config)
+    //   let json = await res.json()
+    //   console.log(json)
+    // }
+    // catch (error) {
+    //   console.error(error)
+    // }
   }
 
 
@@ -160,16 +160,16 @@ function PayFact() {
           <label className="pb-4">
             Seleccione la factura a pagar:
           </label>
-            <select
-              value={idFact}
-              onChange={handleChangeFactura}
-              className="p-4 mr-10 rounded-lg shadow-md"
-            >
-              <option value={0}>Seleccione una factura</option>
-              {idFacPend.map((item) => (
-                <option value={item.id}>{item.id}</option>
-              ))}
-            </select>
+          <select
+            value={idFact}
+            onChange={handleChangeFactura}
+            className="p-4 mr-10 rounded-lg shadow-md"
+          >
+            <option value={0}>Seleccione una factura</option>
+            {idFacPend.map((item) => (
+              <option value={item.id}>{item.id}</option>
+            ))}
+          </select>
         </section>
 
         {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
@@ -179,29 +179,29 @@ function PayFact() {
           <label className="pb-4">
             Proveedor:
           </label>
-            {
-              idFact == 0
-                ?
+          {
+            idFact == 0
+              ?
+              <input
+                type="text"
+                maxLength={22}
+                placeholder="Proveedor"
+                readOnly
+                className='p-4 mr-10 rounded-lg shadow-md'
+              />
+              :
+              dataFactura.map((item) => (
                 <input
                   type="text"
-                  maxLength={22}
-                  placeholder="Proveedor"
+                  name=""
+                  id=""
+                  placeholder='Proveedor'
                   readOnly
+                  value={item.proveedor}
                   className='p-4 mr-10 rounded-lg shadow-md'
                 />
-                :
-                dataFactura.map((item) => (
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder='Proveedor'
-                    readOnly
-                    value={item.proveedor}
-                    className='p-4 mr-10 rounded-lg shadow-md'
-                  />
-                ))
-            }
+              ))
+          }
         </section>
 
         <section className="flex flex-col py-3">
@@ -258,39 +258,40 @@ function PayFact() {
           <label className="pb-4">
             Seleccione el metodo de pago:
           </label>
-            <select
-              value={pago}
-              onChange={handleChangePago}
-              className="p-4 mr-10 rounded-lg shadow-md"
-            >
-              <option value={0}>Seleccione un metodo de pago</option>
-              <option value={1}>transferencia Bancaria</option>
-              <option value={2}>tarjeta de credito/debito</option>
-            </select>
+          <select
+            value={pago}
+            onChange={handleChangePago}
+            className="p-4 mr-10 rounded-lg shadow-md"
+          >
+            <option value={0}>Seleccione un metodo de pago</option>
+            <option value={1}>transferencia Bancaria</option>
+            <option value={2}>tarjeta de credito/debito</option>
+          </select>
         </section>
         {
-          // A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
-          // pago === 2
-          //   ?
-          //   <>
-          //     <label className="pb-4">
-          //       Ingrese numero de tarjeta:
-          //       <input
-          //         type="text"
-          //         name="txtTarjeta"
-          //         id="txtTarjeta"
-          //         maxLength={16}
-          //         placeholder="Numero de tarjeta"
-          //         required
-          //         value={txtTarjeta}
-          //         onChange={handleChangetxtTarjeta}
-          //         className='p-4 mr-10 rounded-lg shadow-md'
-          //       />
-          //     </label>
-          //   </>
-          //   :
-          //   // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
-          //   <></>
+          //A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
+          pago == 2
+            ?
+            <section className="flex flex-col py-3">
+              <label className="pb-4 ml-20">
+                Ingrese numero de tarjeta:
+              </label>
+                <input
+                  type="text"
+                  name="txtTarjeta"
+                  id="txtTarjeta"
+                  maxLength={16}
+                  placeholder="Numero de tarjeta"
+                  required
+                  value={txtTarjeta}
+                  onChange={handleChangetxtTarjeta}
+                  className='p-4 mr-10 ml-20 rounded-lg shadow-md'
+                />
+             
+            </section>
+            :
+            // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
+            <></>
         }
 
         <section className="flex flex-col py-3">
@@ -376,7 +377,7 @@ function PayFact() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            ((idFact != null && (pago != null || pago == 1) && idBanco != 0) || (idFact != 0 && (pago == 2 && txtTarjeta != null) && idBanco != 0))
+            ((idFact != 0 && (pago != 0 || pago == 1) && idBanco != 0) || (idFact != 0 && ((pago != 0 && pago == 2) && ccRegex.test(txtTarjeta) == true) && idBanco != 0))
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :

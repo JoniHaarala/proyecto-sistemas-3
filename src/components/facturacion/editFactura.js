@@ -13,13 +13,13 @@ export default function FormEditFactura(idFactura) {
   const [value2, setValue2] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5063/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
+    fetch(`http://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
       .then((set) => set.json())
       .then((res) => { setDatos([res.factura]) });
   }, [idFactura.idFactura])
 
   useEffect(() => {
-    fetch('http://localhost:5063/api/Proveedor/ListarProveedor')
+    fetch('http://www.inmoapi.somee.com/api/Proveedor/ListarProveedor')
       .then((set) => set.json())
       .then((res) => { setProveedor(res.proveedores) });
   }, [])
