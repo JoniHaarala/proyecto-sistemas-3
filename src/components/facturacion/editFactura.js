@@ -10,7 +10,6 @@ export default function FormEditFactura(idFactura) {
   const [datos, setDatos] = useState([])
   const [proveedor, setProveedor] = useState([])
   const [idProveedor, setIdProveedor] = useState(0)
-  const [value, setValue] = useState(null);
   const [value2, setValue2] = useState(null);
 
   useEffect(() => {
