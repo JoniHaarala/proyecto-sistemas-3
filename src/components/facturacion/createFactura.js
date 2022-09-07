@@ -9,10 +9,6 @@ export default function FormCreateFactura() {
 
   const [value, setValue] = useState(null);
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
   const [datos, setDatos] = useState({})
 
   const handleSubmit = async e => {
@@ -61,8 +57,8 @@ export default function FormCreateFactura() {
               label="Seleccione una fecha"
               disablePast={true}
               value={value}
-              onChange={(newValue) => {
-                setValue(newValue);
+              onChange={(event) => {
+                setValue(event.target.value);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
