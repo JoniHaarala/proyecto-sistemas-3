@@ -43,6 +43,10 @@ export { default as Informes } from './f-Informes/Informes';
 //Propiedades
 export { default as Propiedades } from './f-Propiedades/Propiedades';
 
+//proveedor
+export {default as Proveedor} from './f-Proveedor/Proveedor'
+export {default as CreateProv} from './f-Proveedor/CreateProv'
+
 //Reservas
 export { default as Reservas } from './f-Reservas/Reservas';
 

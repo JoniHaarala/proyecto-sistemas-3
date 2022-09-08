@@ -28,6 +28,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 // import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
 // import HomeIcon from '@mui/icons-material/Home';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 // import EventSeatIcon from '@mui/icons-material/EventSeat';
 // import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
@@ -59,26 +60,26 @@ export const gridFacturaStatus = (props) => (
 // Aca van las opciones de cada pagina descripta en la funcion links.
 export const subLinks = [
     {
-        title : "Alquiler",
+        title: "Alquiler",
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar alquiler',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'pagar alquiler',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'listar alquileres temporarios',
             },
             {
                 id: 4,
-                name:'',
+                name: '',
                 subname: 'cancelar alquiler',
             },
         ],
@@ -88,22 +89,22 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar contable',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'pagar contable',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'listar contable',
             },
             {
                 id: 4,
-                name:'',
+                name: '',
                 subname: 'cancelar contable',
             },
         ],
@@ -113,22 +114,22 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar contrato',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'pagar contrato',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'editar contrato',
             },
             {
                 id: 4,
-                name:'',
+                name: '',
                 subname: 'borrar contrato',
             },
         ],
@@ -138,22 +139,22 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar empleado',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'editar rol',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'editar permisos',
             },
             {
                 id: 4,
-                name:'',
+                name: '',
                 subname: 'borrar empleado',
             },
         ],
@@ -163,22 +164,22 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'listarFacturas',
+                name: 'listarFacturas',
                 subname: 'listar facturas',
             },
             {
                 id: 2,
-                name:'pagarFactura',
+                name: 'pagarFactura',
                 subname: 'pagar factura',
             },
             {
                 id: 4,
-                name:'registrarFactura',
+                name: 'registrarFactura',
                 subname: 'Registrar factura',
             },
             {
                 id: 3,
-                name:'editarFactura',
+                name: 'editarFactura',
                 subname: 'editar factura',
             },
             // {
@@ -193,12 +194,12 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'generar informe',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'generar ranking',
             },
         ],
@@ -208,18 +209,33 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar propiedad',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'editar propiedad',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'borrar propiedad',
+            },
+        ],
+    },
+    {
+        title: 'Proveedores',
+        links: [
+            {
+                id: 1,
+                name: 'listarProveedor',
+                subname: 'listar proveedor',
+            },
+            {
+                id: 2,
+                name: 'createProveedor',
+                subname: 'agregar proveedor',
             },
         ],
     },
@@ -228,22 +244,22 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
+                name: '',
                 subname: 'agregar Reservas',
             },
             {
                 id: 2,
-                name:'',
+                name: '',
                 subname: 'pagar Reservas',
             },
             {
                 id: 3,
-                name:'',
+                name: '',
                 subname: 'editar Reservas',
             },
             {
                 id: 4,
-                name:'',
+                name: '',
                 subname: 'borrar Reservas',
             },
         ],
@@ -253,7 +269,7 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'verPagos',
+                name: 'verPagos',
                 subname: 'listar pagos'
             },
             // {
@@ -304,7 +320,7 @@ export const links = [
             {
                 name: 'Facturas',
                 icon: <RequestQuoteIcon />,
-                
+
             },
             // {
             //     name: 'Informes',
@@ -313,16 +329,21 @@ export const links = [
             // {
             //     name: 'Propiedades',
             //     icon: <HomeIcon />,
-                
+
             // },
+            {
+                name: 'Proveedores',
+                icon: <LocalShippingIcon />,
+
+            },
             // {
             //     name: 'Reservas',
             //     icon: <HotelIcon />,
-                
+
             // },
             {
                 name: 'Tesoreria',
-                icon: <AttachMoneyIcon />, 
+                icon: <AttachMoneyIcon />,
             }
         ],
     },
@@ -388,6 +409,56 @@ export const links = [
     // },
 ];
 // Aca van los titulos de los grid de las diferentes tablas proximas a crear
+export const proveedorColumn = [
+    {
+        field: 'id',
+        headerName: 'Id Proveedor',
+        textAlign: 'Center',
+        width: '100',
+    },
+    {
+        field: 'cuit',
+        headerName: 'cuit proveedor',
+        width: '150',
+        editable: true,
+    },
+    {
+        field: 'nombre',
+        headerName: 'nombre empresa',
+        textAlign: 'Center',
+        width: '180',
+    },
+    {
+        field: 'telefono',
+        headerName: 'telefono',
+        width: '120',
+        editable: true,
+    },
+    {
+        field: 'correo',
+        headerName: 'Correo',
+        textAlign: 'Center',
+        width: '150',
+    },
+    {
+        field: 'direccion',
+        headerName: 'Direccion',
+        width: '150',
+        editable: true,
+    },
+    {
+        field: 'pais',
+        headerName: 'Pais origen',
+        textAlign: 'Center',
+        width: '150',
+    },
+    {
+        field: 'codPostal',
+        headerName: 'Cod. Postal',
+        width: '100',
+        editable: true,
+    },
+]
 export const facturaColumn = [
     {
         field: 'id',

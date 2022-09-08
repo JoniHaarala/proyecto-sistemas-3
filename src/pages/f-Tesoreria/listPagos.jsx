@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import TablaPagos from '../../components/Tesoreria/tablaPagos'
+import { TablaPagos } from '../../components'
+
 
 export default function Pagos() {
 
