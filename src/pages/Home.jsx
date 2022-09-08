@@ -1,8 +1,9 @@
 import React from 'react'
+import imgDb from '../data/dashboard-template.jpg'
 
 function Home() {
   return (
-    <div>Home</div>
+    <img src={imgDb} alt="dashboard"/>
   )
 }
 
