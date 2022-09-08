@@ -121,7 +121,7 @@ function PayFact() {
       idFactura: idFact
 
     }
-    alert(JSON.stringify(datosPagos))
+    // alert(JSON.stringify(datosPagos))
     try {
       let config = {
         method: 'POST',
@@ -275,18 +275,18 @@ function PayFact() {
               <label className="pb-4 ml-20">
                 Ingrese numero de tarjeta:
               </label>
-                <input
-                  type="text"
-                  name="txtTarjeta"
-                  id="txtTarjeta"
-                  maxLength={16}
-                  placeholder="Numero de tarjeta"
-                  required
-                  value={txtTarjeta}
-                  onChange={handleChangetxtTarjeta}
-                  className='p-4 mr-10 ml-20 rounded-lg shadow-md'
-                />
-             
+              <input
+                type="text"
+                name="txtTarjeta"
+                id="txtTarjeta"
+                maxLength={16}
+                placeholder="Numero de tarjeta"
+                required
+                value={txtTarjeta}
+                onChange={handleChangetxtTarjeta}
+                className='p-4 mr-10 ml-20 rounded-lg shadow-md'
+              />
+
             </section>
             :
             // esto en resumen no nuestra ni agrega etiqueta alguna al codigo

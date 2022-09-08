@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import FormEditFactura from '../../components/facturacion/editFactura'
+import {FormEditFactura} from '../../components'
 import Header from '../../components/Head'
 
 export default function EditFact() {
@@ -43,7 +43,7 @@ export default function EditFact() {
       {
         idSearch !== 0
           ?
-          <FormEditFactura idFactura={(idSearch)} />
+          <FormEditFactura idFactura={idSearch} />
           :
           <></>
       }
