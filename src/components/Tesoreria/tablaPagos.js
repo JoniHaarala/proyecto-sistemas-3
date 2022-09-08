@@ -16,8 +16,8 @@ function TablaPagos({ data }) {
                 <DataGrid
                     rows={data}
                     columns={PagosColumn}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
                     checkboxSelection
                     disableSelectionOnClick
                     loading={data.length !== 0 ? false : true}
