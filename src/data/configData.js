@@ -511,7 +511,7 @@ export const PagosColumn = [
     {
         field: 'importe',
         headerName: 'importe',
-        width: '150',
+        width: '120',
     },
     {
         field: 'aprobado',
@@ -521,13 +521,13 @@ export const PagosColumn = [
     {
         field: 'fechaPago',
         headerName: 'Fecha de pago',
-        width: '180',
+        width: '150',
         textAlign: 'Center',
     },
     {
         field: 'nombreBanco',
         headerName: 'Nombre de banco',
-        width: '250',
+        width: '300',
         editable: true
     },
     {
@@ -539,7 +539,7 @@ export const PagosColumn = [
     {
         field: 'cbu',
         headerName: 'CBU',
-        width: '300',
+        width: '250',
         editable: true
     },
     {
