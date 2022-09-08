@@ -3,7 +3,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Tesoreria, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact, CreateFact } from './pages';
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Propiedades, Reservas, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact, CreateFact, Pagos } from './pages';
 import { useStateContext } from './context/ContextProvider';
 
 function App() {
@@ -87,7 +87,8 @@ function App() {
               <Route path="/reservas" element={<Reservas />} />
 
               {/* Tesoreria */}
-              <Route path="/tesoreria" element={<Tesoreria />} />
+              <Route path="/tesoreria" element={<Home />} />
+              <Route path='/verPagos' element={<Pagos />} />
 
               {/* Apps or enterprise functionalities */}
               <Route path="/calendar" element={<Calendar />} />

@@ -34,7 +34,7 @@ import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 // import CreditCardIcon from '@mui/icons-material/CreditCard';
 // import ArticleIcon from '@mui/icons-material/Article';
 // import HotelIcon from '@mui/icons-material/Hotel';
-// import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const gridImage = (props) => (
     <div>
@@ -253,19 +253,19 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name:'',
-                subname: 'generar constancia de pago'
+                name:'verPagos',
+                subname: 'listar pagos'
             },
-            {
-                id: 2,
-                name:'',
-                subname: 'pagar factura'
-            },
-            {
-                id: 3,
-                name:'',
-                subname: 'liquidar salarios'
-            },
+            // {
+            //     id: 2,
+            //     name:'',
+            //     subname: 'pagar factura'
+            // },
+            // {
+            //     id: 3,
+            //     name:'',
+            //     subname: 'liquidar salarios'
+            // },
 
         ],
     }
@@ -320,10 +320,10 @@ export const links = [
             //     icon: <HotelIcon />,
                 
             // },
-            // {
-            //     name: 'Tesoreria',
-            //     icon: <AttachMoneyIcon />, 
-            // }
+            {
+                name: 'Tesoreria',
+                icon: <AttachMoneyIcon />, 
+            }
         ],
     },
 
@@ -424,7 +424,60 @@ export const facturaColumn = [
         editable: true
     },
 ];
-
+export const PagosColumn = [
+    {
+        field: 'id',
+        headerName: 'Id pago',
+        textAlign: 'Center',
+        width: '100',
+    },
+    {
+        field: 'idFactura',
+        headerName: 'id factura pagada',
+        width: '150',
+        editable: true,
+    },
+    {
+        field: 'importe',
+        headerName: 'importe',
+        width: '150',
+    },
+    {
+        field: 'aprobado',
+        headerName: 'Aprobado',
+        width: '100',
+    },
+    {
+        field: 'fechaPago',
+        headerName: 'Fecha de pago',
+        width: '180',
+        textAlign: 'Center',
+    },
+    {
+        field: 'nombreBanco',
+        headerName: 'Nombre de banco',
+        width: '250',
+        editable: true
+    },
+    {
+        field: 'numCuenta',
+        headerName: 'numero de cuenta',
+        width: '200',
+        editable: true
+    },
+    {
+        field: 'cbu',
+        headerName: 'CBU',
+        width: '300',
+        editable: true
+    },
+    {
+        field: 'tipoPago',
+        headerName: 'tipo de pago',
+        width: '250',
+        editable: true
+    },
+]
 
 export const kanbanGrid = [
     {

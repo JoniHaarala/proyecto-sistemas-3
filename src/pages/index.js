@@ -47,7 +47,7 @@ export { default as Propiedades } from './f-Propiedades/Propiedades';
 export { default as Reservas } from './f-Reservas/Reservas';
 
 //Tesoreria
-export { default as Tesoreria } from './f-Tesoreria/Tesoreria';
+export { default as Pagos } from './f-Tesoreria/listPagos';
 
 
 //template para los demas: export {} from ''
