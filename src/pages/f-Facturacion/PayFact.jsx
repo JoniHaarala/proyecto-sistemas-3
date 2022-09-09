@@ -131,7 +131,7 @@ function PayFact() {
         },
         body: JSON.stringify(datosPagos)
       }
-      let res = await fetch('http://www.inmoapi.somee.com/api/Pagos/GuardarFactura', config)
+      let res = await fetch('http://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
       let json = await res.json()
       console.log(json)
     }
