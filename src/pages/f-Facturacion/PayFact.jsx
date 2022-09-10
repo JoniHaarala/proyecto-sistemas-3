@@ -5,17 +5,30 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { facturaData, cuentasData, bancoData } from '../../data/localData';
 
 
 function PayFact() {
 
-  const [idFacPend, setidFacPend] = useState([])
+  const [FacPend, setFacPend] = useState([])
+  const [BankData, setBankData] = useState([])
+  const [CuentasData, setCuentasData] = useState([])
+  
+  useEffect(()=>{
+    fetch('https://www.inmoapi.somee.com/api/Banco/ListarBancos')
+    .then((res) => res.json())
+    .then((data) => { setBankData(data.bancos) })
+  },[])
+
+  useEffect(()=>{
+    fetch('https://www.inmoapi.somee.com/api/Banco/ListarCuentas')
+    .then((res) => res.json())
+    .then((data) => { setCuentasData(data.cuentas) })
+  },[])
 
   useEffect(() => {
     fetch('https://www.inmoapi.somee.com/api/Factura/ListarFacturas')
       .then((res) => res.json())
-      .then((data) => { setidFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
+      .then((data) => { setFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
 
   }, [])
   // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
@@ -74,7 +87,7 @@ function PayFact() {
     setIdFact(event.target.value);
 
     if (event.target.value !== 0) {
-      let datFact = facturaData.filter(item => item.id == event.target.value)
+      let datFact = FacPend.filter(item => item.id == event.target.value)
       setdataFactura(datFact)
     }
     else {
@@ -131,7 +144,7 @@ function PayFact() {
         },
         body: JSON.stringify(datosPagos)
       }
-      let res = await fetch('http://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
+      let res = await fetch('https://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
       let json = await res.json()
       console.log(json)
     }
@@ -165,7 +178,7 @@ function PayFact() {
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione una factura</option>
-            {idFacPend.map((item) => (
+            {FacPend.map((item) => (
               <option value={item.id}>{item.id}</option>
             ))}
           </select>
@@ -214,7 +227,7 @@ function PayFact() {
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione una banco</option>
-            {bancoData.map((item) => (
+            {BankData.map((item) => (
               <option value={item.id}>{item.nombre}</option>
             ))}
           </select>
@@ -236,7 +249,7 @@ function PayFact() {
                 className='p-4 mr-10 rounded-lg shadow-md'
               />
               :
-              cuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
+              CuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
                 <input
                   ref={inputCuentaRef}
                   type="text"
@@ -310,7 +323,7 @@ function PayFact() {
                 className='p-4 mr-10 rounded-lg shadow-md'
               />
               :
-              facturaData.filter(item => item.id == idFact).map((item2) => (
+              FacPend.filter(item => item.id == idFact).map((item2) => (
                 <input
                   ref={inputTotalRef}
                   type="text"
@@ -343,7 +356,7 @@ function PayFact() {
                 className='p-4 mr-10 rounded-lg shadow-md'
               />
               :
-              cuentasData.filter(item => item.idbanco == idBanco).map((item) => (
+              CuentasData.filter(item => item.idbanco == idBanco).map((item) => (
                 <input
                   ref={inputCbuRef}
                   type="text"
