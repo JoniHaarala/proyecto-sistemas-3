@@ -27,7 +27,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 // import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 // import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
-// import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 // import EventSeatIcon from '@mui/icons-material/EventSeat';
@@ -209,10 +209,10 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name: '',
-                subname: 'agregar propiedad',
+                name: 'listarPropiedad',
+                subname: 'Listar propiedades',
             },
-            {
+            /*{
                 id: 2,
                 name: '',
                 subname: 'editar propiedad',
@@ -221,7 +221,7 @@ export const subLinks = [
                 id: 3,
                 name: '',
                 subname: 'borrar propiedad',
-            },
+            },*/
         ],
     },
     {
@@ -326,11 +326,11 @@ export const links = [
             //     name: 'Informes',
             //     icon: <ArticleIcon />,
             // },
-            // {
-            //     name: 'Propiedades',
-            //     icon: <HomeIcon />,
+            {
+                name: 'Propiedades',
+                icon: <HomeIcon />,
 
-            // },
+            },
             {
                 name: 'Proveedores',
                 icon: <LocalShippingIcon />,
@@ -458,7 +458,7 @@ export const proveedorColumn = [
         width: '120',
         editable: true,
     },
-]
+];
 export const facturaColumn = [
     {
         field: 'id',
@@ -548,7 +548,7 @@ export const PagosColumn = [
         width: '250',
         editable: true
     },
-]
+];
 
 export const kanbanGrid = [
     {
