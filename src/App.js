@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { TooltipComponent } from '@syncfusion/ej2-react-popups'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route } from 'react-router-dom';
-import { Navbar, Sidebar, Footer, ThemeSettings } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, DelFact, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad } from './components'
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
 import { useStateContext } from './context/ContextProvider';
 
 function App() {
@@ -94,6 +94,7 @@ function App() {
               {/* Propiedades */}
               <Route path='/propiedades' element={<Home />} />
               <Route path='/listarPropiedad' element={<Propiedades />} />
+              <Route path='/addPropiedad' element={<AddPropiedad/>} />
 
               {/* Apps or enterprise functionalities */}
               <Route path="/calendar" element={<Calendar />} />
