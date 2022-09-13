@@ -15,8 +15,13 @@ export { default as PieChart } from './Charts/PieChart';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Head';
 export { default as SimpleBackdrop } from './BackDrop'
+export { default as Map} from './map/MapView'
+export { default as Auth} from './Usuarios/Auth'
 
 // Componentes de las paginas principales
+//usuarios
+export { default as Account} from './Usuarios/UserProfile'
+export { default as EditAccount} from './Usuarios/EditUser'
 //proveedor
 export { default as TablaProveedor } from './Proveedores/TablaProveedor'
 export { default as FormAddProveedor } from './Proveedores/addProveedor'
