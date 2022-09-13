@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+/* eslint-disable eqeqeq */
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
+import Header from '../Head';
+import { Map } from '..';
+import { supabase } from '../../supabase/client';
+import Checkbox from '@mui/material/Checkbox';
+
 
 const steps = ['Tipo y operacion', 'Características', 'Ubicación', 'Archivos multimedia', 'Comodidades', 'Descripción'];
+
 
 export default function AddPropiedad() {
     const [activeStep, setActiveStep] = useState(0);
@@ -58,7 +67,6 @@ export default function AddPropiedad() {
     const [Wifi, setWifi] = useState(false)
     const [AC, setAC] = useState(false)
     const [Pavimento, setPavimento] = useState(false)
-
     const [Ascensor, setAscensor] = useState(false)
     const [Alarma, setAlarma] = useState(false)
     const [Vigilancia, setVigilancia] = useState(false)
@@ -83,45 +91,307 @@ export default function AddPropiedad() {
     // En esta seccion van todos los componentes de cada paso jejox
     /*------------------------------------------------------*/
     const TipoyOperacion = () => {
-
         return (
-            <div>
-                paso de tipo y ubicacion
+            <div className='px-2 ml-8 mt-20'>
+                <Header category="" title="Tipo y ubicacion" />
             </div>
         )
     }
     const Catacteristics = () => {
         return (
-            <div>
-                caracteristicas
+            <div className='px-2 ml-8 mt-20'>
+
+                <Header category="" title="Caracteristicas" />
             </div>
         )
     }
     const Ubication = () => {
+        // url buena alternativa para buscar localidades: https://nominatim.openstreetmap.org/search?q={ nombre de la localidad separada con +; por ej:coronel+moldes }&format=json
+        const [Lat, setLat] = useState(-24.608189)
+        const [Lon, setLon] = useState(-65.385018)
+        const [WordEntered, setWordEntered] = useState('')
+        const [locations, setLocations] = useState([])
+        const [SelectLocation, setSelectLocation] = useState([])
+
+        const handleFilter = async (event) => {
+            const searchWord = event.target.value;
+            setWordEntered(searchWord);
+            let { data: places, error } = await supabase
+                .from('places')
+                .select("*")
+                // Filters
+                .ilike('localidad', `%${WordEntered}%`)
+            if (error) console.log("error", error);
+            else setLocations(places);
+
+            if (searchWord === "") {
+                setLocations([]);
+            }
+        };
+
+        useEffect(() => {
+            handleFilter()
+            handleSelection()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
+
+        const handleSelection = async e => {
+            e.preventDefault()
+            let { data: places, error } = await supabase
+                .from('places')
+                .select("*")
+                // Filters
+                .eq('id', e.target.value)
+            if (error) console.log("error", error);
+            else {
+                setSelectLocation(places)
+            };
+            SelectLocation.map((value) => (
+                setWordEntered(value.localidad + ', ' + value.ciudad)
+            ))
+
+            SelectLocation.map((value) => (
+                setLat(value.latitud)
+            ))
+            SelectLocation.map((value) => (
+                setLon(value.longitud)
+            ))
+        }
+
+        const clearInput = () => {
+            setLocations([]);
+        };
+
         return (
-            <div>
-                ubicacion
+            <div className='px-2 ml-8 mt-20'>
+                <Header category="" title="Ubicacion" />
+                <Map lat={Lat} lon={Lon} />
+                <div>
+                    <div className="w-64 flex p-3 shadow-md rounded-xl my-5">
+                        <input
+                            type="text"
+                            placeholder='Input location...'
+                            value={WordEntered}
+                            onChange={handleFilter}
+                            className="pl-2"
+                        />
+                        <div className="searchIcon">
+                            {locations.length === 0 ? (
+                                <SearchIcon />
+                            ) : (
+                                <CloseIcon id="clearBtn" onClick={clearInput} />
+                            )}
+                        </div>
+                    </div>
+                    {locations.length !== 0 && (
+                        <div className="h-40 w-64 overflow-hidden overflow-y-auto">
+                            {locations.slice(0, 25).map((value) => {
+                                return (
+                                    <option className="text-sm hover:bg-gray-300 hover:cursor-pointer" value={value.id} onClick={handleSelection}>{value.localidad}, {value.ciudad}</option>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
             </div>
         )
     }
     const MediaFiles = () => {
         return (
-            <div>
-                archivos
+            <div className='px-2 ml-8 mt-20'>
+                <Header category="" title="Archivos" />
             </div>
         )
     }
     const Propertys = () => {
+
         return (
-            <div>
-                comodidades
+            <div className='px-2 ml-8 mt-20'>
+                <Header category="" title="Comodidades" />
+                <div className='flex justify-center'>
+                    <div className='flex flex-col items-end py-4 px-3 mr-7'>
+                        <label>Agua
+                            <Checkbox
+                                checked={Agua}
+                                onChange={(event) => { setAgua(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Luz
+                            <Checkbox
+                                checked={Luz}
+                                onChange={(event) => { setLuz(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Terraza
+                            <Checkbox
+                                checked={Terraza}
+                                onChange={(event) => { setTerraza(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Cloaca
+                            <Checkbox
+                                checked={Cloaca}
+                                onChange={(event) => { setCloaca(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Telefono
+                            <Checkbox
+                                checked={Telefono}
+                                onChange={(event) => { setTelefono(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                    </div>
+
+                    <div className='flex flex-col items-end py-4 px-3 mx-7'>
+                        <label>Comercial
+                            <Checkbox
+                                checked={Comercial}
+                                onChange={(event) => { setComercial(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Gas
+                            <Checkbox
+                                checked={Gas}
+                                onChange={(event) => { setGas(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Wifi
+                            <Checkbox
+                                checked={Wifi}
+                                onChange={(event) => { setWifi(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>AC
+                            <Checkbox
+                                checked={AC}
+                                onChange={(event) => { setAC(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Pavimento
+                            <Checkbox
+                                checked={Pavimento}
+                                onChange={(event) => { setPavimento(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                    </div>
+
+                    <div className='flex flex-col items-end py-4 px-3 mx-7'>
+                        <label>Ascensor
+                            <Checkbox
+                                checked={Ascensor}
+                                onChange={(event) => { setAscensor(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Alarma
+                            <Checkbox
+                                checked={Alarma}
+                                onChange={(event) => { setAlarma(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Vigilancia
+                            <Checkbox
+                                checked={Vigilancia}
+                                onChange={(event) => { setVigilancia(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Lavadero
+                            <Checkbox
+                                checked={Lavadero}
+                                onChange={(event) => { setLavadero(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Gimnasio
+                            <Checkbox
+                                checked={Gimnasio}
+                                onChange={(event) => { setGimnasio(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                    </div>
+
+                    <div className='flex flex-col items-end py-4 px-3 mx-7'>
+                        <label>Balcon
+                            <Checkbox
+                                checked={Balcon}
+                                onChange={(event) => { setBalcon(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Living
+                            <Checkbox
+                                checked={Living}
+                                onChange={(event) => { setLiving(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Cocina
+                            <Checkbox
+                                checked={Cocina}
+                                onChange={(event) => { setCocina(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Parilla
+                            <Checkbox
+                                checked={Parilla}
+                                onChange={(event) => { setParilla(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Mascotas
+                            <Checkbox
+                                checked={Mascotas}
+                                onChange={(event) => { setMascotas(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                    </div>
+
+                    <div className='flex flex-col items-end py-4 px-3 mx-7'>
+                        <label>Piscina
+                            <Checkbox
+                                checked={Piscina}
+                                onChange={(event) => { setPiscina(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Jardin
+                            <Checkbox
+                                checked={Jardin}
+                                onChange={(event) => { setJardin(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                        <label>Oficina
+                            <Checkbox
+                                checked={Oficina}
+                                onChange={(event) => { setOficina(event.target.checked); }}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                            />
+                        </label>
+                    </div>
+                </div>
             </div>
         )
     }
     const Description = () => {
         return (
-            <div>
-                Descripcion
+            <div className='px-2 ml-8 mt-20'>
+                <Header category="" title="Descripcion" />
             </div>
         )
     }
@@ -194,8 +464,8 @@ export default function AddPropiedad() {
                 </Stepper>
                 {activeStep === steps.length ? (
                     <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
+                        <Typography sx={{ mt: 10, mb: 1, px: 2 }}>
+                            All steps completed - you're finished
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Box sx={{ flex: '1 1 auto' }} />
@@ -233,7 +503,7 @@ export default function AddPropiedad() {
                             )}
 
                             <Button onClick={handleNext}>
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
                             </Button>
                         </Box>
                     </React.Fragment>
