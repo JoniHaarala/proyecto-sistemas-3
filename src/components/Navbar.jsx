@@ -18,8 +18,6 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 /* */
-
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import avatar from '../data/avatar.jpg';
 import { Chat, Notification } from '.';

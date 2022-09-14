@@ -474,17 +474,18 @@ export default function AddPropiedad() {
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
-                        {activeStep === 0 ? <TipoyOperacion /> : <></>}
+                        {/* NOTA: {condicion && resultado} solo se ejecuta si la condicion "activeStep" es true // mejores practicas para el operador ternario {(condicion)?<TAG/>:<></>} */}
+                        {activeStep === 0 && <TipoyOperacion />}
 
-                        {activeStep === 1 ? <Catacteristics /> : <></>}
+                        {activeStep === 1 && <Catacteristics />}
 
-                        {activeStep === 2 ? <Ubication /> : <></>}
+                        {activeStep === 2 && <Ubication />}
 
-                        {activeStep === 3 ? <MediaFiles /> : <></>}
+                        {activeStep === 3 && <MediaFiles />}
 
-                        {activeStep === 4 ? <Propertys /> : <></>}
+                        {activeStep === 4 && <Propertys />}
 
-                        {activeStep === 5 ? <Description /> : <></>}
+                        {activeStep === 5 && <Description />}
 
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Button
