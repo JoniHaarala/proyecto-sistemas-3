@@ -1,4 +1,4 @@
-export { default as Button } from './Button';
+export { default as ThemeSettingButton } from './ThemeSettingButton';
 export { default as ThemeSettings } from './ThemeSettings';
 export { default as Sidebar } from './Sidebar';
 export { default as Navbar } from './Navbar';
@@ -6,8 +6,6 @@ export { default as Footer } from './Footer';
 export { default as Card } from './Card';
 export { default as Chat } from './Chat';
 export { default as Notification } from './Notification';
-export { default as UserProfile } from './Usuarios/UserProfile';
-export { default as EditUser } from './Usuarios/EditUser'
 export { default as SparkLine } from './Charts/SparkLine';
 export { default as LineChart } from './Charts/LineChart';
 export { default as Stacked } from './Charts/Stacked';
@@ -21,7 +19,8 @@ export { default as Auth} from './Usuarios/Auth'
 // Componentes de las paginas principales
 //usuarios
 export { default as Account} from './Usuarios/UserProfile'
-export { default as EditAccount} from './Usuarios/EditUser'
+export { default as UserInfo} from './Usuarios/UserInfo'
+export { default as Employee } from './Usuarios/Employee';
 //proveedor
 export { default as TablaProveedor } from './Proveedores/TablaProveedor'
 export { default as FormAddProveedor } from './Proveedores/addProveedor'

@@ -117,7 +117,7 @@ export default function Auth() {
           {" "}
           Don't have an account?{" "}
           <Link
-            to="#"
+            to="/SignUp"
             className="font-medium text-purple-600 hover:underline"
           >
             Sign up
