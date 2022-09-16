@@ -3,9 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 /* */
-import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -14,16 +12,21 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 /* */
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import avatar from '../data/avatar.jpg';
-import { Chat, Notification } from '.';
+import { Chat, Notification, ThemeSettingButton } from '.';
 // despues importar el cart
 import { useStateContext } from '../context/ContextProvider';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabase/client';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
@@ -67,6 +70,8 @@ const Navbar = () => {
 
   /*------------------- Menu de Usuario ---------------------*/
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [OpenExit, setOpenExit] = React.useState(false);
+
   const open = Boolean(anchorEl);
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -75,6 +80,14 @@ const Navbar = () => {
     setAnchorEl(null);
   };
   /*---------------------------------------------------------*/
+
+  const handleClickOpen = (e) => {
+    setOpenExit(true);
+  };
+  const handleCloseExit = () => {
+    setOpenExit(false);
+  }
+
 
   return (
     <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
@@ -97,7 +110,7 @@ const Navbar = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
               >
-                <Avatar sx={{ width: 32, height: 32, backgroundColor: 'orange'}}>J</Avatar>
+                <Avatar sx={{ width: 32, height: 32, backgroundColor: 'orange' }}>J</Avatar>
               </IconButton>
             </Tooltip>
           </Box>
@@ -106,7 +119,7 @@ const Navbar = () => {
             id="account-menu"
             open={open}
             onClose={handleClose}
-            onClick={handleClose}
+            // onClick={handleClose}
             PaperProps={{
               elevation: 0,
               sx: {
@@ -137,53 +150,61 @@ const Navbar = () => {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
             <MenuItem>
-              <Avatar src={avatar} /><Link to="/Account">Profile</Link>
+              <Avatar src={avatar} /><Link className='w-full' to="/Account" onClick={handleClose}>Profile</Link>
             </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
               <Avatar sx={{ bgcolor: green[500] }}>
                 <AutoFixHighIcon />
               </Avatar>
               <Link to="/EditAccount">Edit account</Link>
-            </MenuItem>
+            </MenuItem> */}
             <Divider />
-            <MenuItem>
+            {/* <MenuItem>
               <ListItemIcon>
                 <PersonAdd fontSize="small" />
               </ListItemIcon>
               Add another account
+            </MenuItem> */}
+            <MenuItem onClick={handleClose}>
+              <ThemeSettingButton />
             </MenuItem>
+
             <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
+              <Tooltip title="Logout" placement="left">
+                <button
+                  type="button"
+                  className="flex w-full"
+                  onClick={handleClickOpen}
+                >
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </button>
+              </Tooltip>
+              <Dialog
+                open={OpenExit}
+                onClose={handleCloseExit}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Desea realmente cerrar sesion?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Debera volver a iniciar sesion una vez que haya seleccionado la opcion SI
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseExit}>No</Button>
+                  <Button onClick={() => supabase.auth.signOut()}>Si</Button>
+                </DialogActions>
+              </Dialog>
             </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
+
           </Menu>
         </React.Fragment>
-        {/* <TooltipComponent content="Profile" position="BottomCenter">
-          <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => handleClick('userProfile')}
-          >
-            <img
-              className="rounded-full w-8 h-8"
-              src={avatar}
-              alt="user-profile"
-            />
-            <p>
-              <span className="text-gray-400 text-14">Hi,</span>{' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">
-                Joni
-              </span>
-            </p>
-          </div>
-        </TooltipComponent> */}
 
         {/* Por ahora dejemos esto asi pero mas adelante ver las funcionalidades de cada parte del navbar */}
 
