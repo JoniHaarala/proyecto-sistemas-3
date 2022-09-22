@@ -61,17 +61,17 @@ const Sidebar = () => {
           {/* Mapping through the links funtion in cinfigData.js array and returning a div with a p tag. */}
           <div>
             {
-              links.map((item) => (
-                <div key={item.title} >
+              links.map((item, index) => (
+                <div key={index} >
                   <p className="text-gray-400 m-3 mt-4 uppercase">
                     {item.title}
                   </p>
 
-                  {item.links.map((link) => (
+                  {item.links.map((link, index) => (
                     <div>
                       {/* items del menu principal */}
                       <NavLink
-                        key={link.name}
+                        key={index}
                         to={`/${link.name}`}
                         onClick={() => { }}
                         className={({ isActive }) => isActive ? activeLink : normalLink}
@@ -89,10 +89,10 @@ const Sidebar = () => {
                             subLinks.map((link2) => (
                               (link.name === link2.title)
                                 ?
-                                link2.links.map((subLink) => (
+                                link2.links.map((subLink, index) => (
                                   <section>
                                     <NavLink
-                                      key={subLink.id}
+                                      key={index}
                                       to={`/${subLink.name}`}
                                       className={({ isActive }) => isActive ? activeSubLink : normalSubLink}
                                     >

@@ -13,13 +13,14 @@ export { default as PieChart } from './Charts/PieChart';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Head';
 export { default as SimpleBackdrop } from './BackDrop'
-export { default as Map} from './map/MapView'
-export { default as Auth} from './Usuarios/Auth'
+export { default as Map } from './map/MapView'
+export { default as Auth } from './Usuarios/Auth'
+export { default as SubirArchivos } from './MediaFiles'
 
 // Componentes de las paginas principales
 //usuarios
-export { default as Account} from './Usuarios/UserProfile'
-export { default as UserInfo} from './Usuarios/UserInfo'
+export { default as Account } from './Usuarios/UserProfile'
+export { default as UserInfo } from './Usuarios/UserInfo'
 export { default as Employee } from './Usuarios/Employee';
 //proveedor
 export { default as TablaProveedor } from './Proveedores/TablaProveedor'

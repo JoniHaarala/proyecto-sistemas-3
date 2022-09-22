@@ -59,15 +59,15 @@ export default function PropActions({ params }) {
                         Detalles de la Propiedad
                     </Typography>
                     {
-                        PropData.map((item) => (
-                            <div className="text-sm">
+                        PropData.map((item, index) => (
+                            <div className="text-sm" key={index}>
                                 <section className='my-4'>
                                     <h3 className="text-base">Caracteristicas generales</h3>
                                     <ul className='ml-7 pt-2'>
                                         <p>Tipo: {item.idTipo}</p>
                                         <p>Estado: {item.idEstado}</p>
                                         <p>Operacion: {item.idCatVenta}</p>
-                                        <p>Propietario: Jonatan Haarala</p>
+                                        <p>Propietario: {item.propietario}</p>
                                         <p>N° ambientes: {item.ambientes}</p>
                                         <p>N° dormitorios: {item.dormitorios}</p>
                                         <p>N° baños: {item.baños}</p>

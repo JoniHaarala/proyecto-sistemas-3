@@ -13,8 +13,8 @@ import product7 from './product7.jpg';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 // import PersonIcon from '@mui/icons-material/Person';
-// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-// import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 // import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 // import PaletteIcon from '@mui/icons-material/Palette';
 
@@ -348,27 +348,27 @@ export const links = [
         ],
     },
 
-    // {
-    //     title: 'Apps',
-    //     links: [
-    //         {
-    //             name: 'calendar',
-    //             icon: <CalendarMonthIcon />,
-    //         },
-    //         {
-    //             name: 'kanban',
-    //             icon: <ViewKanbanIcon />,
-    //         },
-    //         {
-    //             name: 'editor',
-    //             icon: <ModeEditOutlineIcon />,
-    //         },
-    //         {
-    //             name: 'color-picker',
-    //             icon: <PaletteIcon />,
-    //         },
-    //     ],
-    // },
+    {
+        title: 'Apps',
+        links: [
+            {
+                name: 'calendar',
+                icon: <CalendarMonthIcon />,
+            },
+            {
+                name: 'kanban',
+                icon: <ViewKanbanIcon />,
+            },
+            //         {
+            //             name: 'editor',
+            //             icon: <ModeEditOutlineIcon />,
+            //         },
+            //         {
+            //             name: 'color-picker',
+            //             icon: <PaletteIcon />,
+            //         },
+        ],
+    },
     // {
     //     title: 'Charts',
     //     links: [

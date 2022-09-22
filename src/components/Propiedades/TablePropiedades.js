@@ -63,7 +63,7 @@ const TablePropiedades = () => {
         {
             field: 'propietario',
             headerName: 'PROPIETARIO',
-            width: 150,
+            width: 200,
         },
 
         {
