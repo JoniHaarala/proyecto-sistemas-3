@@ -3,6 +3,7 @@ import { kanbanData } from '../../data/configData';
 import { Header } from '../../components';
 import { extend } from '@syncfusion/ej2-base';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
+import '../../App.css'
 
 class Kanban extends React.Component {
   constructor() {
