@@ -1,6 +1,6 @@
 {
   "name": "proy-inmobiliaria",
-  "version": "2.7.3",
+  "version": "2.9.6",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",

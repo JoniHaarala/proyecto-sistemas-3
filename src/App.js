@@ -3,10 +3,11 @@ import React, { useEffect } from 'react'
 // import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad, Account } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, Kanban, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
 import { useStateContext } from './context/ContextProvider';
 import { supabase } from './supabase/client'
 import Auth from './components/Usuarios/Auth'
+import Kanban from './pages/Apps/Kanban';
 
 function App() {
 
