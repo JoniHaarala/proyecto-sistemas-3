@@ -12,6 +12,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -21,45 +23,53 @@ import { supabase } from '../../supabase/client';
 import Checkbox from '@mui/material/Checkbox';
 import SubirArchivos from '../MediaFiles';
 import { Editor } from 'primereact/editor';
+import { useNavigate } from 'react-router-dom';
 
 
 const steps = ['Tipo y operacion', 'Características', 'Ubicación', 'Archivos multimedia', 'Comodidades', 'Descripción'];
 
 
 export default function AddPropiedad() {
+
+    const navigate = useNavigate()
+
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState(new Set());
 
     //Estados para tipo y operacion
     /*------------------------------------------------------*/
     const [TipoyUbicacion, setTipoyUbicacion] = useState({
-        Tipo: '',
-        Operacion: '',
-        Estado: '',
+        idTipo: null,
+        idCatVenta: null,
+        idEstado: null,
+        Propietario: null
     })
     /*------------------------------------------------------*/
 
     //Estados para Caracteristicas
     /*-------------------------------------------------------*/
-    const [Precio, setPrecio] = useState('')
-    const [SuperficieCubierta, setSuperficieCubierta] = useState('')
-    const [SuperficieDescu, setSuperficieDescu] = useState('')
-    const [SuperficieTotal, setSuperficieTotal] = useState('')
-    const [Ambientes, setAmbientes] = useState('')
-    const [Dormitorios, setDormitorios] = useState('')
-    const [Baños, setBaños] = useState('')
-    const [Garage, setGarage] = useState('')
-    const [antiguedad, setAntiguedad] = useState('')
+    const [Caracteristicas, setCaracteristicas] = useState({
+        precio: 0,
+        expensas: 0,
+        superficieCubierta: 0,
+        superficieDescubierta: 0,
+        superficieTotal: 0,
+        ambientes: 0,
+        dormitorios: 0,
+        baños: 0,
+        garage: 0,
+        antiguedad: 0
+    })
     /*-------------------------------------------------------*/
 
     //Estados para Ubicacion
     /*-------------------------------------------------------*/
-    const [Direccion, setDireccion] = useState('')
-    const [Ciudad, setCiudad] = useState('')
-    const [Localidad, setLocalidad] = useState('')
-    const [Barrio, setBarrio] = useState('')
-    const [Lat, setLat] = useState(-24.608189)
-    const [Lon, setLon] = useState(-65.385018)
+    const [direccion, setDireccion] = useState('')
+    const [ciudad, setCiudad] = useState('')
+    const [localidad, setLocalidad] = useState('')
+    const [barrio, setBarrio] = useState('')
+    const [lat, setLat] = useState(-24.608189)
+    const [lon, setLon] = useState(-65.385018)
     /*-------------------------------------------------------*/
 
     //Estados para multimedia
@@ -93,29 +103,29 @@ export default function AddPropiedad() {
     // const [Oficina, setOficina] = useState(false)
 
     const [freatures, setFreatures] = useState({
-        Agua: false,
-        Luz: false,
-        Terraza: false,
-        Cloaca: false,
-        Telefono: false,
-        Comercial: false,
-        Gas: false,
-        Wifi: false,
-        AC: false,
-        Pavimento: false,
-        Ascensor: false,
-        Alarma: false,
-        Vigilancia: false,
-        Lavadero: false,
-        Gimnasio: false,
-        Balcon: false,
-        Living: false,
-        Cocina: false,
-        Parilla: false,
-        Mascotas: false,
-        Piscina: false,
-        Jardin: false,
-        Oficina: false
+        agua: false,
+        luz: false,
+        terraza: false,
+        cloaca: false,
+        telefono: false,
+        comercial: false,
+        gas: false,
+        wifi: false,
+        ac: false,
+        pavimento: false,
+        ascensor: false,
+        alarma: false,
+        vigilancia: false,
+        lavadero: false,
+        gimnasio: false,
+        balcon: false,
+        living: false,
+        cocina: false,
+        parilla: false,
+        mascotas: false,
+        piscina: false,
+        jardin: false,
+        oficina: false
     })
     /*-------------------------------------------------------*/
 
@@ -133,6 +143,7 @@ export default function AddPropiedad() {
         const [TipoOperacion, setTipoOperacion] = useState([])
         const [TipoProp, setTipoProp] = useState([])
         const [EstadoProp, setEstadoProp] = useState([])
+        const [NamePropietario, setNamePropietario] = useState([])
         //
         const getOperacion = async () => {
             try {
@@ -168,80 +179,226 @@ export default function AddPropiedad() {
                 console.log(error)
             }
         }
+        const getPropietario = async () => {
+            try {
+                let { data: usuario, error } = await supabase
+                    .from('usuario')
+                    .select('id,nameSurname')
+                    .eq('idrol', 'propietario')
+                if (error) throw error
+                if (usuario) setNamePropietario(usuario)
+            }
+            catch (error) {
+                console.log(error)
+            }
+        }
         useEffect(() => {
             getOperacion()
             getTipo()
             getEstado()
+            getPropietario()
         }, [])
 
         const handleChangePaso1 = (prop) => (event) => {
             setTipoyUbicacion({ ...TipoyUbicacion, [prop]: event.target.value });
         };
+
         return (
             <div className='px-2 ml-8 mt-20'>
                 <Header category="" title="Tipo de propiedad y tipo de operacion" />
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Tipo de propiedad</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={TipoyUbicacion.Tipo}
-                        onChange={handleChangePaso1('Tipo')}
-                        label="Tipo de propiedad"
-                    >
-                        <MenuItem value=""><em>None</em></MenuItem>
-                        {TipoProp.map((value, i) => (
-                            <MenuItem key={i} value={value.tipo}>{value.tipo}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                <section className="flex flex-col gap-5 md:grid md:grid-cols-2 2xl:grid-cols-4">
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Tipo de propiedad</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={TipoyUbicacion.idTipo}
+                            onChange={handleChangePaso1('idTipo')}
+                            label="Tipo de propiedad"
+                        >
+                            <MenuItem value=""><em>None</em></MenuItem>
+                            {TipoProp.map((value, i) => (
+                                <MenuItem key={i} value={value.tipo}>{value.tipo}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Tipo de operacion</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={TipoyUbicacion.Operacion}
-                        onChange={handleChangePaso1('Operacion')}
-                        label="Tipo de operacion"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {TipoOperacion.map((value, i) => (
-                            <MenuItem key={i} value={value.operacion}>{value.operacion}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Tipo de operacion</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={TipoyUbicacion.idCatVenta}
+                            onChange={handleChangePaso1('idCatVenta')}
+                            label="Tipo de operacion"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {TipoOperacion.map((value, i) => (
+                                <MenuItem key={i} value={value.operacion}>{value.operacion}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Estado de la propiedad</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={TipoyUbicacion.Estado}
-                        onChange={handleChangePaso1('Estado')}
-                        label="Estado de la propiedad"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {EstadoProp.map((value, i) => (
-                            <MenuItem key={i} value={value.estado}>{value.estado}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Estado de la propiedad</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={TipoyUbicacion.idEstado}
+                            onChange={handleChangePaso1('idEstado')}
+                            label="Estado de la propiedad"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {EstadoProp.map((value, i) => (
+                                <MenuItem key={i} value={value.estado}>{value.estado}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
+                        <InputLabel id="demo-simple-select-standard-label">Nombre del Propietario</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            value={TipoyUbicacion.Propietario}
+                            onChange={handleChangePaso1('Propietario')}
+                            label="Nombre Propietario"
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {NamePropietario.map((value, i) => (
+                                <MenuItem key={i} value={value.nameSurname}>{value.nameSurname}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </section>
             </div>
         )
     }
+    // fin para modulo tipo y propietario
+
     const Catacteristics = () => {
+
+        const handleChangeCaracteristicas = (prop) => (event) => {
+            event.preventDefault();
+            setCaracteristicas({ ...Caracteristicas, [prop]: event.target.value });
+        };
+
         return (
             <div className='px-2 ml-8 mt-20'>
-
                 <Header category="" title="Caracteristicas" />
+
+                <div className='flex flex-col gap-3 items-center'>
+
+
+                    <h4 className="my-5 self-start">Precio y/o expensas</h4>
+                    <section id='precio' className="flex flex-col xl:flex-row gap-14">
+                        <FormControl fullWidth sx={{ my: 2, width: '450px' }} variant="standard">
+                            <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
+                            <Input
+                                id="standard-adornment-amount"
+                                value={Caracteristicas.precio}
+                                onChange={handleChangeCaracteristicas('precio')}
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            />
+                        </FormControl>
+                        <TextField id="standard-basic"
+                            InputProps={{ startAdornment: <InputAdornment position="start">u$d</InputAdornment>, }}
+                            sx={{ my: 2, width: '450px' }}
+                            value={Caracteristicas.expensas}
+                            onChange={handleChangeCaracteristicas('expensas')}
+                            label="Precio"
+                            variant="standard"
+                        />
+                    </section>
+
+                    <h4 className="my-5 self-start">Superficie de la propiedad</h4>
+                    <section id='superficie' className="flex flex-col xl:flex-row gap-8">
+                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
+                            <Input
+                                id="standard-adornment-weight"
+                                value={Caracteristicas.superficieCubierta}
+                                onChange={handleChangeCaracteristicas('superficieCubierta')}
+                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
+                                aria-describedby="standard-weight-helper-text"
+                                inputProps={{
+                                    'aria-label': 'weight',
+                                }}
+                            />
+                        </FormControl>
+                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
+                            <Input
+                                id="standard-adornment-weight"
+                                value={Caracteristicas.superficieDescubierta}
+                                onChange={handleChangeCaracteristicas('superficieDescubierta')}
+                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
+
+                            />
+                        </FormControl>
+                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
+                            <Input
+                                id="standard-adornment-weight"
+                                value={Caracteristicas.superficieTotal}
+                                onChange={handleChangeCaracteristicas('superficieTotal')}
+                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
+
+                            />
+                        </FormControl>
+                    </section>
+
+                    <h4 className="my-5 self-start">Ambientes, dormitorios y baños</h4>
+                    <section id='habitaciones' className="flex flex-col xl:flex-row gap-8">
+                        <TextField id="standard-basic"
+                            sx={{ my: 2, width: '300px' }}
+                            value={Caracteristicas.dormitorios}
+                            onChange={handleChangeCaracteristicas('dormitorios')}
+                            label="N° de dormitorios"
+                            variant="standard"
+                        />
+                        <TextField id="standard-basic"
+                            sx={{ my: 2, width: '300px' }}
+                            value={Caracteristicas.baños}
+                            onChange={handleChangeCaracteristicas('baños')}
+                            label="N° de baños"
+                            variant="standard"
+                        />
+                        <TextField id="standard-basic"
+                            sx={{ my: 2, width: '300px' }}
+                            value={Caracteristicas.ambientes}
+                            onChange={handleChangeCaracteristicas('ambientes')}
+                            label="N° de ambientes"
+                            variant="standard"
+                        />
+                    </section>
+
+                    <h4 className="my-5 self-start">Garage y antiguedad</h4>
+                    <section id='agregados' className="flex flex-col xl:flex-row gap-14">
+                        <TextField id="standard-basic"
+                            sx={{ my: 2, width: '450px' }}
+                            value={Caracteristicas.garage}
+                            onChange={handleChangeCaracteristicas('garage')}
+                            label="Garage"
+                            variant="standard"
+                        />
+                        <FormControl variant="standard" sx={{ pt: 2, my: 2, width: '450px' }}>
+                            <Input
+                                id="standard-adornment-antiguedad"
+                                value={Caracteristicas.antiguedad}
+                                onChange={handleChangeCaracteristicas('antiguedad')}
+                                endAdornment={<InputAdornment position="end">años</InputAdornment>}
+                            />
+                        </FormControl>
+                    </section>
+                </div>
             </div>
         )
     }
+    //fin de modulo caracteristicas
     const Ubication = () => {
         // url buena alternativa para buscar localidades: https://nominatim.openstreetmap.org/search?q={ nombre de la localidad separada con +; por ej:coronel+moldes }&format=json
         const [WordEntered, setWordEntered] = useState('')
@@ -275,10 +432,12 @@ export default function AddPropiedad() {
                     setSelectLocation(JSON.parse(result));
                 })
                 .catch((err) => console.log("err: ", err));
-
+            console.log(SelectLocation);
             setWordEntered(SelectLocation[0].display_name)
             setLat(SelectLocation[0].lat)
             setLon(SelectLocation[0].lon)
+            setCiudad(SelectLocation[0].address.state)
+            setDireccion(SelectLocation[0].display_name)
         }
 
         const clearInput = () => {
@@ -288,65 +447,75 @@ export default function AddPropiedad() {
         return (
             <div className='px-2 ml-8 mt-20'>
                 <Header category="" title="Ubicacion" />
-                <Map lat={Lat} lon={Lon} />
-                <>
-                    <div className="w-96 flex p-3 shadow-md rounded-xl my-5">
-                        <input
-                            type="text"
-                            placeholder='Input location...'
-                            value={WordEntered}
-                            onChange={(e) => setWordEntered(e.target.value)}
-                            className="pl-2 w-full"
-                        />
-                        <div>
-                            {locations.length === 0 ? (
-                                <SearchIcon
-                                    className="cursor-pointer"
-                                    onClick={() => {
-                                        const params = {
-                                            q: WordEntered,
-                                            format: "json",
-                                            addressdetails: 1,
-                                            polygon_geojson: 0,
-                                        };
-                                        const queryString = new URLSearchParams(params).toString();
-                                        const requestOptions = {
-                                            method: "GET",
-                                            redirect: "follow",
-                                        };
-                                        fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
-                                            .then((response) => response.json())
-                                            .then((result) => {
-                                                console.log(result);
-                                                setLocations(result);
-                                            })
-                                            .catch((err) => console.log("err: ", err));
-
-                                        if (WordEntered === "") {
-                                            setLocations([]);
-                                        }
-                                    }}
+                <div className='flex flex-col xl:flex-row'>
+                    <section>
+                        <Map lat={lat} lon={lon} />
+                        <>
+                            <div className="w-96 flex p-3 shadow-md rounded-xl my-5">
+                                <input
+                                    type="text"
+                                    placeholder='Input location...'
+                                    value={WordEntered}
+                                    onChange={(e) => setWordEntered(e.target.value)}
+                                    className="pl-2 w-full"
                                 />
-                            ) : (
-                                <CloseIcon id="clearBtn" onClick={clearInput} />
-                            )}
-                        </div>
-                    </div>
-                    {locations.length !== 0 && (
-                        <div className="h-40 w-[500px] overflow-hidden overflow-y-auto overflow-x-auto">
-                            {locations.slice(0, 15).map((value) =>
+                                <div>
+                                    {locations.length === 0 ? (
+                                        <SearchIcon
+                                            className="cursor-pointer"
+                                            onClick={() => {
+                                                const params = {
+                                                    q: WordEntered,
+                                                    format: "json",
+                                                    addressdetails: 1,
+                                                    polygon_geojson: 0,
+                                                };
+                                                const queryString = new URLSearchParams(params).toString();
+                                                const requestOptions = {
+                                                    method: "GET",
+                                                    redirect: "follow",
+                                                };
+                                                fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
+                                                    .then((response) => response.json())
+                                                    .then((result) => {
+                                                        console.log(result);
+                                                        setLocations(result);
+                                                    })
+                                                    .catch((err) => console.log("err: ", err));
 
-                                <option className="text-sm hover:bg-gray-300 hover:cursor-pointer"
-                                    value={value.display_name}
-                                    onClick={handleSelection}
-                                >
-                                    {value.display_name}
-                                </option>
+                                                if (WordEntered === "") {
+                                                    setLocations([]);
+                                                }
+                                            }}
+                                        />
+                                    ) : (
+                                        <CloseIcon id="clearBtn" onClick={clearInput} />
+                                    )}
+                                </div>
+                            </div>
+                            {locations.length !== 0 && (
+                                <div className="h-40 w-[500px] overflow-hidden overflow-y-auto overflow-x-auto">
+                                    {locations.slice(0, 15).map((value) =>
 
+                                        <option className="text-sm hover:bg-gray-300 hover:cursor-pointer"
+                                            value={value.display_name}
+                                            onClick={handleSelection}
+                                        >
+                                            {value.display_name}
+                                        </option>
+
+                                    )}
+                                </div>
                             )}
-                        </div>
-                    )}
-                </>
+                        </>
+                    </section>
+                    <section className='px-10 flex flex-col'>
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ mb: 2, width: '400px' }} value={direccion} label="direccion" variant="standard" />
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={ciudad} label="ciudad" variant="standard" />
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lat} label="latitud" variant="standard" />
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lon} label="longitud" variant="standard" />
+                    </section>
+                </div>
             </div>
         )
     };
@@ -375,36 +544,36 @@ export default function AddPropiedad() {
                     <div className='flex flex-col items-end py-4 px-3 mr-3 md:mr-7'>
                         <label>Agua
                             <Checkbox
-                                checked={freatures.Agua}
-                                onChange={handleChange('Agua')}
+                                checked={freatures.agua}
+                                onChange={handleChange('agua')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Luz
                             <Checkbox
-                                checked={freatures.Luz}
-                                onChange={handleChange('Luz')}
+                                checked={freatures.luz}
+                                onChange={handleChange('luz')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Terraza
                             <Checkbox
-                                checked={freatures.Terraza}
-                                onChange={handleChange('Terraza')}
+                                checked={freatures.terraza}
+                                onChange={handleChange('terraza')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Cloaca
                             <Checkbox
-                                checked={freatures.Cloaca}
-                                onChange={handleChange('Cloaca')}
+                                checked={freatures.cloaca}
+                                onChange={handleChange('cloaca')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Telefono
                             <Checkbox
-                                checked={freatures.Telefono}
-                                onChange={handleChange('Telefono')}
+                                checked={freatures.telefono}
+                                onChange={handleChange('telefono')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
@@ -413,36 +582,36 @@ export default function AddPropiedad() {
                     <div className='flex flex-col items-end py-4 px-3 mx-3 md:xr-7'>
                         <label>Comercial
                             <Checkbox
-                                checked={freatures.Comercial}
-                                onChange={handleChange('Comercial')}
+                                checked={freatures.comercial}
+                                onChange={handleChange('comercial')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Gas
                             <Checkbox
-                                checked={freatures.Gas}
-                                onChange={handleChange('Gas')}
+                                checked={freatures.gas}
+                                onChange={handleChange('gas')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Wifi
                             <Checkbox
-                                checked={freatures.Wifi}
-                                onChange={handleChange('Wifi')}
+                                checked={freatures.wifi}
+                                onChange={handleChange('wifi')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>AC
                             <Checkbox
-                                checked={freatures.AC}
-                                onChange={handleChange('AC')}
+                                checked={freatures.ac}
+                                onChange={handleChange('ac')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Pavimento
                             <Checkbox
-                                checked={freatures.Pavimento}
-                                onChange={handleChange('Pavimento')}
+                                checked={freatures.pavimento}
+                                onChange={handleChange('pavimento')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
@@ -451,36 +620,36 @@ export default function AddPropiedad() {
                     <div className='flex flex-col items-end py-4 px-3 mx-3 md:xr-7'>
                         <label>Ascensor
                             <Checkbox
-                                checked={freatures.Ascensor}
-                                onChange={handleChange('Ascensor')}
+                                checked={freatures.ascensor}
+                                onChange={handleChange('ascensor')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Alarma
                             <Checkbox
-                                checked={freatures.Alarma}
-                                onChange={handleChange('Alarma')}
+                                checked={freatures.alarma}
+                                onChange={handleChange('alarma')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Vigilancia
                             <Checkbox
-                                checked={freatures.Vigilancia}
-                                onChange={handleChange('Vigilancia')}
+                                checked={freatures.vigilancia}
+                                onChange={handleChange('vigilancia')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Lavadero
                             <Checkbox
-                                checked={freatures.Lavadero}
-                                onChange={handleChange('Lavadero')}
+                                checked={freatures.lavadero}
+                                onChange={handleChange('lavadero')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Gimnasio
                             <Checkbox
-                                checked={freatures.Gimnasio}
-                                onChange={handleChange('Gimnasio')}
+                                checked={freatures.gimnasio}
+                                onChange={handleChange('gimnasio')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
@@ -489,36 +658,36 @@ export default function AddPropiedad() {
                     <div className='flex flex-col items-end py-4 px-3 mx-3 md:xr-7'>
                         <label>Balcon
                             <Checkbox
-                                checked={freatures.Balcon}
-                                onChange={handleChange('Balcon')}
+                                checked={freatures.balcon}
+                                onChange={handleChange('balcon')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Living
                             <Checkbox
-                                checked={freatures.Living}
-                                onChange={handleChange('Living')}
+                                checked={freatures.living}
+                                onChange={handleChange('living')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Cocina
                             <Checkbox
-                                checked={freatures.Cocina}
-                                onChange={handleChange('Cocina')}
+                                checked={freatures.cocina}
+                                onChange={handleChange('cocina')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Parilla
                             <Checkbox
-                                checked={freatures.Parilla}
-                                onChange={handleChange('Parilla')}
+                                checked={freatures.parilla}
+                                onChange={handleChange('parilla')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Mascotas
                             <Checkbox
-                                checked={freatures.Mascotas}
-                                onChange={handleChange('Mascotas')}
+                                checked={freatures.mascotas}
+                                onChange={handleChange('mascotas')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
@@ -527,22 +696,22 @@ export default function AddPropiedad() {
                     <div className='flex flex-col items-end py-4 px-3 mx-3 md:xr-7'>
                         <label>Piscina
                             <Checkbox
-                                checked={freatures.Piscina}
-                                onChange={handleChange('Piscina')}
+                                checked={freatures.piscina}
+                                onChange={handleChange('piscina')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Jardin
                             <Checkbox
-                                checked={freatures.Jardin}
-                                onChange={handleChange('Jardin')}
+                                checked={freatures.jardin}
+                                onChange={handleChange('jardin')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
                         <label>Oficina
                             <Checkbox
-                                checked={freatures.Oficina}
-                                onChange={handleChange('Oficina')}
+                                checked={freatures.oficina}
+                                onChange={handleChange('oficina')}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                         </label>
@@ -606,9 +775,37 @@ export default function AddPropiedad() {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         //aca va el insert a la tabla de Propiedades agregando todos los elementos anteriores
+        const propiedadData = {
+            ...TipoyUbicacion,
+            ...Caracteristicas,
+            direccion,
+            ciudad,
+            barrio,
+            localidad,
+            latitud: lat,
+            longitud: lon,
+            ...freatures,
+            descripcion: textEditor
+        }
+        console.log(propiedadData);
+        try {
+            // esta seccion guarda en la base de datos los datos de la propiedad
+            const { error } = await supabase
+                .from('propiedad')
+                .insert([
+                    propiedadData
+                ]);
+
+            if (error) throw error
+            else console.log("guardado con exito")
+
+        } catch (error) {
+            console.error(error);
+        }
         setActiveStep(0);
+        navigate('/')
     };
 
     return (
@@ -636,7 +833,7 @@ export default function AddPropiedad() {
                 {activeStep === steps.length ? (
                     <React.Fragment>
                         <Typography sx={{ mt: 10, mb: 1, px: 2 }}>
-                            All steps completed - you can now save your changes here
+                            Para finalizar con la operacion, oprima el boton GUARDAR.
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Box sx={{ flex: '1 1 auto' }} />
