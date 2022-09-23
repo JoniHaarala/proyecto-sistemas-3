@@ -3,7 +3,7 @@ import '../../App.css'
 import { ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, Inject } from '@syncfusion/ej2-react-schedule';
 import { scheduleData } from '../../data/configData';
 import moment from 'moment';
-export class Calendar extends React.Component {
+class Calendar extends React.Component {
     constructor() {
         super(...arguments);
         this.data = scheduleData;
@@ -22,3 +22,5 @@ export class Calendar extends React.Component {
     </ScheduleComponent>;
     }
 }
+
+export default Calendar;
