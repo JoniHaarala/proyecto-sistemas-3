@@ -51,14 +51,14 @@ export default function AddPropiedad() {
     const [Caracteristicas, setCaracteristicas] = useState({
         precio: 0,
         expensas: 0,
-        superficieCubierta: 0,
-        superficieDescubierta: 0,
-        superficieTotal: 0,
-        ambientes: 0,
-        dormitorios: 0,
-        baños: 0,
-        garage: 0,
-        antiguedad: 0
+        superficieCubierta: '',
+        superficieDescubierta: '',
+        superficieTotal: '',
+        ambientes: '',
+        dormitorios: '',
+        baños: '',
+        garage: '',
+        antiguedad: ''
     })
     /*-------------------------------------------------------*/
 
