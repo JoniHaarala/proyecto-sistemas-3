@@ -99,7 +99,6 @@ const Sidebar = () => {
                                       <span className="capitalize">
                                         {subLink.subname}
                                       </span>
-                                      {console.log(subLink.subname)}
                                     </NavLink>
                                   </section>
                                 ))
