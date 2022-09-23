@@ -39,18 +39,18 @@ export default function AddPropiedad() {
     //Estados para tipo y operacion
     /*------------------------------------------------------*/
     const [TipoyUbicacion, setTipoyUbicacion] = useState({
-        idTipo: null,
-        idCatVenta: null,
-        idEstado: null,
-        Propietario: null
+        idTipo: '',
+        idCatVenta: '',
+        idEstado: '',
+        Propietario: ''
     })
     /*------------------------------------------------------*/
 
     //Estados para Caracteristicas
     /*-------------------------------------------------------*/
     const [Caracteristicas, setCaracteristicas] = useState({
-        precio: 0,
-        expensas: 0,
+        precio: '',
+        expensas: '',
         superficieCubierta: '',
         superficieDescubierta: '',
         superficieTotal: '',
@@ -134,70 +134,70 @@ export default function AddPropiedad() {
     const [textEditor, setTextEditor] = useState('<div>Aqui puede agregar una breve descripcion acerca de la propiedad, locacion, etc...</div>');
     /*-------------------------------------------------------*/
 
+    // Esta seccion es para guardar el fetch de los datos de operacion, tipo y estado
+    const [TipoOperacion, setTipoOperacion] = useState([])
+    const [TipoProp, setTipoProp] = useState([])
+    const [EstadoProp, setEstadoProp] = useState([])
+    const [NamePropietario, setNamePropietario] = useState([])
+    //
 
+    const getOperacion = async () => {
+        try {
+            let { data: categoria_venta, error } = await supabase
+                .from('categoria_venta')
+                .select('*')
+            if (error) throw error
+            if (categoria_venta) setTipoOperacion(categoria_venta)
+        } catch (error) {
+            console.log(error)
+        };
+    }
+    const getTipo = async () => {
+        try {
+            let { data: tipo_propiedad, error } = await supabase
+                .from('tipo_propiedad')
+                .select('*')
+            if (error) throw error
+            if (tipo_propiedad) setTipoProp(tipo_propiedad)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    const getEstado = async () => {
+        try {
+            let { data: estado_propiedad, error } = await supabase
+                .from('estado_propiedad')
+                .select('*')
+            if (error) throw error
+            if (estado_propiedad) setEstadoProp(estado_propiedad)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const getPropietario = async () => {
+        try {
+            let { data: usuario, error } = await supabase
+                .from('usuario')
+                .select('id,nameSurname')
+                .eq('idrol', 'propietario')
+            if (error) throw error
+            if (usuario) setNamePropietario(usuario)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getOperacion()
+        getTipo()
+        getEstado()
+        getPropietario()
+    }, [])
     // En esta seccion van todos los componentes de cada paso jejox
     /*------------------------------------------------------*/
 
     const TipoyOperacion = () => {
-        // Esta seccion es para guardar el fetch de los datos de operacion, tipo y estado
-        const [TipoOperacion, setTipoOperacion] = useState([])
-        const [TipoProp, setTipoProp] = useState([])
-        const [EstadoProp, setEstadoProp] = useState([])
-        const [NamePropietario, setNamePropietario] = useState([])
-        //
-        const getOperacion = async () => {
-            try {
-                let { data: categoria_venta, error } = await supabase
-                    .from('categoria_venta')
-                    .select('*')
-                if (error) throw error
-                if (categoria_venta) setTipoOperacion(categoria_venta)
-            } catch (error) {
-                console.log(error)
-            };
-        }
-        const getTipo = async () => {
-            try {
-                let { data: tipo_propiedad, error } = await supabase
-                    .from('tipo_propiedad')
-                    .select('*')
-                if (error) throw error
-                if (tipo_propiedad) setTipoProp(tipo_propiedad)
-            }
-            catch (error) {
-                console.log(error)
-            }
-        }
-        const getEstado = async () => {
-            try {
-                let { data: estado_propiedad, error } = await supabase
-                    .from('estado_propiedad')
-                    .select('*')
-                if (error) throw error
-                if (estado_propiedad) setEstadoProp(estado_propiedad)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        const getPropietario = async () => {
-            try {
-                let { data: usuario, error } = await supabase
-                    .from('usuario')
-                    .select('id,nameSurname')
-                    .eq('idrol', 'propietario')
-                if (error) throw error
-                if (usuario) setNamePropietario(usuario)
-            }
-            catch (error) {
-                console.log(error)
-            }
-        }
-        useEffect(() => {
-            getOperacion()
-            getTipo()
-            getEstado()
-            getPropietario()
-        }, [])
 
         const handleChangePaso1 = (prop) => (event) => {
             setTipoyUbicacion({ ...TipoyUbicacion, [prop]: event.target.value });
@@ -208,35 +208,31 @@ export default function AddPropiedad() {
                 <Header category="" title="Tipo de propiedad y tipo de operacion" />
                 <section className="flex flex-col gap-5 md:grid md:grid-cols-2 2xl:grid-cols-4">
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Tipo de propiedad</InputLabel>
+                        <InputLabel id="tipo-prop">Tipo de propiedad</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
+                            id="tipo-prop"
                             value={TipoyUbicacion.idTipo}
                             onChange={handleChangePaso1('idTipo')}
                             label="Tipo de propiedad"
                         >
-                            <MenuItem value=""><em>None</em></MenuItem>
-                            {TipoProp.map((value, i) => (
-                                <MenuItem key={i} value={value.tipo}>{value.tipo}</MenuItem>
+                            {TipoProp.map((value) => (
+                                <MenuItem value={value.tipo}>{value.tipo}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
 
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Tipo de operacion</InputLabel>
+                        <InputLabel id="categoria-venta">Tipo de operacion</InputLabel>
                         <Select
                             labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
+                            id="categoria-venta"
                             value={TipoyUbicacion.idCatVenta}
                             onChange={handleChangePaso1('idCatVenta')}
                             label="Tipo de operacion"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {TipoOperacion.map((value, i) => (
-                                <MenuItem key={i} value={value.operacion}>{value.operacion}</MenuItem>
+                            {TipoOperacion.map((value) => (
+                                <MenuItem value={value.operacion}>{value.operacion}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -250,11 +246,8 @@ export default function AddPropiedad() {
                             onChange={handleChangePaso1('idEstado')}
                             label="Estado de la propiedad"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {EstadoProp.map((value, i) => (
-                                <MenuItem key={i} value={value.estado}>{value.estado}</MenuItem>
+                            {EstadoProp.map((value) => (
+                                <MenuItem value={value.estado}>{value.estado}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -268,11 +261,8 @@ export default function AddPropiedad() {
                             onChange={handleChangePaso1('Propietario')}
                             label="Nombre Propietario"
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {NamePropietario.map((value, i) => (
-                                <MenuItem key={i} value={value.nameSurname}>{value.nameSurname}</MenuItem>
+                            {NamePropietario.map((value) => (
+                                <MenuItem value={value.nameSurname}>{value.nameSurname}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -285,7 +275,6 @@ export default function AddPropiedad() {
     const Catacteristics = () => {
 
         const handleChangeCaracteristicas = (prop) => (event) => {
-            event.preventDefault();
             setCaracteristicas({ ...Caracteristicas, [prop]: event.target.value });
         };
 
@@ -295,24 +284,23 @@ export default function AddPropiedad() {
 
                 <div className='flex flex-col gap-3 items-center'>
 
-
                     <h4 className="my-5 self-start">Precio y/o expensas</h4>
                     <section id='precio' className="flex flex-col xl:flex-row gap-14">
                         <FormControl fullWidth sx={{ my: 2, width: '450px' }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
+                            <InputLabel htmlFor="standard-adornment-amount">Precio</InputLabel>
                             <Input
-                                id="standard-adornment-amount"
+                                id="precio-prop"
                                 value={Caracteristicas.precio}
                                 onChange={handleChangeCaracteristicas('precio')}
-                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                startAdornment={<InputAdornment position="start">u$d </InputAdornment>}
                             />
                         </FormControl>
-                        <TextField id="standard-basic"
-                            InputProps={{ startAdornment: <InputAdornment position="start">u$d</InputAdornment>, }}
+                        <TextField id="expensas"
+                            InputProps={{ startAdornment: <InputAdornment position="start">$ </InputAdornment>, }}
                             sx={{ my: 2, width: '450px' }}
                             value={Caracteristicas.expensas}
                             onChange={handleChangeCaracteristicas('expensas')}
-                            label="Precio"
+                            label="Expensas"
                             variant="standard"
                         />
                     </section>
@@ -321,53 +309,51 @@ export default function AddPropiedad() {
                     <section id='superficie' className="flex flex-col xl:flex-row gap-8">
                         <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
                             <Input
-                                id="standard-adornment-weight"
+                                id="super-cubierta"
                                 value={Caracteristicas.superficieCubierta}
                                 onChange={handleChangeCaracteristicas('superficieCubierta')}
                                 endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
                                 aria-describedby="standard-weight-helper-text"
                                 inputProps={{
-                                    'aria-label': 'weight',
+                                    'aria-label': 'superficie Cubierta',
                                 }}
                             />
                         </FormControl>
                         <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
                             <Input
-                                id="standard-adornment-weight"
+                                id="super-descu"
                                 value={Caracteristicas.superficieDescubierta}
                                 onChange={handleChangeCaracteristicas('superficieDescubierta')}
                                 endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
-
                             />
                         </FormControl>
                         <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
                             <Input
-                                id="standard-adornment-weight"
+                                id="super-total"
                                 value={Caracteristicas.superficieTotal}
                                 onChange={handleChangeCaracteristicas('superficieTotal')}
                                 endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
-
                             />
                         </FormControl>
                     </section>
 
                     <h4 className="my-5 self-start">Ambientes, dormitorios y baños</h4>
                     <section id='habitaciones' className="flex flex-col xl:flex-row gap-8">
-                        <TextField id="standard-basic"
+                        <TextField id="habitaciones"
                             sx={{ my: 2, width: '300px' }}
                             value={Caracteristicas.dormitorios}
                             onChange={handleChangeCaracteristicas('dormitorios')}
                             label="N° de dormitorios"
                             variant="standard"
                         />
-                        <TextField id="standard-basic"
+                        <TextField id="baños"
                             sx={{ my: 2, width: '300px' }}
                             value={Caracteristicas.baños}
                             onChange={handleChangeCaracteristicas('baños')}
                             label="N° de baños"
                             variant="standard"
                         />
-                        <TextField id="standard-basic"
+                        <TextField id="ambientes"
                             sx={{ my: 2, width: '300px' }}
                             value={Caracteristicas.ambientes}
                             onChange={handleChangeCaracteristicas('ambientes')}
@@ -377,8 +363,8 @@ export default function AddPropiedad() {
                     </section>
 
                     <h4 className="my-5 self-start">Garage y antiguedad</h4>
-                    <section id='agregados' className="flex flex-col xl:flex-row gap-14">
-                        <TextField id="standard-basic"
+                    <section id='Garage' className="flex flex-col xl:flex-row gap-14">
+                        <TextField id="Garage"
                             sx={{ my: 2, width: '450px' }}
                             value={Caracteristicas.garage}
                             onChange={handleChangeCaracteristicas('garage')}
@@ -387,7 +373,7 @@ export default function AddPropiedad() {
                         />
                         <FormControl variant="standard" sx={{ pt: 2, my: 2, width: '450px' }}>
                             <Input
-                                id="standard-adornment-antiguedad"
+                                id="antiguedad"
                                 value={Caracteristicas.antiguedad}
                                 onChange={handleChangeCaracteristicas('antiguedad')}
                                 endAdornment={<InputAdornment position="end">años</InputAdornment>}
