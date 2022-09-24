@@ -5,9 +5,6 @@
 ## Authors
 
 - [@JoniHaarala](https://github.com/JoniHaarala)
-- [@FigueroaEzequiel](https://github.com/JoniHaarala)
-- [@CordobaMarcos](https://github.com/JoniHaarala)
-- [@FernandezFabrizio](https://github.com/JoniHaarala)
 
 ## Feedback
 
