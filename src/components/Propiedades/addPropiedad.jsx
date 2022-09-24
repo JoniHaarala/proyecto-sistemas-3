@@ -8,21 +8,17 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 import Header from '../Head';
+import Catacteristics from './Caracteristicas';
+import Description from './Descripcion';
+import TipoyOperacion from './Tipo&Operacion';
 import { Map } from '..';
 import { supabase } from '../../supabase/client';
 import Checkbox from '@mui/material/Checkbox';
 import SubirArchivos from '../MediaFiles';
-import { Editor } from 'primereact/editor';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -42,15 +38,15 @@ export default function AddPropiedad() {
         idTipo: '',
         idCatVenta: '',
         idEstado: '',
-        Propietario: ''
+        propietario: ''
     })
     /*------------------------------------------------------*/
 
     //Estados para Caracteristicas
     /*-------------------------------------------------------*/
     const [Caracteristicas, setCaracteristicas] = useState({
-        precio: '',
-        expensas: '',
+        precio: 0,
+        expensas: 0,
         superficieCubierta: '',
         superficieDescubierta: '',
         superficieTotal: '',
@@ -72,36 +68,8 @@ export default function AddPropiedad() {
     const [lon, setLon] = useState(-65.385018)
     /*-------------------------------------------------------*/
 
-    //Estados para multimedia
-    /*-------------------------------------------------------*/
-    /*-------------------------------------------------------*/
-
     //Estados para Comodidades
     /*-------------------------------------------------------*/
-    // const [Agua, setAgua] = useState(false)
-    // const [Luz, setLuz] = useState(false)
-    // const [Terraza, setTerraza] = useState(false)
-    // const [Cloaca, setCloaca] = useState(false)
-    // const [Telefono, setTelefono] = useState(false)
-    // const [Comercial, setComercial] = useState(false)
-    // const [Gas, setGas] = useState(false)
-    // const [Wifi, setWifi] = useState(false)
-    // const [AC, setAC] = useState(false)
-    // const [Pavimento, setPavimento] = useState(false)
-    // const [Ascensor, setAscensor] = useState(false)
-    // const [Alarma, setAlarma] = useState(false)
-    // const [Vigilancia, setVigilancia] = useState(false)
-    // const [Lavadero, setLavadero] = useState(false)
-    // const [Gimnasio, setGimnasio] = useState(false)
-    // const [Balcon, setBalcon] = useState(false)
-    // const [Living, setLiving] = useState(false)
-    // const [Cocina, setCocina] = useState(false)
-    // const [Parilla, setParilla] = useState(false)
-    // const [Mascotas, setMascotas] = useState(false)
-    // const [Piscina, setPiscina] = useState(false)
-    // const [Jardin, setJardin] = useState(false)
-    // const [Oficina, setOficina] = useState(false)
-
     const [freatures, setFreatures] = useState({
         agua: false,
         luz: false,
@@ -132,271 +100,16 @@ export default function AddPropiedad() {
     //Estado para Descipcion
     /*-------------------------------------------------------*/
     const [textEditor, setTextEditor] = useState('<div>Aqui puede agregar una breve descripcion acerca de la propiedad, locacion, etc...</div>');
-    /*-------------------------------------------------------*/
 
-    // Esta seccion es para guardar el fetch de los datos de operacion, tipo y estado
-    const [TipoOperacion, setTipoOperacion] = useState([])
-    const [TipoProp, setTipoProp] = useState([])
-    const [EstadoProp, setEstadoProp] = useState([])
-    const [NamePropietario, setNamePropietario] = useState([])
-    //
 
-    const getOperacion = async () => {
-        try {
-            let { data: categoria_venta, error } = await supabase
-                .from('categoria_venta')
-                .select('*')
-            if (error) throw error
-            if (categoria_venta) setTipoOperacion(categoria_venta)
-        } catch (error) {
-            console.log(error)
-        };
-    }
-    const getTipo = async () => {
-        try {
-            let { data: tipo_propiedad, error } = await supabase
-                .from('tipo_propiedad')
-                .select('*')
-            if (error) throw error
-            if (tipo_propiedad) setTipoProp(tipo_propiedad)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    const getEstado = async () => {
-        try {
-            let { data: estado_propiedad, error } = await supabase
-                .from('estado_propiedad')
-                .select('*')
-            if (error) throw error
-            if (estado_propiedad) setEstadoProp(estado_propiedad)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const getPropietario = async () => {
-        try {
-            let { data: usuario, error } = await supabase
-                .from('usuario')
-                .select('id,nameSurname')
-                .eq('idrol', 'propietario')
-            if (error) throw error
-            if (usuario) setNamePropietario(usuario)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    useEffect(() => {
-        getOperacion()
-        getTipo()
-        getEstado()
-        getPropietario()
-    }, [])
-    // En esta seccion van todos los componentes de cada paso jejox
     /*------------------------------------------------------*/
-
-    const TipoyOperacion = () => {
-
-        const handleChangePaso1 = (prop) => (event) => {
-            setTipoyUbicacion({ ...TipoyUbicacion, [prop]: event.target.value });
-        };
-
-        return (
-            <div className='px-2 ml-8 mt-20'>
-                <Header category="" title="Tipo de propiedad y tipo de operacion" />
-                <section className="flex flex-col gap-5 md:grid md:grid-cols-2 2xl:grid-cols-4">
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="tipo-prop">Tipo de propiedad</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="tipo-prop"
-                            value={TipoyUbicacion.idTipo}
-                            onChange={handleChangePaso1('idTipo')}
-                            label="Tipo de propiedad"
-                        >
-                            {TipoProp.map((value) => (
-                                <MenuItem value={value.tipo}>{value.tipo}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="categoria-venta">Tipo de operacion</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="categoria-venta"
-                            value={TipoyUbicacion.idCatVenta}
-                            onChange={handleChangePaso1('idCatVenta')}
-                            label="Tipo de operacion"
-                        >
-                            {TipoOperacion.map((value) => (
-                                <MenuItem value={value.operacion}>{value.operacion}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Estado de la propiedad</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={TipoyUbicacion.idEstado}
-                            onChange={handleChangePaso1('idEstado')}
-                            label="Estado de la propiedad"
-                        >
-                            {EstadoProp.map((value) => (
-                                <MenuItem value={value.estado}>{value.estado}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 250 }}>
-                        <InputLabel id="demo-simple-select-standard-label">Nombre del Propietario</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
-                            value={TipoyUbicacion.Propietario}
-                            onChange={handleChangePaso1('Propietario')}
-                            label="Nombre Propietario"
-                        >
-                            {NamePropietario.map((value) => (
-                                <MenuItem value={value.nameSurname}>{value.nameSurname}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </section>
-            </div>
-        )
-    }
-    // fin para modulo tipo y propietario
-
-    const Catacteristics = () => {
-
-        const handleChangeCaracteristicas = (prop) => (event) => {
-            setCaracteristicas({ ...Caracteristicas, [prop]: event.target.value });
-        };
-
-        return (
-            <div className='px-2 ml-8 mt-20'>
-                <Header category="" title="Caracteristicas" />
-
-                <div className='flex flex-col gap-3 items-center'>
-
-                    <h4 className="my-5 self-start">Precio y/o expensas</h4>
-                    <section id='precio' className="flex flex-col xl:flex-row gap-14">
-                        <FormControl fullWidth sx={{ my: 2, width: '450px' }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-amount">Precio</InputLabel>
-                            <Input
-                                id="precio-prop"
-                                value={Caracteristicas.precio}
-                                onChange={handleChangeCaracteristicas('precio')}
-                                startAdornment={<InputAdornment position="start">u$d </InputAdornment>}
-                            />
-                        </FormControl>
-                        <TextField id="expensas"
-                            InputProps={{ startAdornment: <InputAdornment position="start">$ </InputAdornment>, }}
-                            sx={{ my: 2, width: '450px' }}
-                            value={Caracteristicas.expensas}
-                            onChange={handleChangeCaracteristicas('expensas')}
-                            label="Expensas"
-                            variant="standard"
-                        />
-                    </section>
-
-                    <h4 className="my-5 self-start">Superficie de la propiedad</h4>
-                    <section id='superficie' className="flex flex-col xl:flex-row gap-8">
-                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
-                            <Input
-                                id="super-cubierta"
-                                value={Caracteristicas.superficieCubierta}
-                                onChange={handleChangeCaracteristicas('superficieCubierta')}
-                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
-                                aria-describedby="standard-weight-helper-text"
-                                inputProps={{
-                                    'aria-label': 'superficie Cubierta',
-                                }}
-                            />
-                        </FormControl>
-                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
-                            <Input
-                                id="super-descu"
-                                value={Caracteristicas.superficieDescubierta}
-                                onChange={handleChangeCaracteristicas('superficieDescubierta')}
-                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
-                            />
-                        </FormControl>
-                        <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
-                            <Input
-                                id="super-total"
-                                value={Caracteristicas.superficieTotal}
-                                onChange={handleChangeCaracteristicas('superficieTotal')}
-                                endAdornment={<InputAdornment position="end"> m²</InputAdornment>}
-                            />
-                        </FormControl>
-                    </section>
-
-                    <h4 className="my-5 self-start">Ambientes, dormitorios y baños</h4>
-                    <section id='habitaciones' className="flex flex-col xl:flex-row gap-8">
-                        <TextField id="habitaciones"
-                            sx={{ my: 2, width: '300px' }}
-                            value={Caracteristicas.dormitorios}
-                            onChange={handleChangeCaracteristicas('dormitorios')}
-                            label="N° de dormitorios"
-                            variant="standard"
-                        />
-                        <TextField id="baños"
-                            sx={{ my: 2, width: '300px' }}
-                            value={Caracteristicas.baños}
-                            onChange={handleChangeCaracteristicas('baños')}
-                            label="N° de baños"
-                            variant="standard"
-                        />
-                        <TextField id="ambientes"
-                            sx={{ my: 2, width: '300px' }}
-                            value={Caracteristicas.ambientes}
-                            onChange={handleChangeCaracteristicas('ambientes')}
-                            label="N° de ambientes"
-                            variant="standard"
-                        />
-                    </section>
-
-                    <h4 className="my-5 self-start">Garage y antiguedad</h4>
-                    <section id='Garage' className="flex flex-col xl:flex-row gap-14">
-                        <TextField id="Garage"
-                            sx={{ my: 2, width: '450px' }}
-                            value={Caracteristicas.garage}
-                            onChange={handleChangeCaracteristicas('garage')}
-                            label="Garage"
-                            variant="standard"
-                        />
-                        <FormControl variant="standard" sx={{ pt: 2, my: 2, width: '450px' }}>
-                            <Input
-                                id="antiguedad"
-                                value={Caracteristicas.antiguedad}
-                                onChange={handleChangeCaracteristicas('antiguedad')}
-                                endAdornment={<InputAdornment position="end">años</InputAdornment>}
-                            />
-                        </FormControl>
-                    </section>
-                </div>
-            </div>
-        )
-    }
-    //fin de modulo caracteristicas
     const Ubication = () => {
-        // url buena alternativa para buscar localidades: https://nominatim.openstreetmap.org/search?q={ nombre de la localidad separada con +; por ej:coronel+moldes }&format=json
+        // url buena alternativa para buscar localidades: https://nominatim.openstreetmap.org/search?q={nombre de la localidad separada con +; por ej:coronel+moldes}&format=json
         const [WordEntered, setWordEntered] = useState('')
         const [locations, setLocations] = useState([])
         const [SelectLocation, setSelectLocation] = useState([])
 
         const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
-
-        useEffect(() => {
-            handleSelection()
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [])
 
         const handleSelection = async e => {
             e.preventDefault()
@@ -425,6 +138,11 @@ export default function AddPropiedad() {
             setCiudad(SelectLocation[0].address.state)
             setDireccion(SelectLocation[0].display_name)
         }
+
+        useEffect(() => {
+            handleSelection()
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
 
         const clearInput = () => {
             setLocations([]);
@@ -482,14 +200,12 @@ export default function AddPropiedad() {
                             {locations.length !== 0 && (
                                 <div className="h-40 w-[500px] overflow-hidden overflow-y-auto overflow-x-auto">
                                     {locations.slice(0, 15).map((value) =>
-
                                         <option className="text-sm hover:bg-gray-300 hover:cursor-pointer"
                                             value={value.display_name}
                                             onClick={handleSelection}
                                         >
                                             {value.display_name}
                                         </option>
-
                                     )}
                                 </div>
                             )}
@@ -707,20 +423,6 @@ export default function AddPropiedad() {
         )
     };
     //fin ventana caracteristicas
-
-    const Description = () => {
-
-        return (
-            <div className='px-2 ml-8 mt-20'>
-                <Header category="" title="Descripcion" />
-                <div className="card">
-
-                    <Editor style={{ height: '320px' }} value={textEditor} onTextChange={(e) => setTextEditor(e.htmlValue)} />
-
-                </div>
-            </div>
-        );
-    }
     /*------------------------------------------------------*/
 
     const isStepOptional = (step) => {
@@ -775,7 +477,7 @@ export default function AddPropiedad() {
             ...freatures,
             descripcion: textEditor
         }
-        console.log(propiedadData);
+        //console.log(propiedadData);
         try {
             // esta seccion guarda en la base de datos los datos de la propiedad
             const { error } = await supabase
@@ -785,7 +487,7 @@ export default function AddPropiedad() {
                 ]);
 
             if (error) throw error
-            else console.log("guardado con exito")
+            //else console.log("guardado con exito")
 
         } catch (error) {
             console.error(error);
@@ -829,9 +531,9 @@ export default function AddPropiedad() {
                 ) : (
                     <React.Fragment>
                         {/* NOTA: {condicion && resultado} solo se ejecuta si la condicion "activeStep" es true // mejores practicas para el operador ternario {(condicion)?<TAG/>:<></>} */}
-                        {activeStep === 0 && <TipoyOperacion />}
+                        {activeStep === 0 && <TipoyOperacion tipoyOperacion={TipoyUbicacion} setTipoyOperacion={setTipoyUbicacion} />}
 
-                        {activeStep === 1 && <Catacteristics />}
+                        {activeStep === 1 && <Catacteristics caracteristicas={Caracteristicas} setCaracteristicas={setCaracteristicas} />}
 
                         {activeStep === 2 && <Ubication />}
 
@@ -839,7 +541,7 @@ export default function AddPropiedad() {
 
                         {activeStep === 4 && <Propertys />}
 
-                        {activeStep === 5 && <Description />}
+                        {activeStep === 5 && <Description editor={textEditor} setEditor={setTextEditor} />}
 
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Button
