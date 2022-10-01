@@ -493,7 +493,7 @@ export default function AddPropiedad() {
             console.error(error);
         }
         setActiveStep(0);
-        navigate('/')
+        navigate('/listarPropiedad')
     };
 
     return (

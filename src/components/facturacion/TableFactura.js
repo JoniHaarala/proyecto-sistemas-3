@@ -5,17 +5,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { facturaColumn } from '../../data/configData';
 
 function TableFactura({ data }) {
-  // const gridFacturaStatus = (props) => (
-  //   <button
-  //     type="button"
-  //     style={{ background: props.colorEstado }}
-  //     className="text-white py-1 px-2 capitalize rounded-2xl text-md"
-  //   >
-  //     {props.estado}
-  //   </button>
-  // );
-
-  // const editing = { allowDeleting: true, allowEditing: false };
   
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
@@ -29,7 +18,6 @@ function TableFactura({ data }) {
           columns={facturaColumn}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
           disableSelectionOnClick
           loading={data.length !== 0 ? false : true}
           experimentalFeatures={{ newEditingApi: true }}

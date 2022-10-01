@@ -46,7 +46,8 @@ function App() {
   }, [navigate])
 
   return (
-    (supabase.auth.user())
+    // recordar cambiar la negacion de la condicion de !supabase.auth.user() por supabase.auth.user() para volver a la normalidad
+    (!supabase.auth.user())
       ?
       (
         <div className={currentMode === 'Dark' ? 'dark' : ''}>

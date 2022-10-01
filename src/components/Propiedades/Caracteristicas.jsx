@@ -31,7 +31,7 @@ const Catacteristics = ({ caracteristicas, setCaracteristicas }) => {
 
             <div className='flex flex-col gap-3 items-center'>
 
-                <h4 className="my-5 self-start">Precio y/o expensas</h4>
+                <h4 className="mt-5 pl-64 self-start">Precio y/o expensas</h4>
                 <section id='precio' className="flex flex-col xl:flex-row gap-14">
                     <FormControl fullWidth sx={{ my: 2, width: '450px' }} variant="standard">
                         <InputLabel htmlFor="standard-adornment-amount">Precio</InputLabel>
@@ -52,7 +52,7 @@ const Catacteristics = ({ caracteristicas, setCaracteristicas }) => {
                     />
                 </section>
 
-                <h4 className="my-5 self-start">Superficie de la propiedad</h4>
+                <h4 className="mt-14 pl-64 self-start">Superficie de la propiedad</h4>
                 <section id='superficie' className="flex flex-col xl:flex-row gap-8">
                     <FormControl variant="standard" sx={{ my: 2, width: '300px' }}>
                         <InputLabel htmlFor="standard-superficieCubierta">superficie Cubierta</InputLabel>
@@ -88,7 +88,7 @@ const Catacteristics = ({ caracteristicas, setCaracteristicas }) => {
                     </FormControl>
                 </section>
 
-                <h4 className="my-5 self-start">Ambientes, dormitorios y baños</h4>
+                <h4 className="mt-14 pl-64 self-start">Ambientes, dormitorios y baños</h4>
                 <section id='habitaciones' className="flex flex-col xl:flex-row gap-8">
                     <TextField id="habitaciones"
                         sx={{ my: 2, width: '300px' }}
@@ -116,7 +116,7 @@ const Catacteristics = ({ caracteristicas, setCaracteristicas }) => {
                     />
                 </section>
 
-                <h4 className="my-5 self-start">Garage y antiguedad</h4>
+                <h4 className="mt-14 pl-64 self-start">Garage y antiguedad</h4>
                 <section id='Garage' className="flex flex-col xl:flex-row gap-14">
                     <TextField id="Garage"
                         sx={{ my: 2, width: '450px' }}

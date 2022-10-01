@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import {FormEditFactura} from '../../components'
+import { EditFactura } from '../../components'
 import Header from '../../components/Head'
 
 export default function EditFact() {
@@ -24,7 +24,7 @@ export default function EditFact() {
   }
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
-      <Header category="facturas" title="Editar factura"/>
+      <Header category="facturas" title="Editar factura" />
 
       <label>
         Seleccione una factura:
@@ -39,11 +39,11 @@ export default function EditFact() {
           ))}
         </select>
       </label>
-      <input type="button" value='Buscar' onClick={handleIdSearch}/>
+      <input type="button" value='Buscar' onClick={handleIdSearch} />
       {
         idSearch !== 0
           ?
-          <FormEditFactura idFactura={idSearch} />
+          <EditFactura idFactura={idSearch} />
           :
           <></>
       }

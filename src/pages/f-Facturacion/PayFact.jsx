@@ -12,18 +12,18 @@ function PayFact() {
   const [FacPend, setFacPend] = useState([])
   const [BankData, setBankData] = useState([])
   const [CuentasData, setCuentasData] = useState([])
-  
-  useEffect(()=>{
-    fetch('https://www.inmoapi.somee.com/api/Banco/ListarBancos')
-    .then((res) => res.json())
-    .then((data) => { setBankData(data.bancos) })
-  },[])
 
-  useEffect(()=>{
+  useEffect(() => {
+    fetch('https://www.inmoapi.somee.com/api/Banco/ListarBancos')
+      .then((res) => res.json())
+      .then((data) => { setBankData(data.bancos) })
+  }, [])
+
+  useEffect(() => {
     fetch('https://www.inmoapi.somee.com/api/Banco/ListarCuentas')
-    .then((res) => res.json())
-    .then((data) => { setCuentasData(data.cuentas) })
-  },[])
+      .then((res) => res.json())
+      .then((data) => { setCuentasData(data.cuentas) })
+  }, [])
 
   useEffect(() => {
     fetch('https://www.inmoapi.somee.com/api/Factura/ListarFacturas')
@@ -33,7 +33,6 @@ function PayFact() {
   }, [])
   // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
   /* A way to get the value of an uncontrolled input field in React: */
-
   // Initialize a ref using the useRef hook.
   // Set the ref prop on the input field.
   // Access the value of the input field as ref.current.value
@@ -41,11 +40,11 @@ function PayFact() {
   const inputCbuRef = useRef(undefined);
   const inputTotalRef = useRef(undefined);
 
-  // const idFacPend = facturaData.filter((item) => item.estado === "pendiente")
   // los estados iniciales de todas las variables
 
   /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
+  const [Proveedor, setProveedor] = useState([])
 
   //ids para manejar los datos
   const [idFact, setIdFact] = useState(0)
@@ -58,7 +57,6 @@ function PayFact() {
   // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
 
-
   // todas las funciones tipo handle que cambian de estado y el submit
   /**
    * When the user clicks the close button, the modal will close.
@@ -66,22 +64,11 @@ function PayFact() {
   const handleClose = () => {
     setOpen(false)
   };
-
-  /**
-   * When the user clicks on the button, the state of the button will change from open to closed or
-   * closed to open.
-   */
   const handleToggle = () => {
     setOpen(!Open)
   };
 
-  /**
-   * If the value of the event target is not equal to zero, then filter the facturaData array and
-   * return the item where the id is equal to the event target value. 
-   * 
-   * If the value of the event target is equal to zero, then set the dataFactura state to an array with
-   * one element, 'proveedor'.
-   */
+
   const handleChangeFactura = (event) => {
     event.preventDefault();
     setIdFact(event.target.value);
@@ -94,6 +81,12 @@ function PayFact() {
       setdataFactura(['proveedor'])
     }
   }
+
+  const handleChangeProveedor = (event) => {
+    event.preventDefault();
+    setProveedor(event.target.value);
+  }
+
   const handleChangeBanco = (event) => {
     event.preventDefault();
     setidBanco(event.target.value);
@@ -166,7 +159,21 @@ function PayFact() {
 
       {/* The above code is a form that is used to pay a bill. */}
       <form onSubmit={handleSubmit} className="bg-gray-100 mt-5 py-5 pl-10 flex flex-col gap-5 rounded-lg">
-
+        <section className="flex flex-col py-3">
+          <label className="pb-4">
+            Proveedor:
+          </label>
+          <select
+            value={Proveedor}
+            onChange={handleChangeProveedor}
+            className="p-4 mr-10 rounded-lg shadow-md"
+          >
+            <option value={0}>Seleccione el proveedor</option>
+            {FacPend.map((item) => (
+              <option value={item.id}>{item.id}</option>
+            ))}
+          </select>
+        </section>
         {/* Creating a dropdown menu with the id of the invoices that are pending. */}
         <section className="flex flex-col py-3">
           <label className="pb-4">
@@ -185,36 +192,6 @@ function PayFact() {
         </section>
 
         {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
-
-        <section className="flex flex-col py-3">
-          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show supplier Name */}
-          <label className="pb-4">
-            Proveedor:
-          </label>
-          {
-            idFact == 0
-              ?
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Proveedor"
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-              :
-              dataFactura.map((item) => (
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder='Proveedor'
-                  readOnly
-                  value={item.proveedor}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              ))
-          }
-        </section>
 
         <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the data from the bancoData array. */}
