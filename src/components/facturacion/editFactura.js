@@ -12,7 +12,7 @@ export default function EditFactura({ idFactura }) {
   const [idProveedor, setIdProveedor] = useState(0)
   const [value2, setValue2] = useState(null);
 
-
+  console.log(idFactura)
 
   useEffect(() => {
     fetch(`https://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura}`)
