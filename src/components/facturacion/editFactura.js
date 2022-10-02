@@ -5,18 +5,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
-export default function FormEditFactura(idFactura) {
+export default function FormEditFactura({ idFactura }) {
 
   const [datos, setDatos] = useState([])
   const [proveedor, setProveedor] = useState([])
   const [idProveedor, setIdProveedor] = useState(0)
   const [value2, setValue2] = useState(null);
 
+
+
   useEffect(() => {
-    fetch(`https://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura.idFactura}`)
+    fetch(`https://www.inmoapi.somee.com/api/Factura/ObtenerPorId/${idFactura}`)
       .then((set) => set.json())
       .then((res) => { setDatos([res.factura]) });
-  }, [idFactura.idFactura])
+  }, [idFactura])
 
   useEffect(() => {
     fetch('https://www.inmoapi.somee.com/api/Proveedor/ListarProveedor')
@@ -24,7 +26,7 @@ export default function FormEditFactura(idFactura) {
       .then((res) => { setProveedor(res.proveedores) });
   }, [])
 
-  console.log(proveedor)
+  console.log(idFactura)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -33,22 +35,22 @@ export default function FormEditFactura(idFactura) {
     }
     setDatos(data)
 
-    try {
-      let config = {
-        method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datos)
-      }
-      let res = await fetch('https://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
-      let json = await res.json()
-      console.log(json)
-    }
-    catch (error) {
-      console.error(error)
-    }
+    // try {
+    //   let config = {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(datos)
+    //   }
+    //   let res = await fetch('https://www.inmoapi.somee.com/api/Factura/GuardarFactura', config)
+    //   let json = await res.json()
+    //   console.log(json)
+    // }
+    // catch (error) {
+    //   console.error(error)
+    // }
   }
 
   return (
