@@ -23,15 +23,11 @@ export { default as Account } from './Usuarios/UserProfile'
 export { default as UserInfo } from './Usuarios/UserInfo'
 export { default as Employee } from './Usuarios/Employee'
 //proveedor
-export { default as TablaProveedor } from './Proveedores/TablaProveedor'
 export { default as FormAddProveedor } from './Proveedores/addProveedor'
 //factura
-export { default as TableFactura } from './facturacion/TableFactura'
 export { default as CreateFactura } from './facturacion/createFactura'
 export { default as EditFactura } from './facturacion/EditFactura'
 export { default as DeleteFactura } from './facturacion/DeleteFactura'
-//pagos
-export { default as TablaPagos } from './Tesoreria/tablaPagos'
 //propiedades
 export { default as TablePropiedades } from './Propiedades/TablePropiedades'
 export { default as PropActions } from './Propiedades/PropActions'
