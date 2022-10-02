@@ -106,7 +106,7 @@ function App() {
                   {/* Facturacion */}
                   <Route path='/Facturas' element={<Home />} />
                   <Route path="/listarFacturas" element={<Facturation />} />
-                  <Route path='/editarFactura' element={<EditFact />} />
+                  <Route path='/editarFactura/:factid' element={<EditFact />} />
                   {/* <Route path='/borrarFactura' element={<DelFact />} /> */}
                   <Route path='/pagarFactura' element={<PayFact />} />
                   <Route path='/registrarFactura' element={<CreateFact />} />
