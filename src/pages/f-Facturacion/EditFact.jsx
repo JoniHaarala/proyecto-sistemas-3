@@ -1,5 +1,5 @@
 import { React } from 'react'
-import { EditFactura } from '../../components'
+import EditFactura from '../../components/facturacion/EditFactura'
 import Header from '../../components/Head'
 import { useParams } from 'react-router-dom'
 

@@ -55,8 +55,7 @@ export default function EditFactura({ idFactura }) {
 
   return (
     <>
-
-      <form onSubmit={''} className="bg-gray-100 flex flex-col gap-3 mt-5 py-5 pl-3 rounded-lg">
+      <form className="bg-gray-100 flex flex-col gap-3 mt-5 py-5 pl-3 rounded-lg">
         {
           datos.map((item) => (
             <>
