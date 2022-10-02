@@ -26,7 +26,7 @@ export { default as Employee } from './Usuarios/Employee'
 export { default as FormAddProveedor } from './Proveedores/addProveedor'
 //factura
 export { default as CreateFactura } from './facturacion/createFactura'
-export { default as EditFactura } from './facturacion/EditFactura'
+export { default as EditFactura } from './facturacion/editFactura'
 export { default as DeleteFactura } from './facturacion/DeleteFactura'
 //propiedades
 export { default as TablePropiedades } from './Propiedades/TablePropiedades'

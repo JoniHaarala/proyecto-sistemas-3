@@ -5,6 +5,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { supabase } from '../../supabase/client'
 
 
 function PayFact() {
@@ -12,25 +13,26 @@ function PayFact() {
   const [FacPend, setFacPend] = useState([])
   const [BankData, setBankData] = useState([])
   const [CuentasData, setCuentasData] = useState([])
+  const [ProvData, setProvData] = useState([])
+
+  const getProveedor = async () => {
+    try {
+      let { data: proveedor, error } = await supabase
+        .from('proveedor')
+        .select('nombre')
+
+      if (error) throw error
+      if (proveedor) setProvData(proveedor)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    fetch('https://www.inmoapi.somee.com/api/Banco/ListarBancos')
-      .then((res) => res.json())
-      .then((data) => { setBankData(data.bancos) })
+    getProveedor()
   }, [])
 
-  useEffect(() => {
-    fetch('https://www.inmoapi.somee.com/api/Banco/ListarCuentas')
-      .then((res) => res.json())
-      .then((data) => { setCuentasData(data.cuentas) })
-  }, [])
-
-  useEffect(() => {
-    fetch('https://www.inmoapi.somee.com/api/Factura/ListarFacturas')
-      .then((res) => res.json())
-      .then((data) => { setFacPend(data.facturas.filter((item) => item.estado === "pendiente")) })
-
-  }, [])
   // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
   /* A way to get the value of an uncontrolled input field in React: */
   // Initialize a ref using the useRef hook.
@@ -44,7 +46,7 @@ function PayFact() {
 
   /* Setting the state of the component. */
   const [dataFactura, setdataFactura] = useState(['proveedor'])
-  const [Proveedor, setProveedor] = useState([])
+  const [Proveedor, setProveedor] = useState('')
 
   //ids para manejar los datos
   const [idFact, setIdFact] = useState(0)
@@ -120,30 +122,28 @@ function PayFact() {
     event.preventDefault();
     const datosPagos =
     {
-
       importe: inputTotalRef.current.value,
       idTipoPago: pago,
       idcuenta: inputCuentaRef.current.value,
       idFactura: idFact
-
     }
-    // alert(JSON.stringify(datosPagos))
-    try {
-      let config = {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datosPagos)
-      }
-      let res = await fetch('https://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
-      let json = await res.json()
-      console.log(json)
-    }
-    catch (error) {
-      console.error(error)
-    }
+    
+    // try {
+    //   let config = {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(datosPagos)
+    //   }
+    //   let res = await fetch('https://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
+    //   let json = await res.json()
+    //   console.log(json)
+    // }
+    // catch (error) {
+    //   console.error(error)
+    // }
   }
 
 
@@ -169,11 +169,12 @@ function PayFact() {
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione el proveedor</option>
-            {FacPend.map((item) => (
+            {ProvData.map((item) => (
               <option value={item.id}>{item.id}</option>
             ))}
           </select>
         </section>
+
         {/* Creating a dropdown menu with the id of the invoices that are pending. */}
         <section className="flex flex-col py-3">
           <label className="pb-4">
@@ -191,8 +192,42 @@ function PayFact() {
           </select>
         </section>
 
-        {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
+        <div id="datos de la factura" className='grid'>
+          <section className="flex flex-col py-3">
+            <label className="pb-4">
+              Importe total:
+            </label>
+            {
+              idFact == 0
+                ?
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  value={txtCBU}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+                :
+                FacPend.filter(item => item.id == idFact).map((item2) => (
+                  <input
+                    ref={inputTotalRef}
+                    type="text"
+                    name=""
+                    id=""
+                    maxLength={22}
+                    placeholder="Importe"
+                    value={item2.total}
+                    readOnly
+                    className='p-4 mr-10 rounded-lg shadow-md'
+                  />
+                ))
+            }
 
+          </section>
+        </div>
+
+        {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
         <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the data from the bancoData array. */}
           <label className="pb-4">
@@ -284,43 +319,9 @@ function PayFact() {
         }
 
         <section className="flex flex-col py-3">
-          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the total bill amount */}
-          <label className="pb-4">
-            Importe total:
-          </label>
-          {
-            idFact == 0
-              ?
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Importe"
-                readOnly
-                value={txtCBU}
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-              :
-              FacPend.filter(item => item.id == idFact).map((item2) => (
-                <input
-                  ref={inputTotalRef}
-                  type="text"
-                  name=""
-                  id=""
-                  maxLength={22}
-                  placeholder="Importe"
-                  value={item2.total}
-                  readOnly
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              ))
-          }
-
-        </section>
-
-        <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the CBU */}
           <label className="pb-4">
-            Ingrese el CBU:
+            CBU:
           </label>
           {
             idBanco == 0
