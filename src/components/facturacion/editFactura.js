@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
-export default function FormEditFactura({ idFactura }) {
+export default function EditFactura({ idFactura }) {
 
   const [datos, setDatos] = useState([])
   const [proveedor, setProveedor] = useState([])
