@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Tooltip } from '@mui/material';
 import { supabase } from '../../supabase/client';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import Stack from '@mui/material/Stack';
+
+import DeleteFactura from './DeleteFactura';
 
 const style = {
     position: 'absolute',
@@ -25,23 +29,53 @@ const style = {
 
 export default function PropFactActions({ params }) {
 
-    console.log(params.id)
-
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [detalleFactura, setDetalleFactura] = useState([])
+
+    const getDetalleFactura = async () => {
+        try {
+
+            let { data: detalle_factura, error } = await supabase
+                .from('detalle_factura')
+                .select('*')
+                .eq('idfactura', `${params.id}`)
+            if (error) throw error;
+            if (detalle_factura) setDetalleFactura(detalle_factura);
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getDetalleFactura()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const handleEdit = () => {
+        navigate(`/editarFactura/${params.id}`)
+    }
 
     return (
         <div>
-            <Tooltip title="Detalles" arrow>
-                <Button onClick={handleOpen}>
-                    <VisibilityIcon />
-                </Button>
-            </Tooltip>
+            <Stack direction="row" spacing={1}>
+                <Tooltip title="Detalles" arrow>
+                    <IconButton onClick={handleOpen} color="primary">
+                        <VisibilityIcon />
+                    </IconButton>
+                </Tooltip>
 
-            <Tooltip title="Editar" arrow>            
-                <Link to={`/editarFactura/${params.id}`} ><EditIcon /></Link>
-            </Tooltip>
+                <Tooltip title="Editar" arrow>
+                    <IconButton onClick={handleEdit} color="success">
+                        <EditIcon />
+                    </IconButton>
+                </Tooltip>
+
+                <DeleteFactura params={params}/>
+            </Stack>
 
             <Modal
                 open={open}
@@ -51,11 +85,18 @@ export default function PropFactActions({ params }) {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Detalles de la Propiedad
+                        {`Detalles de la factura ${params.id}`}
                     </Typography>
-                    <p>{params.id}</p>
+
+                    <DataTable value={detalleFactura} responsiveLayout="scroll">
+                        <Column field="descripcion" header="Concepto"></Column>
+                        <Column field="cantidad" header="Cantidad"></Column>
+                        <Column field="precio" header="Precio unitario"></Column>
+                        <Column field="subtotal" header="Subtotal"></Column>
+                    </DataTable>
                 </Box>
             </Modal>
         </div>
     )
 }
+

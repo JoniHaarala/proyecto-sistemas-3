@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -8,46 +9,54 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Tooltip } from '@mui/material';
 import { supabase } from '../../supabase/client';
+import { useNavigate } from 'react-router-dom';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  heigth: '90%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 export default function DeleteFactura({ params }) {
 
-  const [PropData, setPropData] = useState([])
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const fetchEstates = async () => {
-    let { data: propiedad, error } = await supabase
-      .from('propiedad')
-      .select("*")
-      .eq('id', params.id)
-    if (error) console.log("error", error);
-    else setPropData(propiedad);
+  const handleDeletefactura = async () => {
+    try {
+      const { error } = await supabase
+        .from('detalle_factura')
+        .delete()
+        .eq('idfactura', `${params.id}`)
+
+      if (error) throw error;
+    }
+    catch (error) {
+      console.log(error)
+    }
+    try {
+      const { error } = await supabase
+        .from('factura')
+        .delete()
+        .eq('id', `${params.id}`)
+
+      if (error) throw error;
+    }
+    catch (error) {
+      console.log(error)
+    }
+    setOpen(false);
+    navigate('/listarFacturas')
   }
+
   useEffect(() => {
-    fetchEstates()
+    handleDeletefactura()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div>
-      <Tooltip title="Detalles" arrow>
-        <Button onClick={handleClickOpen}>
+      <Tooltip title="Eliminar" arrow>
+        <IconButton onClick={handleClickOpen} color="error">
           <DeleteIcon />
-        </Button>
+        </IconButton>
       </Tooltip>
 
       <Dialog
@@ -57,19 +66,16 @@ export default function DeleteFactura({ params }) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {`Seguro que desea eliminar la factura ${params.id}?`}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Tenga en cuenta que esta accion sera irreversible prro
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
-            Eliminar
-          </Button>
+          <Button onClick={handleDeletefactura} autoFocus>Eliminar</Button>
         </DialogActions>
       </Dialog>
     </div>

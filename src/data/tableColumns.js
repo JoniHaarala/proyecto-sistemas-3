@@ -3,39 +3,57 @@ import PropFactActions from '../components/facturacion/PropFactActions'
 export const facturaColumn = [
     {
         field: 'id',
-        headerName: 'Id factura',
-        width: '100',
+        headerName: 'ID fACTURA',
+        width: 150,
         align: "Center"
     },
     {
         field: 'proveedor',
-        headerName: 'Nombre de proveedor',
-        width: 250,
+        headerName: 'NOMBRE PROVEEDOR',
+        width: 300,
+    },
+    {
+        field: 'estado',
+        headerName: 'ESTADO',
+        width: 150,
+
+    },
+    {
+        field: 'tipo',
+        headerName: 'TIPO',
+        width: 100,
+    },
+    {
+        field: 'sucursal',
+        headerName: 'SUCURSAL',
+        width: 100,
+    },
+
+    {
+        field: 'fechaRegistro',
+        headerName: 'FECHA DE REGISTRO',
+        width: '180',
     },
     {
         field: 'fechaVencimiento',
-        headerName: 'fecha vencimiento',
+        headerName: 'FECHA DE VENCIMIENTO',
         width: 250,
     },
     {
         field: 'total',
-        headerName: 'Monto total',
-        width: '150',
+        headerName: 'TOTAL FACTURA',
+        width: 150,
     },
     {
-        field: 'estado',
-        headerName: 'Estado',
-        width: '150',
+        field: 'saldo',
+        headerName: 'SALDO',
+        width: 150,
 
-    },
-    {
-        field: 'fechaFactura',
-        headerName: 'Fecha factura',
-        width: '180',
     },
     {
         field: 'actions',
         headerName: 'ACCIONES',
+        width: 150,
         type: 'actions',
         renderCell: (params) => (
             <PropFactActions {...{ params }} />
