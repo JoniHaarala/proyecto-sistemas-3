@@ -1,7 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { supabase } from '../../supabase/client'
 
 export default function SignUp() {
+    const [loading, setLoading] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
+    const handleSignUp = async (e) => {
+        e.preventDefault()
+        try {
+            setLoading(true)
+            const { user, session, error } = await supabase.auth.signUp({
+                email: `${email}`,
+                password: `${password}`,
+              })
+            console.log(user)
+            alert('Check your email for the login link!')
+
+        }
+        catch (error) {
+            alert(error.error_description || error.message)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+    useEffect(() => {
+        if (supabase.auth.user()) {
+            navigate('/login')
+        }
+    }, [navigate])
     return (
         <div>
             <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
