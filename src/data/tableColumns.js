@@ -64,50 +64,51 @@ export const facturaColumn = [
 export const pagosColumn = [
     {
         field: 'id',
-        headerName: 'Id pago',
+        headerName: 'N° DE PAGO',
         textAlign: 'Center',
         width: '100',
     },
     {
-        field: 'idFactura',
-        headerName: 'id factura pagada',
-        width: '150',
+        field: 'idfactura',
+        headerName: 'ID FACTURA PAGADA',
+        width: '180',
     },
     {
-        field: 'importe',
-        headerName: 'importe',
-        width: '120',
-    },
-    {
-        field: 'aprobado',
-        headerName: 'Aprobado',
-        width: '100',
-    },
-    {
-        field: 'fechaPago',
-        headerName: 'Fecha de pago',
-        width: '150',
-        textAlign: 'Center',
-    },
-    {
-        field: 'nombreBanco',
-        headerName: 'Nombre de banco',
+        field: 'proveedor',
+        headerName: 'PROVEEDOR',
         width: '300',
     },
     {
-        field: 'numCuenta',
-        headerName: 'numero de cuenta',
-        width: '200',     
+        field: 'importe',
+        headerName: 'IMPORTE',
+        width: '120',
     },
     {
-        field: 'cbu',
+        field: 'fechaPago',
+        headerName: 'FECHA DE PAGO',
+        width: '200',
+        textAlign: 'Center',
+    },
+    {
+        field: 'banco',
+        headerName: 'NOMBRE DEL BANCO',
+        width: '250',
+    },
+    {
+        field: 'cuenta',
         headerName: 'CBU',
-        width: '250',       
+        width: '250',
     },
     {
         field: 'tipoPago',
-        headerName: 'tipo de pago',
-        width: '250',       
+        headerName: 'FORMA DE PAGO',
+        width: '250',
+    },
+    {
+        field: 'aprobado',
+        headerName: 'APROBADO',
+        width: '100',
+        renderCell: (params) => (params.aprobado === true ? "NO" : "SI")
     },
 ];
 

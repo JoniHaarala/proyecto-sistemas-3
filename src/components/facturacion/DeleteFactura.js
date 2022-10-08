@@ -19,11 +19,12 @@ export default function DeleteFactura({ params }) {
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleDeletefactura = async () => {
+  const handleDeletefactura = async (e) => {
+    e.preventDefault();
     try {
       const { error } = await supabase
         .from('detalle_factura')
-        .delete()
+        .update({ activo: false })
         .eq('idfactura', `${params.id}`)
 
       if (error) throw error;
@@ -34,7 +35,7 @@ export default function DeleteFactura({ params }) {
     try {
       const { error } = await supabase
         .from('factura')
-        .delete()
+        .update({ activo: false })
         .eq('id', `${params.id}`)
 
       if (error) throw error;
@@ -70,7 +71,7 @@ export default function DeleteFactura({ params }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Tenga en cuenta que esta accion sera irreversible prro
+            Tenga en cuenta que esta accion sera irreversible
           </DialogContentText>
         </DialogContent>
         <DialogActions>

@@ -16,6 +16,7 @@ export default function Facturation() {
       let { data: factura, error } = await supabase
         .from('factura')
         .select('*')
+        .eq('activo', true)
 
       if (error) throw error;
       if (factura) setfactura(factura);

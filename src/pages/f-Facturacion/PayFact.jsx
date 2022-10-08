@@ -8,18 +8,17 @@ import MuiAlert from '@mui/material/Alert';
 import { supabase } from '../../supabase/client'
 
 
-function PayFact() {
+export default function PayFact() {
 
-  const [FacPend, setFacPend] = useState([])
-  const [BankData, setBankData] = useState([])
-  const [CuentasData, setCuentasData] = useState([])
   const [ProvData, setProvData] = useState([])
+  const [facturas, setFacturas] = useState([])
+  const [Cuentas, setCuentas] = useState([])
 
   const getProveedor = async () => {
     try {
       let { data: proveedor, error } = await supabase
         .from('proveedor')
-        .select('nombre')
+        .select('*')
 
       if (error) throw error
       if (proveedor) setProvData(proveedor)
@@ -28,9 +27,39 @@ function PayFact() {
       console.error(error)
     }
   }
+  const getCuenta = async () => {
+    try {
 
+      let { data: cuenta_bancaria, error } = await supabase
+        .from('cuenta_bancaria')
+        .select('*')
+
+      if (error) throw error;
+      if (cuenta_bancaria) setCuentas(cuenta_bancaria);
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getFactura = async () => {
+    try {
+      let { data: factura, error } = await supabase
+        .from('factura')
+        .select("*")
+        .eq('estado', 'pendiente')
+
+      if (error) throw error;
+      if (factura) setFacturas(factura);
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
   useEffect(() => {
-    getProveedor()
+    getProveedor();
+    getFactura();
+    getCuenta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
@@ -38,31 +67,28 @@ function PayFact() {
   // Initialize a ref using the useRef hook.
   // Set the ref prop on the input field.
   // Access the value of the input field as ref.current.value
-  const inputCuentaRef = useRef(undefined);
-  const inputCbuRef = useRef(undefined);
-  const inputTotalRef = useRef(undefined);
+  const ImporteRef = useRef(undefined);
+  const CbuRef = useRef(undefined);
+  const SaldoRef = useRef(undefined);
+  const CategoriaRef = useRef(undefined);
+  const SucursalRef = useRef(undefined);
+  const FechaVencimientoRef = useRef(undefined);
+  const EstadoRef = useRef(undefined);
 
-  // los estados iniciales de todas las variables
+  const max = 11111111;
+  const min = 99999999;
 
-  /* Setting the state of the component. */
-  const [dataFactura, setdataFactura] = useState(['proveedor'])
-  const [Proveedor, setProveedor] = useState('')
-
-  //ids para manejar los datos
-  const [idFact, setIdFact] = useState(0)
-  const [idBanco, setidBanco] = useState(0)
-
-  const [pago, setPago] = useState(0)
-  const [txtTarjeta, settxtTarjeta] = useState('')
-  const [txtCBU, settxtCBU] = useState('')
-
-  // para el manejo de estados de de validacion
   const [Open, setOpen] = useState(false)
+  const [dataPago, setDataPago] = useState({
+    id: Math.floor(Math.random() * (max - min + 1) + min),
+    idfactura: '',
+    proveedor: '',
+    banco: '',
+    tipoPago: '',
+  })
 
-  // todas las funciones tipo handle que cambian de estado y el submit
-  /**
-   * When the user clicks the close button, the modal will close.
-   */
+  console.log(dataPago.proveedor)
+
   const handleClose = () => {
     setOpen(false)
   };
@@ -70,82 +96,55 @@ function PayFact() {
     setOpen(!Open)
   };
 
+  const handlePagoFacturaDatos = (prop) => (event) => {
+    setDataPago({ ...dataPago, [prop]: event.target.value });
+  };
 
-  const handleChangeFactura = (event) => {
-    event.preventDefault();
-    setIdFact(event.target.value);
-
-    if (event.target.value !== 0) {
-      let datFact = FacPend.filter(item => item.id == event.target.value)
-      setdataFactura(datFact)
-    }
-    else {
-      setdataFactura(['proveedor'])
-    }
-  }
-
-  const handleChangeProveedor = (event) => {
-    event.preventDefault();
-    setProveedor(event.target.value);
-  }
-
-  const handleChangeBanco = (event) => {
-    event.preventDefault();
-    setidBanco(event.target.value);
-  }
-
-  /**
-   * When the user clicks on the button, the function will be called and the value of the input will be
-   * set to the state.
-   */
-  const handleChangePago = (event) => {
-    event.preventDefault();
-    setPago(event.target.value)
-  }
-  const handleChangetxtTarjeta = (event) => {
-    event.preventDefault();
-    settxtTarjeta(event.target.value)
-  }
-
-  const handleChangetxtCBU = (event) => {
-    event.preventDefault();
-    settxtCBU(event.target.value)
-    console.log(event.target.value)
-  }
-
-  /**
-   * When the user clicks the submit button, the function will alert the user with the values of the
-   * form, then prevent the default action of the form, then set the state of the datosPagos object,
-   * then concatenate the stringified datosPagos object to the pagoFacturaData array.
-   */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const datosPagos =
-    {
-      importe: inputTotalRef.current.value,
-      idTipoPago: pago,
-      idcuenta: inputCuentaRef.current.value,
-      idFactura: idFact
+    const pagoFactura = {
+      ...dataPago,
+      cuenta: CbuRef.current.value,
+      importe: ImporteRef.current.value
     }
-    
-    // try {
-    //   let config = {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(datosPagos)
-    //   }
-    //   let res = await fetch('https://www.inmoapi.somee.com/api/Pagos/PagarFactura', config)
-    //   let json = await res.json()
-    //   console.log(json)
-    // }
-    // catch (error) {
-    //   console.error(error)
-    // }
+    try {
+      const { error } = await supabase
+        .from('pagos')
+        .insert([
+          pagoFactura
+        ])
+      if (error) throw error;
+
+    } catch (error) {
+      console.error(error)
+    }
+    try {
+      const { error } = await supabase
+        .from('factura')
+        .update({ estado: 'pagado' })
+        // .match({ estado: 'pendiente' })
+        .eq('id', `${pagoFactura.idfactura}`)
+
+      if (error) throw error;
+    }
+    catch (error) {
+      console.error(error)
+    }
+    try {
+      const { error } = await supabase
+        .from('factura')
+        .update({ saldo: 0 })
+        .match({ id: `${dataPago.idfactura}` })
+
+      if (error) throw error;
+    }
+    catch (error) {
+      console.error(error)
+    }
+    console.log(pagoFactura);
   }
 
+  let dataFactura = facturas.filter((value) => value.proveedor === `${dataPago.proveedor}`);
 
   /* Creating a new component called Alert that is a forwardRef. */
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -164,13 +163,13 @@ function PayFact() {
             Proveedor:
           </label>
           <select
-            value={Proveedor}
-            onChange={handleChangeProveedor}
+            value={dataPago.proveedor}
+            onChange={handlePagoFacturaDatos('proveedor')}
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione el proveedor</option>
             {ProvData.map((item) => (
-              <option value={item.id}>{item.id}</option>
+              <option value={item.nombre}>{item.nombre}</option>
             ))}
           </select>
         </section>
@@ -181,51 +180,107 @@ function PayFact() {
             Seleccione la factura a pagar:
           </label>
           <select
-            value={idFact}
-            onChange={handleChangeFactura}
+            value={dataPago.idfactura}
+            onChange={handlePagoFacturaDatos('idfactura')}
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione una factura</option>
-            {FacPend.map((item) => (
-              <option value={item.id}>{item.id}</option>
-            ))}
+            {
+              dataFactura.map((item) => (
+                <option value={item.id}>{item.id}</option>
+              ))}
           </select>
         </section>
-
-        <div id="datos de la factura" className='grid'>
-          <section className="flex flex-col py-3">
-            <label className="pb-4">
-              Importe total:
-            </label>
-            {
-              idFact == 0
-                ?
+        {
+          dataFactura.filter((item) => item.proveedor === `${dataPago.proveedor}` && item.id === `${dataPago.idfactura}`).map((item) => (
+            <div id="datos de la factura" className='grid grid-cols-2'>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Importe total:
+                </label>
                 <input
                   type="text"
                   maxLength={22}
                   placeholder="Importe"
                   readOnly
-                  value={txtCBU}
+                  ref={ImporteRef}
+                  value={item.total}
                   className='p-4 mr-10 rounded-lg shadow-md'
                 />
-                :
-                FacPend.filter(item => item.id == idFact).map((item2) => (
-                  <input
-                    ref={inputTotalRef}
-                    type="text"
-                    name=""
-                    id=""
-                    maxLength={22}
-                    placeholder="Importe"
-                    value={item2.total}
-                    readOnly
-                    className='p-4 mr-10 rounded-lg shadow-md'
-                  />
-                ))
-            }
-
-          </section>
-        </div>
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Saldo restante:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  ref={SaldoRef}
+                  value={item.saldo}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Categoria:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  ref={CategoriaRef}
+                  value={item.tipo}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Sucursal:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  ref={SucursalRef}
+                  value={item.sucursal}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Fecha de vencimiento:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  ref={FechaVencimientoRef}
+                  value={item.fechaVencimiento}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  Estado:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Importe"
+                  readOnly
+                  ref={EstadoRef}
+                  value={item.estado}
+                  className='p-4 mr-10 rounded-lg shadow-md'
+                />
+              </section>
+            </div>
+          ))
+        }
 
         {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
         <section className="flex flex-col py-3">
@@ -234,48 +289,49 @@ function PayFact() {
             Banco Seleccionado:
           </label>
           <select
-            value={idBanco}
-            onChange={handleChangeBanco}
+            value={dataPago.banco}
+            onChange={handlePagoFacturaDatos('banco')}
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione una banco</option>
-            {BankData.map((item) => (
-              <option value={item.id}>{item.nombre}</option>
+            {Cuentas.map((item) => (
+              <option value={item.banco}>{item.banco}</option>
             ))}
           </select>
         </section>
-
-        <section className="flex flex-col py-3">
-          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show bank account number */}
-          <label className="pb-4">
-            Num. de cuenta:
-          </label>
-          {
-            idBanco == 0
-              ?
+        {Cuentas.filter((item) => item.banco === `${dataPago.banco}`).map((value) => (
+          <div>
+            <section className="flex flex-col py-3">
+              <label className="pb-4">
+                numero de cuenta:
+              </label>
               <input
                 type="text"
                 maxLength={22}
                 placeholder="Num. de cuenta"
+                value={value.id}
                 readOnly
                 className='p-4 mr-10 rounded-lg shadow-md'
               />
-              :
-              CuentasData.filter((item) => item.idbanco == idBanco).map((item) => (
-                <input
-                  ref={inputCuentaRef}
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder='Num. de cuenta'
-                  readOnly
-                  value={item.id}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              ))
-          }
+            </section>
+            <section className="flex flex-col py-3">
+              <label className="pb-4">
+                CBU:
+              </label>
+              <input
+                type="text"
+                maxLength={22}
+                placeholder="Num. de cuenta"
+                ref={CbuRef}
+                value={value.cbu}
+                onChange={handlePagoFacturaDatos('cuenta')}
+                readOnly
+                className='p-4 mr-10 rounded-lg shadow-md'
+              />
+            </section>
+          </div>
+        ))}
 
-        </section>
 
         <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the options of "tarjeta de credito/debito" and "transferencia Bancaria" */}
@@ -283,16 +339,16 @@ function PayFact() {
             Seleccione el metodo de pago:
           </label>
           <select
-            value={pago}
-            onChange={handleChangePago}
+            value={dataPago.tipoPago}
+            onChange={handlePagoFacturaDatos('tipoPago')}
             className="p-4 mr-10 rounded-lg shadow-md"
           >
             <option value={0}>Seleccione un metodo de pago</option>
-            <option value={1}>transferencia Bancaria</option>
-            <option value={2}>tarjeta de credito/debito</option>
+            <option value='transferencia bancaria'>transferencia Bancaria</option>
+            {/* <option value={2}>tarjeta de credito/debito</option> */}
           </select>
         </section>
-        {
+        {/* {
           //A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
           pago == 2
             ?
@@ -316,42 +372,7 @@ function PayFact() {
             :
             // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
             <></>
-        }
-
-        <section className="flex flex-col py-3">
-          {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show the CBU */}
-          <label className="pb-4">
-            CBU:
-          </label>
-          {
-            idBanco == 0
-              ?
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="CBU"
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-              :
-              CuentasData.filter(item => item.idbanco == idBanco).map((item) => (
-                <input
-                  ref={inputCbuRef}
-                  type="text"
-                  name="txtCBU"
-                  id='txtCBU'
-                  maxLength={22}
-                  placeholder="CBU"
-                  readOnly
-                  required
-                  value={item.cbu}
-                  onChange={handleChangetxtCBU}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              ))
-          }
-
-        </section>
+        } */}
 
         <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
@@ -367,7 +388,7 @@ function PayFact() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            ((idFact != 0 && (pago != 0 || pago == 1) && idBanco != 0) || (idFact != 0 && (pago != 0 || pago == 2) && idBanco != 0))
+            (dataPago.idfactura !== '' && dataPago.tipoPago !== '' && dataPago.banco !== '')
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :
@@ -379,5 +400,3 @@ function PayFact() {
     </div>
   )
 }
-
-export default PayFact

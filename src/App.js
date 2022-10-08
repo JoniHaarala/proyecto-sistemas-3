@@ -3,7 +3,8 @@ import React, { useEffect } from 'react'
 // import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad, Account } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, EditFact, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import SignUp from './components/Usuarios/SignUp'
 import { useStateContext } from './context/ContextProvider';
 import { supabase } from './supabase/client'
 import Auth from './components/Usuarios/Auth'
@@ -47,28 +48,12 @@ function App() {
 
   return (
     // recordar cambiar la negacion de la condicion de !supabase.auth.user() por supabase.auth.user() para volver a la normalidad
-    (!supabase.auth.user())
+    (supabase.auth.user())
       ?
       (
         <div className={currentMode === 'Dark' ? 'dark' : ''}>
 
           <div className="flex relative dark:bg-main-dark-bg font-[Montserrat] text-base">
-            {/* <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-              <TooltipComponent
-                content="Settings"
-                position="Top"
-              >
-                <button
-                  type="button"
-                  onClick={() => setThemeSettings(true)}
-                  style={{ background: currentColor, borderRadius: '50%' }}
-                  className="flex text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-                >
-                  <SettingsIcon />
-                </button>
-
-              </TooltipComponent>
-            </div> */}
             {activeMenu ? (
               <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
                 <Sidebar />
@@ -97,6 +82,8 @@ function App() {
                   {/* Main dashboard */}
                   <Route path="/" element={<Home />} />
                   <Route path='/login' element={<Auth />} />
+                  <Route path='/SignUp' element={<SignUp />} />
+
                   <Route path="/Dashboard" element={<Home />} />
 
                   {/* Usuarios */}
@@ -105,10 +92,9 @@ function App() {
                   {/* Modules for each Funtion Pages */}
                   {/* Facturacion */}
                   <Route path='/Facturas' element={<Home />} />
-                  <Route path="/listarFacturas" element={<Facturation />} />
-                  <Route path='/editarFactura/:factid' element={<EditFact />} />
-                  <Route path='/pagarFactura' element={<PayFact />} />
-                  <Route path='/registrarFactura' element={<CreateFact />} />
+                  <Route path="listarFacturas" element={<Facturation />} />
+                  <Route path='pagarFactura' element={<PayFact />} />
+                  <Route path='registrarFactura' element={<CreateFact />} />
                   {/* other pages */}
                   <Route path="/contable" element={<Contable />} />
                   <Route path="/alquiler" element={<Alquileres />} />
