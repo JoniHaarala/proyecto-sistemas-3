@@ -1,4 +1,5 @@
 import PropFactActions from '../components/facturacion/PropFactActions'
+import {PropActions} from '../components'
 
 export const facturaColumn = [
     {
@@ -162,3 +163,54 @@ export const proveedorColumn = [
         editable: true,
     },
 ];
+
+export const PropiedadColumn = [
+    // {
+    //     field: 'photoURL',
+    //     headerName: 'Avatar',
+    //     width: 60,
+    //     renderCell: (params) => <Avatar src={params.row.photoURL} />,
+    //     sortable: false,
+    //     filterable: false,
+    // },
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 120
+
+    },
+    {
+        field: 'direccion',
+        headerName: 'DIRECCION',
+        width: 250
+    },
+    {
+        field: 'precio',
+        headerName: 'PRECIO',
+        width: 150
+    },
+    {
+        field: 'idCatVenta',
+        headerName: 'OPERACION',
+        width: 130,
+    },
+    {
+        field: 'idTipo',
+        headerName: 'TIPO',
+        width: 150,
+    },
+    {
+        field: 'propietario',
+        headerName: 'PROPIETARIO',
+        width: 200,
+    },
+
+    {
+        field: 'actions',
+        headerName: 'ACCIONES',
+        type: 'actions',
+        renderCell: (params) => (
+            <PropActions {...{ params }} />
+        ),
+    },
+]

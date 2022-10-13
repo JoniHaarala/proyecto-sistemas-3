@@ -372,7 +372,6 @@ export const links = [
     // },
 ];
 
-
 export const kanbanGrid = [
     {
         headerText: 'To Do',
