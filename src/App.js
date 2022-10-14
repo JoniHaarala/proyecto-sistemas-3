@@ -35,12 +35,11 @@ function App() {
         if (!session) {
           navigate(<Auth></Auth>)
         }
-        else {
-          navigate('/')
-        }
+        // else {
+        //   navigate('/')
+        // }
         console.log(event, session)
       }
-
     })
 
     return () => {
@@ -155,7 +154,7 @@ function App() {
         </div>
       )
       :
-      (<Auth />)
+      <Auth />
   );
 }
 
