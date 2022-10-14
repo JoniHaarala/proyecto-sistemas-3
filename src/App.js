@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
-// import { TooltipComponent } from '@syncfusion/ej2-react-popups'
-// import SettingsIcon from '@mui/icons-material/Settings';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad, Account } from './components'
-import { Home, Alquileres, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad, Account, TablePropietario, TableCliente } from './components'
+import { Home, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
 import SignUp from './components/Usuarios/SignUp'
 import { useStateContext } from './context/ContextProvider';
 import { supabase } from './supabase/client'
 import Auth from './components/Usuarios/Auth'
 import Kanban from './pages/Apps/Kanban';
+import AddCliente from './components/Usuarios/AddCliente';
+import AddPropietario from './components/Usuarios/AddPropietario';
+import AlquilerTemporario from './components/Alquileres/AlquilerTemporario';
+import Alquileres from './components/Alquileres/Alquileres';
 
 function App() {
 
@@ -88,6 +90,8 @@ function App() {
 
                   {/* Usuarios */}
                   <Route path='/Account' element={<Account />} />
+                  <Route path='/addCliente' element={<AddCliente />} />
+                  <Route path='/addPropietario' element={<AddPropietario />} />
 
                   {/* Modules for each Funtion Pages */}
                   {/* Facturacion */}
@@ -97,9 +101,21 @@ function App() {
                   <Route path='registrarFactura' element={<CreateFact />} />
                   {/* other pages */}
                   <Route path="/contable" element={<Contable />} />
-                  <Route path="/alquiler" element={<Alquileres />} />
+
+                  {/* alquileres */}
+                  <Route path="/alquiler" element={<Home />} />
+                  <Route path="/alquileres" element={<Alquileres />} />
+                  <Route path="/tempAlquileres" element={<AlquilerTemporario />} />
+                  {/*  */}
+
                   <Route path="/Contratos" element={<Contratos />} />
-                  <Route path="/empleados" element={<Empleados />} />
+
+                  {/* Clientes */}
+                  <Route path="/Clientes" element={<Empleados />} />
+                  <Route path="/listarPropietarios" element={<TablePropietario />} />
+                  <Route path="/listarClientes" element={<TableCliente />} />
+                  {/* ----------------------------------------------- */}
+
                   <Route path="/informes" element={<Informes />} />
                   <Route path="/reservas" element={<Reservas />} />
                   {/* Proveedores */}

@@ -22,6 +22,8 @@ export { default as SubirArchivos } from './MediaFiles'
 export { default as Account } from './Usuarios/UserProfile'
 export { default as UserInfo } from './Usuarios/UserInfo'
 export { default as Employee } from './Usuarios/Employee'
+export { default as TableCliente } from './Usuarios/TableCliente'
+export { default as TablePropietario } from './Usuarios/TablePropietario'
 //proveedor
 export { default as FormAddProveedor } from './Proveedores/addProveedor'
 //factura
@@ -32,3 +34,8 @@ export { default as DeleteFactura } from './facturacion/DeleteFactura'
 export { default as TablePropiedades } from './Propiedades/TablePropiedades'
 export { default as PropActions } from './Propiedades/PropActions'
 export { default as AddPropiedad } from './Propiedades/addPropiedad'
+
+/* --------- Alquileres ---------------*/
+export { default as TableAlquileres } from './Alquileres/Alquileres'
+export { default as TablePropietariosxAlquiler } from './Alquileres/TablePropietarioxAlq'
+export { default as TableClientesxAlquiler } from './Alquileres/TableClientexAlq'

@@ -1,6 +1,39 @@
 import PropFactActions from '../components/facturacion/PropFactActions'
 import {PropActions} from '../components'
 
+export const clienteColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 300
+    },
+    {
+        field: 'nameSurname',
+        headerName: 'NOMBRE COMPLETO',
+        width: 200
+    },
+    {
+        field: 'username',
+        headerName: 'USUARIO',
+        width: 140
+    },
+    {
+        field: 'mail',
+        headerName: 'CORREO',
+        width: 220
+    },
+    {
+        field: 'phone',
+        headerName: 'TELEFONO',
+        width: 180
+    },
+    {
+        field: 'address',
+        headerName: 'DIRECCION ACTUAL',
+        width: 250
+    },
+];
+
 export const facturaColumn = [
     {
         field: 'id',
@@ -213,4 +246,113 @@ export const PropiedadColumn = [
             <PropActions {...{ params }} />
         ),
     },
-]
+];
+
+export const propietarioColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 300
+    },
+    {
+        field: 'nameSurname',
+        headerName: 'NOMBRE COMPLETO',
+        width: 200
+    },
+    {
+        field: 'username',
+        headerName: 'USUARIO',
+        width: 140
+    },
+    {
+        field: 'mail',
+        headerName: 'CORREO',
+        width: 220
+    },
+    {
+        field: 'phone',
+        headerName: 'TELEFONO',
+        width: 180
+    },
+    {
+        field: 'address',
+        headerName: 'DIRECCION ACTUAL',
+        width: 250
+    },
+];
+
+export const alquilerColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 300
+    },
+    {
+        field: 'nameCliente',
+        headerName: 'NOMBRE INQUILINO',
+        width: 300
+    },
+    {
+        field: 'namePropietario',
+        headerName: 'NOMBRE PROPIETARIO',
+        width: 300
+    },
+    {
+        field: 'idCasa',
+        headerName: 'ID DE PROPIEDAD',
+        width: 300
+    },
+    {
+        field: 'tipoCasa',
+        headerName: 'TIPO DE CASA',
+        width: 300
+    },
+    {
+        field: 'direccionAlquilada',
+        headerName: 'DIRECCION DEL ALQUILER',
+        width: 300
+    },
+    {
+        field: 'estado',
+        headerName: 'ESTADO',
+        width: 300
+    },
+];
+
+export const tempAlquilerColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 300
+    },
+    {
+        field: 'nameCliente',
+        headerName: 'NOMBRE INQUILINO',
+        width: 300
+    },
+    {
+        field: 'namePropietario',
+        headerName: 'NOMBRE PROPIETARIO',
+        width: 300
+    },
+    {
+        field: 'idCasa',
+        headerName: 'ID DE PROPIEDAD',
+        width: 300
+    },
+    {
+        field: 'tipoCasa',
+        headerName: 'TIPO DE CASA',
+        width: 300
+    },
+    {
+        field: 'direccion',
+        headerName: 'DIRECCION DEL ALQUILER',
+        width: 300
+    },
+    {
+        field: 'estado',
+        headerName: 'ESTADO',
+        width: 300
+    },
+];

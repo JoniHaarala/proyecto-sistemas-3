@@ -5,7 +5,7 @@ import avatar3 from './avatar3.png';
 import avatar4 from './avatar4.jpg';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
-// import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
@@ -21,7 +21,7 @@ import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
-// import EventSeatIcon from '@mui/icons-material/EventSeat';
+import EventSeatIcon from '@mui/icons-material/EventSeat';
 // import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 // import CreditCardIcon from '@mui/icons-material/CreditCard';
 // import ArticleIcon from '@mui/icons-material/Article';
@@ -35,24 +35,24 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name: '',
-                subname: 'agregar alquiler',
+                name: 'alquileres',
+                subname: 'Listar alquileres',
             },
             {
                 id: 2,
-                name: '',
-                subname: 'pagar alquiler',
+                name: 'tempAlquileres',
+                subname: 'Listar alquileres temporarios',
             },
-            {
-                id: 3,
-                name: '',
-                subname: 'listar alquileres temporarios',
-            },
-            {
-                id: 4,
-                name: '',
-                subname: 'cancelar alquiler',
-            },
+            // {
+            //     id: 3,
+            //     name: '',
+            //     subname: 'Agregar alquiler',
+            // },
+            // {
+            //     id: 4,
+            //     name: '',
+            //     subname: 'Cancelar alquiler',
+            // },
         ],
     },
     {
@@ -106,28 +106,28 @@ export const subLinks = [
         ],
     },
     {
-        title: 'Empleados',
+        title: 'Clientes',
         links: [
             {
                 id: 1,
-                name: '',
-                subname: 'agregar empleado',
+                name: 'listarPropietarios',
+                subname: 'Listar propietarios',
             },
             {
                 id: 2,
-                name: '',
-                subname: 'editar rol',
+                name: 'listarClientes',
+                subname: 'Listar clientes',
             },
-            {
-                id: 3,
-                name: '',
-                subname: 'editar permisos',
-            },
-            {
-                id: 4,
-                name: '',
-                subname: 'borrar empleado',
-            },
+            // {
+            //     id: 3,
+            //     name: '',
+            //     subname: 'editar permisos',
+            // },
+            // {
+            //     id: 4,
+            //     name: '',
+            //     subname: 'borrar empleado',
+            // },
         ],
     },
     {
@@ -183,16 +183,6 @@ export const subLinks = [
                 name: 'listarPropiedad',
                 subname: 'Listar propiedades',
             },
-            /*{
-                id: 2,
-                name: '',
-                subname: 'editar propiedad',
-            },
-            {
-                id: 3,
-                name: '',
-                subname: 'borrar propiedad',
-            },*/
         ],
     },
     {
@@ -272,10 +262,10 @@ export const links = [
     {
         title: 'Pages',
         links: [
-            // {
-            //     name: 'Alquiler',
-            //     icon: <EventSeatIcon />,          
-            // },
+            {
+                name: 'Alquiler',
+                icon: <EventSeatIcon />,          
+            },
             // {
             //     name: 'Contable',
             //     icon: <PointOfSaleIcon />,
@@ -284,10 +274,10 @@ export const links = [
             //     name: 'Contratos',
             //     icon: <CreditCardIcon />,
             // },
-            // {
-            //     name: 'Empleados',
-            //     icon: <PersonIcon />,
-            // },
+            {
+                name: 'Clientes',
+                icon: <PersonIcon />,
+            },
             {
                 name: 'Facturas',
                 icon: <RequestQuoteIcon />,
