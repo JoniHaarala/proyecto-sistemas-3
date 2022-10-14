@@ -44,7 +44,7 @@ export default function AddCliente() {
   return (
     <div className="flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
       <Header category="Usuarios" title="Agregar Cliente" />
-      <form className="mt-5 py-5 px-10 flex flex-col gap-5 rounded-lg">
+      <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 flex flex-col gap-5 rounded-lg">
         <TextField value={newCliente.name} onChange={handleChange('name')} id="outlined-Nombre" label="Nombre" variant="outlined" />
         <TextField value={newCliente.surname} onChange={handleChange('surname')} id="outlined-Nombre" label="Apellido" variant="outlined" />
         <TextField value={referencia} onChange={e => setReferencia(e.target.value)} id="outlined-Nombre" label="Referencia" variant="outlined" />

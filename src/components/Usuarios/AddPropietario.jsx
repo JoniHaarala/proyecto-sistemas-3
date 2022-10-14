@@ -29,18 +29,18 @@ export default function AddPropietario() {
         e.preventDefault()
         const data = { ...newPropietario, nameSurname: newPropietario.name + ' ' + newPropietario.surname }
         console.log(data)
-        // try {
-        //     const { error } = await supabase
-        //         .from('usuario')
-        //         .insert([
-        //             data,
-        //         ])
-        //     if (error) throw error;
-        //     console.log("guardado con exito")
-        // }
-        // catch (error) {
-        //     console.error(error)
-        // }
+        try {
+            const { error } = await supabase
+                .from('usuario')
+                .insert([
+                    data,
+                ])
+            if (error) throw error;
+            console.log("guardado con exito")
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
     const handleClose = (e) => {
         navigate('/listarPropietarios')
