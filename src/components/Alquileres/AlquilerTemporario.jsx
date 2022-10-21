@@ -40,7 +40,7 @@ export default function AlquilerTemporario() {
             <Header category="Alquiler" title="Alquiler temporario" />
             <section className='flex justify-between items-center'>
                 <TableFilter props={query} setProps={setQuery} />
-                {/* <Link to='/addCliente' className="p-4 self-end bg-blue-400 mb-2 shadow-md font-bold rounded-xl">+ Añadir nuevo alquiler temporario</Link> */}
+                {/* <Link to='/addCliente' className="p-4 self-end bg-blue-400 mb-2 shadow-md font-bold rounded-xl">+ Generar contrato temporario</Link> */}
             </section>
             <DataTable row={search(tempAlquiler)} column={tempAlquilerColumn} />
         </div>

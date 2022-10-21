@@ -12,12 +12,11 @@ const TableCliente = () => {
 
     const getCLientes = async () => {
         try {
-            let { data: usuario, error } = await supabase
-                .from('usuario')
+            let { data: clientes, error } = await supabase
+                .from('clientes')
                 .select("*")
-                .eq('idrol', 'cliente')
             if (error) throw error
-            if (usuario) setClientes(usuario)
+            if (clientes) setClientes(clientes)
         }
         catch (error) {
             console.error(error);
@@ -29,11 +28,12 @@ const TableCliente = () => {
 
     const search = (data) => {
         return data.filter((value) => (
-            value.nameSurname.toLowerCase().includes(query)
-            || value.mail.toString().toLowerCase().includes(query)
-            || value.address.toLowerCase().includes(query)
-            || value.phone.toLowerCase().includes(query))
-        )
+            value.nombreCompleto.toLowerCase().includes(query)
+            || value.correo.toString().toLowerCase().includes(query)
+            || value.direccionActual.toLowerCase().includes(query)
+            || value.telefono.toLowerCase().includes(query)
+            || value.nacionalidad.toLowerCase().includes(query))
+            )
     }
 
     return (

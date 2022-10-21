@@ -11,6 +11,9 @@ import AddCliente from './components/Usuarios/AddCliente';
 import AddPropietario from './components/Usuarios/AddPropietario';
 import AlquilerTemporario from './components/Alquileres/AlquilerTemporario';
 import Alquileres from './components/Alquileres/Alquileres';
+import Lead from './components/Reservas/Lead';
+import Solicitud from './components/Reservas/Solicitud';
+import Reserva from './components/Reservas/Reserva';
 
 function App() {
 
@@ -84,46 +87,56 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path='/login' element={<Auth />} />
                   <Route path='/SignUp' element={<SignUp />} />
-
                   <Route path="/Dashboard" element={<Home />} />
-
+                  
                   {/* Usuarios */}
                   <Route path='/Account' element={<Account />} />
                   <Route path='/addCliente' element={<AddCliente />} />
                   <Route path='/addPropietario' element={<AddPropietario />} />
 
+
                   {/* Modules for each Funtion Pages */}
+
                   {/* Facturacion */}
                   <Route path='/Facturas' element={<Home />} />
                   <Route path="listarFacturas" element={<Facturation />} />
                   <Route path='pagarFactura' element={<PayFact />} />
                   <Route path='registrarFactura' element={<CreateFact />} />
-                  {/* other pages */}
+
+                  {/* contable */}
                   <Route path="/contable" element={<Contable />} />
 
                   {/* alquileres */}
                   <Route path="/alquiler" element={<Home />} />
                   <Route path="/alquileres" element={<Alquileres />} />
                   <Route path="/tempAlquileres" element={<AlquilerTemporario />} />
-                  {/*  */}
 
+                  {/* Contratos */}
                   <Route path="/Contratos" element={<Contratos />} />
 
                   {/* Clientes */}
                   <Route path="/Clientes" element={<Empleados />} />
                   <Route path="/listarPropietarios" element={<TablePropietario />} />
                   <Route path="/listarClientes" element={<TableCliente />} />
-                  {/* ----------------------------------------------- */}
 
                   <Route path="/informes" element={<Informes />} />
-                  <Route path="/reservas" element={<Reservas />} />
+
+                  {/* Reservas */}
+                  <Route path="/reservas" element={<Home />} />
+                  <Route path="/setReservas" element={<Reservas />} />
+                  <Route path="/reserva-lead" element={<Lead />} />
+                  <Route path="/reserva-solicitud" element={<Solicitud />} />
+                  <Route path="/reserva-prealquiler" element={<Reserva />} />
+
                   {/* Proveedores */}
                   <Route path='/proveedores' element={<Home />} />
                   <Route path='/listarProveedor' element={<Proveedor />} />
                   <Route path='/createProveedor' element={<CreateProv />} />
+
                   {/* Tesoreria */}
                   <Route path="/tesoreria" element={<Home />} />
                   <Route path='/verPagos' element={<Pagos />} />
+
                   {/* Propiedades */}
                   <Route path='/propiedades' element={<Home />} />
                   <Route path='/listarPropiedad' element={<Propiedades />} />

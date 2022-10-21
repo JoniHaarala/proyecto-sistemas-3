@@ -53,12 +53,13 @@ const TipoyOperacion = ({ tipoyOperacion, setTipoyOperacion }) => {
     }
     const getPropietario = async () => {
         try {
-            let { data: usuario, error } = await supabase
-                .from('usuario')
-                .select('id,nameSurname')
-                .eq('idrol', 'propietario')
+
+            let { data: clientes, error } = await supabase
+                .from('clientes')
+                .select('id,nombreCompleto')
+
             if (error) throw error
-            if (usuario) setNamePropietario(usuario)
+            if (clientes) setNamePropietario(clientes)
         }
         catch (error) {
             console.log(error)
@@ -135,7 +136,7 @@ const TipoyOperacion = ({ tipoyOperacion, setTipoyOperacion }) => {
                         label="Nombre Propietario"
                     >
                         {NamePropietario.map((value) => (
-                            <MenuItem key={value.id} value={value.nameSurname}>{value.nameSurname}</MenuItem>
+                            <MenuItem key={value.id} value={value.nombreCompleto}>{value.nombreCompleto}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>

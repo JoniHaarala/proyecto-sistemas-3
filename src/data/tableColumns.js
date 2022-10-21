@@ -8,28 +8,43 @@ export const clienteColumn = [
         width: 300
     },
     {
-        field: 'nameSurname',
+        field: 'nombreCompleto',
         headerName: 'NOMBRE COMPLETO',
         width: 200
     },
     {
-        field: 'username',
-        headerName: 'USUARIO',
+        field: 'dni',
+        headerName: 'DNI/PASAPORTE',
         width: 140
     },
     {
-        field: 'mail',
+        field: 'cuit',
+        headerName: 'CUIT',
+        width: 220
+    },
+    {
+        field: 'correo',
         headerName: 'CORREO',
         width: 220
     },
     {
-        field: 'phone',
+        field: 'telefono',
         headerName: 'TELEFONO',
         width: 180
     },
     {
-        field: 'address',
+        field: 'direccionActual',
         headerName: 'DIRECCION ACTUAL',
+        width: 250
+    },
+    {
+        field: 'fechaNacimiento',
+        headerName: 'FECHA NACIMIENTO',
+        width: 250
+    },
+    {
+        field: 'nacionalidad',
+        headerName: 'NACIONALIDAD',
         width: 250
     },
 ];

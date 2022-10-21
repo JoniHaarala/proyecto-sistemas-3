@@ -25,7 +25,7 @@ import EventSeatIcon from '@mui/icons-material/EventSeat';
 // import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 // import CreditCardIcon from '@mui/icons-material/CreditCard';
 // import ArticleIcon from '@mui/icons-material/Article';
-// import HotelIcon from '@mui/icons-material/Hotel';
+import HotelIcon from '@mui/icons-material/Hotel';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 // Aca van las opciones de cada pagina descripta en la funcion links.
@@ -148,16 +148,6 @@ export const subLinks = [
                 name: 'registrarFactura',
                 subname: 'Registrar factura',
             },
-            // {
-            //     id: 3,
-            //     name: 'editarFactura',
-            //     subname: 'editar factura',
-            // },
-            // {
-            //     id: 4,
-            //     name:'borrarFactura',
-            //     subname: 'borrar factura',
-            // },
         ],
     },
     {
@@ -205,24 +195,24 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name: '',
-                subname: 'agregar Reservas',
+                name: 'setReservas',
+                subname: 'agregar Reserva',
             },
-            {
-                id: 2,
-                name: '',
-                subname: 'pagar Reservas',
-            },
-            {
-                id: 3,
-                name: '',
-                subname: 'editar Reservas',
-            },
-            {
-                id: 4,
-                name: '',
-                subname: 'borrar Reservas',
-            },
+            // {
+            //     id: 2,
+            //     name: '',
+            //     subname: 'pagar Reservas',
+            // },
+            // {
+            //     id: 3,
+            //     name: '',
+            //     subname: 'editar Reservas',
+            // },
+            // {
+            //     id: 4,
+            //     name: '',
+            //     subname: 'borrar Reservas',
+            // },
         ],
     },
     {
@@ -297,11 +287,10 @@ export const links = [
                 icon: <LocalShippingIcon />,
 
             },
-            // {
-            //     name: 'Reservas',
-            //     icon: <HotelIcon />,
-
-            // },
+            {
+                name: 'Reservas',
+                icon: <HotelIcon />,
+            },
             {
                 name: 'Tesoreria',
                 icon: <AttachMoneyIcon />,

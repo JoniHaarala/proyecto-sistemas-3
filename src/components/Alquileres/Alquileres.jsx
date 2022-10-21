@@ -42,7 +42,7 @@ export default function Alquileres() {
       <section className='flex justify-between items-center'>
 
         <TableFilter props={query} setProps={setQuery} />
-        {/* <Link to='/addCliente' className="p-4 self-end bg-blue-400 mb-2 shadow-md font-bold rounded-xl">+ Añadir nuevo alquiler</Link> */}
+        {/* <Link to='/addCliente' className="p-4 self-end bg-blue-400 mb-2 shadow-md font-bold rounded-xl">+ Generar contrato</Link> */}
       </section>
       <DataTable row={search(alquileres)} column={alquilerColumn} />
     </div>
