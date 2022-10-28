@@ -45,7 +45,7 @@ export default function Lead() {
           data,
         ])
       if (error) throw error
-      console.log("guardado con exito")
+      alert("guardado con exito")
     }
     catch (error) {
       console.error(error)

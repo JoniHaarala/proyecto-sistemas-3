@@ -108,11 +108,11 @@ export const subLinks = [
     {
         title: 'Clientes',
         links: [
-            {
-                id: 1,
-                name: 'listarPropietarios',
-                subname: 'Listar propietarios',
-            },
+            // {
+            //     id: 1,
+            //     name: 'listarPropietarios',
+            //     subname: 'Listar propietarios',
+            // },
             {
                 id: 2,
                 name: 'listarClientes',

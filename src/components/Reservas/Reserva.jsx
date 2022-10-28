@@ -63,12 +63,12 @@ const Reserva = () => {
     try {
 
       const { error } = await supabase
-        .from('operacion_lead')
+        .from('operacion_reserva')
         .insert([
           datos,
         ])
       if (error) throw error
-      console.log("guardado con exito")
+      alert("guardado con exito")
     }
     catch (error) {
       console.error(error)
@@ -94,9 +94,6 @@ const Reserva = () => {
             {getSolicitud.map((value) => (
               <MenuItem value={value.id}>{value.id}</MenuItem>
             ))}
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </FormControl>
 

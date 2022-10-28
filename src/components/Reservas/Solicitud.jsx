@@ -42,10 +42,10 @@ export default function Solicitud() {
       console.log(error)
     }
   }
-  useEffect (() => {
+  useEffect(() => {
     getPropiedad()
     getLeads()
-  },[])
+  }, [])
 
 
   const navigate = useNavigate()
@@ -71,12 +71,13 @@ export default function Solicitud() {
     try {
 
       const { error } = await supabase
-        .from('operacion_lead')
+        .from('operacion_solicitud')
         .insert([
           datos,
         ])
+
       if (error) throw error
-      console.log("guardado con exito")
+      alert("guardado con exito")
     }
     catch (error) {
       console.error(error)
@@ -100,7 +101,7 @@ export default function Solicitud() {
             label="Asigna un lead"
             onChange={handleChange('leadID')}
           >
-            {lead.map((value)=>(
+            {lead.map((value) => (
               <MenuItem value={value.id}>{value.nombre}</MenuItem>
             ))}
           </Select>
@@ -115,7 +116,7 @@ export default function Solicitud() {
             label="Asigna un inmueble"
             onChange={handleChange('propiedadID')}
           >
-            {propiedadData.map((value)=>(
+            {propiedadData.map((value) => (
               <MenuItem value={value.id}>{value.direccion}</MenuItem>
             ))}
           </Select>

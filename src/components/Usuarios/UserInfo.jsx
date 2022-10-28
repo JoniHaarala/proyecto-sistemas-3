@@ -1,7 +1,6 @@
 import React from 'react'
 import avatar from '../../data/avatar.jpg';
 import { useState, useEffect } from 'react'
-import { supabase } from '../../supabase/client'
 import { Avatar, InputLabel, InputAdornment, FormControl, IconButton, Input, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
