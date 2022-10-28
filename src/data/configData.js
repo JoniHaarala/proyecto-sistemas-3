@@ -23,7 +23,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 // import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-// import CreditCardIcon from '@mui/icons-material/CreditCard';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 // import ArticleIcon from '@mui/icons-material/Article';
 import HotelIcon from '@mui/icons-material/Hotel';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -85,24 +85,24 @@ export const subLinks = [
         links: [
             {
                 id: 1,
-                name: '',
-                subname: 'agregar contrato',
+                name: 'addContrato',
+                subname: 'Generar contrato',
             },
-            {
-                id: 2,
-                name: '',
-                subname: 'pagar contrato',
-            },
-            {
-                id: 3,
-                name: '',
-                subname: 'editar contrato',
-            },
-            {
-                id: 4,
-                name: '',
-                subname: 'borrar contrato',
-            },
+            // {
+            //     id: 2,
+            //     name: '',
+            //     subname: 'pagar contrato',
+            // },
+            // {
+            //     id: 3,
+            //     name: '',
+            //     subname: 'editar contrato',
+            // },
+            // {
+            //     id: 4,
+            //     name: '',
+            //     subname: 'borrar contrato',
+            // },
         ],
     },
     {
@@ -260,10 +260,10 @@ export const links = [
             //     name: 'Contable',
             //     icon: <PointOfSaleIcon />,
             // },
-            // {
-            //     name: 'Contratos',
-            //     icon: <CreditCardIcon />,
-            // },
+            {
+                name: 'Contratos',
+                icon: <CreditCardIcon />,
+            },
             {
                 name: 'Clientes',
                 icon: <PersonIcon />,

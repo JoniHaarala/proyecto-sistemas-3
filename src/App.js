@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Navbar, Sidebar, Footer, ThemeSettings, AddPropiedad, Account, TablePropietario, TableCliente } from './components'
-import { Home, Contable, Contratos, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
+import { Home, Contable, Empleados, Facturation, Reservas, Calendar, ColorPicker, Editor, Area, Bar, ColorMapping, Financial, Line, Pie, Pyramid, Stacked, Informes, PayFact, CreateFact, Pagos, Proveedor, CreateProv, Propiedades } from './pages';
 import SignUp from './components/Usuarios/SignUp'
 import { useStateContext } from './context/ContextProvider';
 import { supabase } from './supabase/client'
@@ -14,6 +14,7 @@ import Alquileres from './components/Alquileres/Alquileres';
 import Lead from './components/Reservas/Lead';
 import Solicitud from './components/Reservas/Solicitud';
 import Reserva from './components/Reservas/Reserva';
+import Contratos from './components/Contratos/Contratos';
 
 function App() {
 
@@ -112,7 +113,8 @@ function App() {
                   <Route path="/tempAlquileres" element={<AlquilerTemporario />} />
 
                   {/* Contratos */}
-                  <Route path="/Contratos" element={<Contratos />} />
+                  <Route path="/Contratos" element={<Home />} />
+                  <Route path="/addContrato" element={<Contratos/>} />
 
                   {/* Clientes */}
                   <Route path="/Clientes" element={<Empleados />} />
