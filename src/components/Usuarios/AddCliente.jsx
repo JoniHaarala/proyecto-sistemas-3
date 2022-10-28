@@ -44,13 +44,13 @@ export default function AddCliente() {
   return (
     <div className="flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
       <Header category="Usuarios" title="Agregar Cliente" />
-      <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 flex flex-col gap-5 rounded-lg">
-        <TextField value={newCliente.nombre} onChange={handleChange('name')} id="outlined-Nombre" label="Nombre" variant="outlined" />
-        <TextField value={newCliente.apellido} onChange={handleChange('surname')} id="outlined-Nombre" label="Apellido" variant="outlined" />
-        <TextField value={newCliente.correo} onChange={handleChange('correo')} type="email" id="outlined-Nombre" label="Correo/email" variant="outlined" />
+      <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 grid grid-cols-2 gap-5 rounded-lg">
+        <TextField value={newCliente.nombre} required onChange={handleChange('name')} id="outlined-Nombre" label="Nombre" variant="outlined" />
+        <TextField value={newCliente.apellido} required onChange={handleChange('surname')} id="outlined-Nombre" label="Apellido" variant="outlined" />
+        <TextField value={newCliente.correo} required onChange={handleChange('correo')} type="email" id="outlined-Nombre" label="Correo/email" variant="outlined" />
         <TextField value={newCliente.telefono} onChange={handleChange('telefono')} id="outlined-Nombre" label="Telefono" variant="outlined" />
         <TextField value={newCliente.direccionActual} onChange={handleChange('direccionActual')} id="outlined-Nombre" label="Direccion Actual" variant="outlined" />
-        <TextField value={newCliente.dni} onChange={handleChange('dni')} id="outlined-Nombre" label="DNI/Pasaporte" variant="outlined" />
+        <TextField value={newCliente.dni} required onChange={handleChange('dni')} id="outlined-Nombre" label="DNI/Pasaporte" variant="outlined" />
         <TextField value={newCliente.cuit} onChange={handleChange('cuit')} id="outlined-Nombre" label="CUIT" variant="outlined" />
         <TextField value={newCliente.nacionalidad} onChange={handleChange('nacionalidad')} id="outlined-Nombre" label="Nacionalidad" variant="outlined" />
         <section className="flex py-3 mt-5">
