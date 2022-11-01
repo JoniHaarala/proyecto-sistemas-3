@@ -57,7 +57,7 @@ export default function Reservas() {
       <TabPanel value={value} index={0}>
         <div>
           <Link to="/reserva-lead">
-            <p className="py-3 w-fit px-4 rounded-lg capitalize border-x border-y border-gray-800 hover:bg-blue-50 hover:shadow-md hover:border-blue-400 hover:text-blue-800">+ añadir lead</p>
+            <p className="py-3 w-fit px-4 rounded-lg capitalize border-x border-y border-gray-800 hover:bg-blue-50 hover:shadow-md hover:border-blue-400 hover:text-blue-800">+ añadir contacto</p>
           </Link>
         </div>
 

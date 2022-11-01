@@ -68,7 +68,7 @@ export default function Lead() {
     <div className="flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl">
       <div className='flex items-baseline gap-6'>
         <Link to="/setReservas"><ArrowBackIcon /></Link>
-        <Header category="Reservas" title="Agregar Lead" />
+        <Header category="Reservas" title="Agregar Contacto" />
       </div>
       <div className='flex flex-col lg:flex-row justify-center'>
         <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 w-full flex flex-col gap-5 rounded-lg">
@@ -76,10 +76,25 @@ export default function Lead() {
           <TextField value={newLead.correo} onChange={handleChange('correo')} type="email" id="outlined-Apellido" label="Correo" variant="outlined" />
           <TextField value={newLead.direccionActual} onChange={handleChange('direccionActual')} id="outlined-Referencia" label="Direccion actual" variant="outlined" />
           <TextField value={newLead.telefono} onChange={handleChange('telefono')} id="outlined-Direccion" label="Telefono" variant="outlined" />
-          <div className='flex gap-6'>
+          <div className='grid grid-cols-2 gap-5'>
             <TextField value={newLead.dni} onChange={handleChange('dni')} id="outlined-Correo" label="dni/pasaporte" variant="outlined" />
             <TextField value={newLead.edad} onChange={handleChange('edad')} type="number" id="outlined-Nombre" label="Edad" variant="outlined" />
           </div>
+          <section className="flex py-3 mt-5">
+            <label className="self-center w-40 mr-3">Fecha de nacimiento: </label>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Seleccione una fecha"
+                value={fechaContacto}
+                inputFormat={'MM/DD/YYYY'}
+                className="bg-white shadow-lg"
+                onChange={(newValue) => {
+                  setFechaContacto(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </section>
           <section className="flex py-3 mt-5">
             <label className="self-center w-40 mr-3">Fecha de contacto: </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
