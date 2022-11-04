@@ -9,6 +9,7 @@ import Auth from './components/Usuarios/Auth'
 import Kanban from './pages/Apps/Kanban';
 import AddCliente from './components/Usuarios/AddCliente';
 import AddPropietario from './components/Usuarios/AddPropietario';
+import AddCuota from './pages/f-Alquiler/AddCouta'
 import AlquilerTemporario from './components/Alquileres/AlquilerTemporario';
 import Alquileres from './components/Alquileres/Alquileres';
 import Lead from './components/Reservas/Lead';
@@ -115,6 +116,7 @@ function App() {
                   {/* Contratos */}
                   <Route path="/Contratos" element={<Home />} />
                   <Route path="/addContrato" element={<Contratos/>} />
+                  <Route path="/addCuota" element={<AddCuota />} />
 
                   {/* Clientes */}
                   <Route path="/Clientes" element={<Empleados />} />

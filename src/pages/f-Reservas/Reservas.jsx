@@ -2,8 +2,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
@@ -19,7 +22,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -42,6 +45,15 @@ function a11yProps(index) {
 export default function Reservas() {
   const [value, setValue] = React.useState(0);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -49,9 +61,9 @@ export default function Reservas() {
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="basic tabs example">
-          <Tab label="OPORTUNIDADES" {...a11yProps(0)} />
+          <Tab label="CONTACTOS" {...a11yProps(0)} />
           <Tab label="SOLICITUDES" {...a11yProps(1)} />
-          <Tab label="RESERVAS" {...a11yProps(2)} />
+          {/* <Tab label="RESERVAS" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -63,7 +75,7 @@ export default function Reservas() {
 
         <div className='flex flex-col w-fit rounded-xl shadow-lg p-20 py-10 mt-8'>
           <section className="flex gap-10">
-            <div>lead</div>
+            <div>contacto</div>
             <div className='flex flex-col gap-10 text-gray-600'>
               <p>juan perez</p>
               <p>interesado</p>
@@ -97,6 +109,30 @@ export default function Reservas() {
               <p className='pb-10'>notas:-</p>
               <p className="p-3 rounded-2xl shadow-lg text-center bg-green-100">1 Solicitud</p>
             </div>
+            <div>
+              <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-controls={open ? 'long-menu' : undefined}
+                aria-expanded={open ? 'true' : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleClose}><Link to="/addContrato">generar contrato y convertir a inquilino</Link></MenuItem>
+                
+              </Menu>
+            </div>
           </section>
           <section className='flex justify-end gap-6 pt-14'>
             <p className='text-red-500'>BORRAR</p>
@@ -104,6 +140,8 @@ export default function Reservas() {
           </section>
         </div>
       </TabPanel>
+
+      {/* ESTE TAB LO OCULTAMOS POR AHORA YA Q VA EN LA SECCION DE CONTRATOS */}
       <TabPanel value={value} index={2}>
         <div>
           <Link to="/reserva-prealquiler">
@@ -114,13 +152,38 @@ export default function Reservas() {
         <div className='flex flex-col w-fit rounded-xl shadow-lg p-20 py-10 mt-8'>
           <section className="flex gap-10">
             <div>reserva</div>
-            <div className='flex flex-col gap-10 text-gray-600'>
+            <div className='flex flex-col gap-5 text-gray-600'>
               <p>juan perez</p>
               <p>interesado</p>
               <p>juan-perez@mail.com</p>
               <p>1550990512</p>
               <p className='pb-10'>notas:-</p>
               <p className="p-3 rounded-2xl shadow-lg text-center bg-green-100">1 Solicitud</p>
+            </div>
+            <div>
+              <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-controls={open ? 'long-menu' : undefined}
+                aria-expanded={open ? 'true' : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleClose}>generar contrato y convertir a inquilino</MenuItem>
+                <MenuItem onClick={handleClose}>Borrar reserva</MenuItem>
+                <MenuItem onClick={handleClose}>Ver detalle</MenuItem>
+              </Menu>
             </div>
           </section>
           <section className='flex justify-end gap-6 pt-14'>

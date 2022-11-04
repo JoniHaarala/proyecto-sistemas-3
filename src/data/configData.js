@@ -43,11 +43,11 @@ export const subLinks = [
                 name: 'tempAlquileres',
                 subname: 'Listar alquileres temporarios',
             },
-            // {
-            //     id: 3,
-            //     name: '',
-            //     subname: 'Agregar alquiler',
-            // },
+            {
+                id: 3,
+                name: 'listCuotasAlquiler',
+                subname: 'Listar cuotas',
+            },
             // {
             //     id: 4,
             //     name: '',
@@ -88,11 +88,11 @@ export const subLinks = [
                 name: 'addContrato',
                 subname: 'Generar contrato',
             },
-            // {
-            //     id: 2,
-            //     name: '',
-            //     subname: 'pagar contrato',
-            // },
+            {
+                id: 2,
+                name: 'addCuota',
+                subname: 'Generar cuota',
+            },
             // {
             //     id: 3,
             //     name: '',
