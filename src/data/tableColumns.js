@@ -313,7 +313,7 @@ export const alquilerColumn = [
         width: 300
     },
     {
-        field: 'idCasa',
+        field: 'nombrePropiedad',
         headerName: 'ID DE PROPIEDAD',
         width: 300
     },
@@ -351,7 +351,7 @@ export const tempAlquilerColumn = [
         width: 300
     },
     {
-        field: 'idCasa',
+        field: 'nombrePropiedad',
         headerName: 'ID DE PROPIEDAD',
         width: 300
     },
