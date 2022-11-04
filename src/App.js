@@ -166,7 +166,7 @@ function App() {
                   <Route path="/piramid" element={<Pyramid />} />
                   <Route path="/stacked" element={<Stacked />} />
                 </Routes>
-
+                
               </section>
               <Footer />
             </div>
