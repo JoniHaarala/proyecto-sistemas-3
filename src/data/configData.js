@@ -9,14 +9,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
-// import ShowChartIcon from '@mui/icons-material/ShowChart';
-// import BarChartIcon from '@mui/icons-material/BarChart';
-// import PieChartIcon from '@mui/icons-material/PieChart';
-// import AssessmentIcon from '@mui/icons-material/Assessment';
-// import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-// import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
-// import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
-// import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import PieChartIcon from '@mui/icons-material/PieChart';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -312,44 +312,44 @@ export const links = [
             },
         ],
     },
-    // {
-    //     title: 'Charts',
-    //     links: [
-    //         {
-    //             name: 'line',
-    //             icon: <ShowChartIcon />,
-    //         },
-    //         {
-    //             name: 'area',
-    //             icon: <AssessmentIcon />,
-    //         },
+    {
+        title: 'Charts',
+        links: [
+            {
+                name: 'line',
+                icon: <ShowChartIcon />,
+            },
+            {
+                name: 'area',
+                icon: <AssessmentIcon />,
+            },
 
-    //         {
-    //             name: 'bar',
-    //             icon: <BarChartIcon />,
-    //         },
-    //         {
-    //             name: 'pie',
-    //             icon: <PieChartIcon />,
-    //         },
-    //         {
-    //             name: 'financial',
-    //             icon: <CandlestickChartIcon />,
-    //         },
-    //         {
-    //             name: 'color-mapping',
-    //             icon: <SignalCellularAltIcon />,
-    //         },
-    //         {
-    //             name: 'pyramid',
-    //             icon: <ChangeHistoryIcon />,
-    //         },
-    //         {
-    //             name: 'stacked',
-    //             icon: < StackedBarChartIcon />,
-    //         },
-    //     ],
-    // },
+            {
+                name: 'bar',
+                icon: <BarChartIcon />,
+            },
+            {
+                name: 'pie',
+                icon: <PieChartIcon />,
+            },
+            {
+                name: 'financial',
+                icon: <CandlestickChartIcon />,
+            },
+            {
+                name: 'color-mapping',
+                icon: <SignalCellularAltIcon />,
+            },
+            {
+                name: 'pyramid',
+                icon: <ChangeHistoryIcon />,
+            },
+            {
+                name: 'stacked',
+                icon: < StackedBarChartIcon />,
+            },
+        ],
+    },
 ];
 
 export const kanbanGrid = [
