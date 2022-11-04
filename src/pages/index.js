@@ -32,7 +32,7 @@ export { default as Alquileres } from './f-Alquiler/Alquileres';
 export { default as Contable } from './f-Contable/Contable';
 
 //Contratos
-export { default as Contratos} from './f-Contratos/Contratos';
+export { default as Contratos} from './f-Contratos/TableContratos';
 
 //Empleados
 export { default as Empleados } from './f-Empleados/Empleados';

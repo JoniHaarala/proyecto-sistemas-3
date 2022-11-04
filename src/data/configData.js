@@ -85,24 +85,25 @@ export const subLinks = [
         links: [
             {
                 id: 1,
+                name: 'listContratos',
+                subname: 'Listar contratos',
+            },
+            {
+                id: 2,
+                name: 'listCuotas',
+                subname: 'Listar cuotas',
+            },
+            {
+                id: 3,
                 name: 'addContrato',
                 subname: 'Generar contrato',
             },
             {
-                id: 2,
+                id: 4,
                 name: 'addCuota',
                 subname: 'Generar cuota',
             },
-            // {
-            //     id: 3,
-            //     name: '',
-            //     subname: 'editar contrato',
-            // },
-            // {
-            //     id: 4,
-            //     name: '',
-            //     subname: 'borrar contrato',
-            // },
+            
         ],
     },
     {

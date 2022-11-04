@@ -25,12 +25,10 @@ const Contratos = () => {
 
 
   const [Contrato, setContrato] = useState({
-    propiedad: '',
     estado: '',
-    solicitudID: '',
     tipoOp: '',
     contrato: '',
-    rentaMensual: '',
+    RentaMensual: '',
     fianza: '',
     pago: '',
     motivo: ''
@@ -111,8 +109,13 @@ const Contratos = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const datosPropiedad = propiedades.find(item => item.id === tempPropiedad[0])
+
     const datos = {
       ...Contrato,
+      solicitudID: tempReserva,
+      propiedad: datosPropiedad.id,
       cliente: ClienteRef.current.value,
       propietario: PropietarioRef.current.value,
       inicioContrato,
@@ -124,6 +127,7 @@ const Contratos = () => {
     const clienteData =
     {
       nombre: contactos[0].nombre,
+      nombreCompleto: contactos[0].nombre,
       correo: contactos[0].correo,
       telefono: contactos[0].telefono,
       direccionActual: contactos[0].direccionActual,
@@ -132,7 +136,6 @@ const Contratos = () => {
       dni: contactos[0].dni
     };
 
-    const datosPropiedad = propiedades.find(item => item.id === tempPropiedad[0])
     const alquilerData = 
     {
       estado: "Alquilado",
@@ -197,8 +200,6 @@ const Contratos = () => {
       }
     }
   }
-  const datosPropiedad = propiedades.find(item => item.id === tempPropiedad[0])
-  console.log(datosPropiedad.id)
 
   const handleChange = (prop) => (event) => {
     setContrato({ ...Contrato, [prop]: event.target.value });
@@ -322,16 +323,16 @@ const Contratos = () => {
                 </Select>
               </FormControl>
               <div className='flex gap-10'>
-                <TextField value={Contrato.rentaMensual} onChange={handleChange('rentaMensual')} type="number" label="Renta Mensual" variant="outlined" />
-                <TextField value={Contrato.fianza} onChange={handleChange('fianza')} type="number" label="Fianza/Deposito" variant="outlined" />
-                <TextField value={Contrato.pago} onChange={handleChange('pago')} type="number" label="Honorarios" variant="outlined" />
+                <TextField value={Contrato.RentaMensual} onChange={handleChange('RentaMensual')} type="number" label="Renta Mensual" variant="outlined" />
+                <TextField value={Contrato.fianza} onChange={handleChange('fianza')} type="number" label="Honorarios" variant="outlined" />
+                <TextField value={Contrato.pago} onChange={handleChange('pago')} type="number" label="Total" variant="outlined" />
               </div>
             </>
             :
             <div className='flex gap-10'>
               <TextField value={Contrato.pago} onChange={handleChange('pago')} type="number" label="Pago Reserva" variant="outlined" />
               <TextField value={Contrato.fianza} onChange={handleChange('fianza')} type="number" label="N° de cuotas" variant="outlined" />
-              <TextField value={Contrato.rentaMensual} onChange={handleChange('rentaMensual')} type="number" label="Couta Mensual" variant="outlined" />
+              <TextField value={Contrato.RentaMensual} onChange={handleChange('RentaMensual')} type="number" label="Couta Mensual" variant="outlined" />
             </div>
         }
 

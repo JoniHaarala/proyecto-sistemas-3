@@ -16,6 +16,8 @@ import Lead from './components/Reservas/Lead';
 import Solicitud from './components/Reservas/Solicitud';
 import Reserva from './components/Reservas/Reserva';
 import Contratos from './components/Contratos/Contratos';
+import TableContratos from './pages/f-Contratos/TableContratos';
+import TableCuotas from './pages/f-Contratos/TableCuotas';
 
 function App() {
 
@@ -90,7 +92,7 @@ function App() {
                   <Route path='/login' element={<Auth />} />
                   <Route path='/SignUp' element={<SignUp />} />
                   <Route path="/Dashboard" element={<Home />} />
-                  
+
                   {/* Usuarios */}
                   <Route path='/Account' element={<Account />} />
                   <Route path='/addCliente' element={<AddCliente />} />
@@ -115,7 +117,9 @@ function App() {
 
                   {/* Contratos */}
                   <Route path="/Contratos" element={<Home />} />
-                  <Route path="/addContrato" element={<Contratos/>} />
+                  <Route path="/listContratos" element={<TableContratos />} />
+                  <Route path="/listCuotas" element={<TableCuotas />} />
+                  <Route path="/addContrato" element={<Contratos />} />
                   <Route path="/addCuota" element={<AddCuota />} />
 
                   {/* Clientes */}
