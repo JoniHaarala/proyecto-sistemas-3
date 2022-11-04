@@ -58,12 +58,12 @@ const Reserva = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const datos = { ...newReserva, inicioContrato, finContrato, fechaReserva }
+    const datos = { ...newReserva, inicioContrato, finContrato, fechaCobro: fechaReserva }
     console.log(datos)
     try {
 
       const { error } = await supabase
-        .from('operacion_reserva')
+        .from('operacion_contrato')
         .insert([
           datos,
         ])

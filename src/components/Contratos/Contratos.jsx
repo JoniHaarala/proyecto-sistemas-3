@@ -22,15 +22,9 @@ const Contratos = () => {
 
   const ClienteRef = useRef(undefined);
   const PropietarioRef = useRef(undefined);
-  const CbuRef = useRef(undefined);
-  const SaldoRef = useRef(undefined);
-  const CategoriaRef = useRef(undefined);
-  const SucursalRef = useRef(undefined);
-  const FechaVencimientoRef = useRef(undefined);
 
 
   const [Contrato, setContrato] = useState({
-    tipoOP: '',
     propiedad: '',
     estado: '',
     solicitudID: '',
@@ -53,7 +47,7 @@ const Contratos = () => {
 
   const [inicioContrato, setInicioContrato] = useState(moment().format('MM/DD/YYYY'))
   const [finContrato, setFinContrato] = useState(moment().format('MM/DD/YYYY'))
-  const [fechaReserva, setFechaReserva] = useState(moment().format('MM/DD/YYYY'))
+  const [fechaCobro, setFechaCobro] = useState(moment().format('MM/DD/YYYY'))
 
   const getPropiedad = async () => {
     try {
@@ -120,67 +114,95 @@ const Contratos = () => {
     const datos = {
       ...Contrato,
       cliente: ClienteRef.current.value,
-      propietario: PropietarioRef.current.value
+      propietario: PropietarioRef.current.value,
+      inicioContrato,
+      finContrato,
+      fechaCobro
     }
     console.log(datos)
-    // try {
-    //   const { error } = await supabase
-    //     .from('operacion_contrato')
-    //     .insert([
-    //       datos,
-    //     ])
 
-    //   if (error) throw error
-    // }
-    // catch (error) {
-    //   console.error(error)
-    // }
-    // try {
-    //   const { error } = await supabase
-    //     .from('clientes')
-    //     .insert([
-    //       contactos,
-    //     ])
+    const clienteData =
+    {
+      nombre: contactos[0].nombre,
+      correo: contactos[0].correo,
+      telefono: contactos[0].telefono,
+      direccionActual: contactos[0].direccionActual,
+      fechaNacimiento: contactos[0].fechaNacimiento,
+      nacionalidad: "Argentina",
+      dni: contactos[0].dni
+    };
 
-    //   if (error) throw error
-    // }
-    // catch (error) {
-    //   console.error(error)
-    // }
-    // if (Contrato.tipoOp === 'alquiler') {
-    //   try {
-    //     const { error } = await supabase
-    //       .from('alquiler')
-    //       .insert([
-    //         contactos,
-    //       ])
+    const datosPropiedad = propiedades.find(item => item.id === tempPropiedad[0])
+    const alquilerData = 
+    {
+      estado: "Alquilado",
+      nameCliente: ClienteRef.current.value,
+      namePropietario: PropietarioRef.current.value,
+      idCasa: datosPropiedad.id,
+      nombrePropiedad: datosPropiedad.idTipo + datosPropiedad.direccion,
+      tipoCasa: datosPropiedad.idTipo,
+      direccionAlquilada: datosPropiedad.direccion,
+    };
 
-    //     if (error) throw error
-    //   }
-    //   catch (error) {
-    //     console.error(error)
-    //   }
-    // }
-    // else if (Contrato.tipoOp === 'temporario'){
-    //   try {
-    //     const { error } = await supabase
-    //       .from('alquiler_temporario')
-    //       .insert([
-    //         contactos,
-    //       ])
+    try {
+      const { error } = await supabase
+        .from('operacion_contrato')
+        .insert([
+          datos,
+        ])
 
-    //     if (error) throw error
-    //   }
-    //   catch (error) {
-    //     console.error(error)
-    //   }
-    // }
+      if (error) throw error
+    }
+    catch (error) {
+      console.error(error)
+    }
+    try {
+      const { error } = await supabase
+        .from('clientes')
+        .insert([
+          clienteData,
+        ])
+
+      if (error) throw error
+    }
+    catch (error) {
+      console.error(error)
+    }
+    if (Contrato.tipoOp === 'alquiler') {
+      try {
+        const { error } = await supabase
+          .from('alquiler')
+          .insert([
+            alquilerData,
+          ])
+
+        if (error) throw error
+      }
+      catch (error) {
+        console.error(error)
+      }
+    }
+    else if (Contrato.tipoOp === 'temporario') {
+      try {
+        const { error } = await supabase
+          .from('alquiler_temporario')
+          .insert([
+            alquilerData,
+          ])
+
+        if (error) throw error
+      }
+      catch (error) {
+        console.error(error)
+      }
+    }
   }
+  const datosPropiedad = propiedades.find(item => item.id === tempPropiedad[0])
+  console.log(datosPropiedad.id)
 
   const handleChange = (prop) => (event) => {
     setContrato({ ...Contrato, [prop]: event.target.value });
   };
-  console.log(Contrato)
 
   /* Creating a new component called Alert that is a forwardRef. */
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -348,10 +370,10 @@ const Contratos = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Seleccione una fecha"
-              value={fechaReserva}
+              value={fechaCobro}
               inputFormat={'MM/DD/YYYY'}
               onChange={(newValue) => {
-                setFechaReserva(newValue);
+                setFechaCobro(newValue);
               }}
               renderInput={(params) => <TextField required helperText="formato MM/DD/YYYY" {...params} />}
             />
@@ -377,186 +399,10 @@ const Contratos = () => {
           </FormControl>
         }
 
-
-
-        {/* Creating a dropdown menu with the id of the invoices that are pending. */}
-        {/* <section className="flex flex-col py-3">
-          <label className="pb-4">
-            Seleccione la factura a pagar:
-          </label>
-          <select
-            value={dataPago.idfactura}
-            onChange={handlePagoFacturaDatos('idfactura')}
-            className="p-4 mr-10 rounded-lg shadow-md"
-          >
-            <option value={0}>Seleccione una factura</option>
-            {
-              dataFactura.map((item) => (
-                <option value={item.id}>{item.id}</option>
-              ))}
-          </select>
-        </section> */}
-        {/* {
-          dataFactura.filter((item) => item.proveedor === `${dataPago.proveedor}` && item.id === `${dataPago.idfactura}`).map((item) => (
-            <div id="datos de la factura" className='grid grid-cols-2'>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Importe total:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={ImporteRef}
-                  value={item.total}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Saldo restante:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={SaldoRef}
-                  value={item.saldo}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Categoria:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={CategoriaRef}
-                  value={item.tipo}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Sucursal:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={SucursalRef}
-                  value={item.sucursal}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Fecha de vencimiento:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={FechaVencimientoRef}
-                  value={item.fechaVencimiento}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-              <section className="flex flex-col py-3">
-                <label className="pb-4">
-                  Estado:
-                </label>
-                <input
-                  type="text"
-                  maxLength={22}
-                  placeholder="Importe"
-                  readOnly
-                  ref={EstadoRef}
-                  value={item.estado}
-                  className='p-4 mr-10 rounded-lg shadow-md'
-                />
-              </section>
-            </div>
-          ))
-        } */}
-
-        {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
-        {/* <section className="flex flex-col py-3">
-          <label className="pb-4">
-            Banco Seleccionado:
-          </label>
-          <select
-            value={dataPago.banco}
-            onChange={handlePagoFacturaDatos('banco')}
-            className="p-4 mr-10 rounded-lg shadow-md"
-          >
-            <option value={0}>Seleccione una banco</option>
-            {Cuentas.map((item) => (
-              <option value={item.banco}>{item.banco}</option>
-            ))}
-          </select>
-        </section> 
-        */}
-
-        {/* {Cuentas.filter((item) => item.banco === `${dataPago.banco}`).map((value) => (
-          <div>
-            <section className="flex flex-col py-3">
-              <label className="pb-4">
-                numero de cuenta:
-              </label>
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Num. de cuenta"
-                value={value.id}
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-            </section>
-            <section className="flex flex-col py-3">
-              <label className="pb-4">
-                CBU:
-              </label>
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Num. de cuenta"
-                ref={CbuRef}
-                value={value.cbu}
-                onChange={handlePagoFacturaDatos('cuenta')}
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-            </section>
-          </div>
-        ))} */}
-
-
-        {/* <section className="flex flex-col py-3">
-          <label className="pb-4">
-            Seleccione el metodo de pago:
-          </label>
-          <select
-            value={dataPago.tipoPago}
-            onChange={handlePagoFacturaDatos('tipoPago')}
-            className="p-4 mr-10 rounded-lg shadow-md"
-          >
-            <option value={0}>Seleccione un metodo de pago</option>
-            <option value='transferencia bancaria'>transferencia Bancaria</option>
-          </select>
-        </section> */}
-
         <input type="submit" value="Generar contrato" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
         {/* The above code is a React component that is used to display a loading screen while the user is waiting for the data to be loaded. */}
-        {/* <Backdrop
+        <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={Open}
           onClick={handleClose}
@@ -567,13 +413,13 @@ const Contratos = () => {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            (dataPago.idfactura !== '' && dataPago.tipoPago !== '' && dataPago.banco !== '')
+            (Contrato.solicitudID !== '' && Contrato.tipoOp !== '')
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="error">Error al cargar los datos</Alert>
           }
-        </Snackbar> */}
+        </Snackbar>
 
       </form>
     </div>

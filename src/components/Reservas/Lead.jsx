@@ -31,6 +31,7 @@ export default function Lead() {
     notas: ''
   })
   const [fechaContacto, setFechaContacto] = useState(moment().format('MM/DD/YYYY'))
+  const [fechaNacimiento, setFechaNacimiento] = useState(moment().format('MM/DD/YYYY'))
   const [checked, setChecked] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -85,11 +86,11 @@ export default function Lead() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Seleccione una fecha"
-                value={fechaContacto}
+                value={fechaNacimiento}
                 inputFormat={'MM/DD/YYYY'}
                 className="bg-white shadow-lg"
                 onChange={(newValue) => {
-                  setFechaContacto(newValue);
+                  setFechaNacimiento(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
