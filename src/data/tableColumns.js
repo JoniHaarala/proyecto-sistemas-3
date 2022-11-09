@@ -371,3 +371,90 @@ export const tempAlquilerColumn = [
         width: 300
     },
 ];
+
+export const contratoColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 100
+    },
+    {
+        field: 'cliente',
+        headerName: 'NOMBRE CLIENTE',
+        width: 250
+    },
+    {
+        field: 'propietario',
+        headerName: 'NOMBRE PROPIETARIO',
+        width: 250
+    },
+    {
+        field: 'tipoOp',
+        headerName: 'TIPO OPERACION',
+        width: 250
+    },
+    {
+        field: 'contrato',
+        headerName: 'TIPO CONTRATO',
+        width: 250
+    },
+    {
+        field: 'inicioContrato',
+        headerName: 'INICIO CONTRATO',
+        width: 300
+    },
+    {
+        field: 'finContrato',
+        headerName: 'FIN DE CONTRATO',
+        width: 300
+    },
+    {
+        field: 'estado',
+        headerName: 'ESTADO',
+        width: 300
+    },
+];
+
+export const cuotaColumn = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 150
+    },
+    {
+        field: 'cliente',
+        headerName: 'NOMBRE CLIENTE',
+        width: 300
+    },
+    {
+        field: 'idOperacion',
+        headerName: 'TIPO OPERACION',
+        width: 250
+    },
+    {
+        field: 'cuota',
+        headerName: 'N° DE CUOTA',
+        width: 100
+    },
+    {
+        field: 'monto',
+        headerName: 'MONTO',
+        width: 200
+    },
+    {
+        field: 'saldo',
+        headerName: 'SALDO',
+        width: 200
+    },
+    {
+        field: 'vencimiento',
+        headerName: 'VENCIMIENTO',
+        width: 200
+    },
+    {
+        field: 'estado',
+        headerName: 'ESTADO',
+        width: 200
+    },
+    
+];

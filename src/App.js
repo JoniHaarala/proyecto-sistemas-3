@@ -157,12 +157,12 @@ function App() {
                   <Route path="/kanban" element={<Kanban />} />
 
                   {/* Charts */}
-                  <Route path="/line" element={<Area />} />
-                  <Route path="/area" element={<Bar />} />
-                  <Route path="/bar" element={<ColorMapping />} />
-                  <Route path="/pie" element={<Financial />} />
-                  <Route path="/financial" element={<Line />} />
-                  <Route path="/color-mapping" element={<Pie />} />
+                  <Route path="/area" element={<Area />} />
+                  <Route path="/bar" element={<Bar />} />
+                  <Route path="/color-mapping" element={<ColorMapping />} />
+                  <Route path="/financial" element={<Financial />} />
+                  <Route path="/line" element={<Line />} />
+                  <Route path="/pie" element={<Pie />} />
                   <Route path="/piramid" element={<Pyramid />} />
                   <Route path="/stacked" element={<Stacked />} />
                 </Routes>
