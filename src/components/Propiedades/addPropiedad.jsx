@@ -132,11 +132,13 @@ export default function AddPropiedad() {
                 })
                 .catch((err) => console.log("err: ", err));
             console.log(SelectLocation);
+            const numCalle = SelectLocation[0].address.house_number
             setWordEntered(SelectLocation[0].display_name)
             setLat(SelectLocation[0].lat)
             setLon(SelectLocation[0].lon)
-            setCiudad(SelectLocation[0].address.state)
-            setDireccion(SelectLocation[0].display_name)
+            setCiudad(SelectLocation[0].address.city || SelectLocation[0].address.state)
+            setDireccion(SelectLocation[0].address.road +" "+ numCalle.toString())
+            setBarrio(SelectLocation[0].address.suburb || SelectLocation[0].address.town || SelectLocation[0].address.village)
         }
 
         useEffect(() => {
@@ -213,9 +215,10 @@ export default function AddPropiedad() {
                     </section>
                     <section className='px-10 flex flex-col'>
                         <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ mb: 2, width: '400px' }} value={direccion} label="direccion" variant="standard" />
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={barrio} label="barrio" variant="standard" />
                         <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={ciudad} label="ciudad" variant="standard" />
-                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lat} label="latitud" variant="standard" />
-                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lon} label="longitud" variant="standard" />
+                        {/* <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lat} label="latitud" variant="standard" />
+                        <TextField id="standard-basic" InputProps={{ readOnly: true }} sx={{ my: 2, width: '400px' }} value={lon} label="longitud" variant="standard" /> */}
                     </section>
                 </div>
             </div>

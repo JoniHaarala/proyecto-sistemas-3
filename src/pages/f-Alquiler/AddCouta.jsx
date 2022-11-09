@@ -9,7 +9,6 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import moment from 'moment/moment';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -30,9 +29,9 @@ export default function AddCouta() {
         cuota: '',
         estado: 'pendiente',
     })
-    const [tempSolicitud, setTempSolicitud] = useState([])
-    const [tempPropiedad, setTempPropiedad] = useState('')
-    const [tempLead, setTempLead] = useState([])
+
+    const [TempPropiedad, setTempPropiedad] = useState([])    
+    const [dataPropiedad, setDataPropiedad] = useState('')
 
     const [operacion, setOperacion] = useState([])
     const [contactos, setContactos] = useState([])
@@ -43,7 +42,7 @@ export default function AddCouta() {
     const [value, setValue] = useState(moment().format('MM/DD/YYYY'));
 
 
-    const getPropiedad = async () => {
+    const getOperacion = async () => {
         try {
 
             let { data: operacion_contrato, error } = await supabase
@@ -69,10 +68,24 @@ export default function AddCouta() {
             console.error(error)
         }
     }
+    const getPropiedad = async () => {
+        try {
+            let { data: propiedad, error } = await supabase
+                .from('propiedad')
+                .select('*')
+
+            if (error) throw error
+            if (propiedad) setTempPropiedad(propiedad)
+        }
+        catch (error) {
+            console.error(error)
+        }
+    }
 
     useEffect(() => {
-        getPropiedad()
+        getOperacion()
         getContacto()
+        getPropiedad()
     }, [])
 
 
@@ -83,6 +96,9 @@ export default function AddCouta() {
         setOpen(!Open)
     };
 
+    const handlePropData = (e) => {
+        setDataPropiedad(e.target.value)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         const datos = {
@@ -128,12 +144,12 @@ export default function AddCouta() {
             {/* The above code is a form that is used to Generate a new alquiler or compra contract. */}
             <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 w-full flex flex-col gap-10 rounded-lg">
                 <FormControl required fullWidth className=" col-span-2">
-                    <InputLabel id="demo-simple-select-label">buscar inquilino</InputLabel>
+                    <InputLabel id="demo-simple-select-label">buscar cliente</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={Cuota.cliente}
-                        label="buscar inquilino"
+                        label="buscar cliente"
                         onChange={handleChange('cliente')}
                     >
                         {contactos.map((value) => (
@@ -142,15 +158,14 @@ export default function AddCouta() {
                     </Select>
                 </FormControl>
                 <FormControl required fullWidth className=" col-span-2">
-                    <InputLabel id="demo-simple-select-label">num. de operacion</InputLabel>
+                    <InputLabel id="demo-simple-select-label">propiedad vinculada</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={Cuota.idOperacion}
-                        label="n° de operacion"
-                        onChange={handleChange('idOperacion')}
+                        value={dataPropiedad}
+                        label="propiedad vinculada"
+                        onChange={handlePropData}
                     >
-                        <MenuItem value={'OpAlq-01'}>OpAlq-01{value.id}</MenuItem>
                         {operacion.map((value) => (
                             <MenuItem value={value.id}>OpAlq-0{value.id}</MenuItem>
                         ))}

@@ -9,20 +9,17 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import moment from 'moment/moment';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Link, useNavigate } from 'react-router-dom';
 
 
 const Contratos = () => {
 
   const ClienteRef = useRef(undefined);
   const PropietarioRef = useRef(undefined);
-
 
   const [Contrato, setContrato] = useState({
     estado: '',
@@ -33,7 +30,7 @@ const Contratos = () => {
     pago: '',
     motivo: ''
   })
-  const [tempReserva, setTempReserva] = useState("Seleccione una reserva")
+
   const [tempSolicitud, setTempSolicitud] = useState([])
   const [tempPropiedad, setTempPropiedad] = useState('')
   const [tempLead, setTempLead] = useState([])
@@ -94,8 +91,7 @@ const Contratos = () => {
   }, [])
 
   const handleTempReserva = (e) => {
-    setTempReserva(e.target.value)
-    setTempSolicitud(solicitudes.find(item => item.id === e.target.value))
+    setTempSolicitud(e.target.value)
     setTempPropiedad(solicitudes.map(item => item.propiedadID))
     setTempLead(solicitudes.map(item => item.leadID))
   }
@@ -114,7 +110,7 @@ const Contratos = () => {
 
     const datos = {
       ...Contrato,
-      solicitudID: tempReserva,
+      solicitudID: tempSolicitud,
       propiedad: datosPropiedad.id,
       cliente: ClienteRef.current.value,
       propietario: PropietarioRef.current.value,
@@ -133,10 +129,11 @@ const Contratos = () => {
       direccionActual: contactos[0].direccionActual,
       fechaNacimiento: contactos[0].fechaNacimiento,
       nacionalidad: "Argentina",
-      dni: contactos[0].dni
+      dni: contactos[0].dni,
+      cuit: '22-12345678-1'
     };
 
-    const alquilerData = 
+    const alquilerData =
     {
       estado: "Alquilado",
       nameCliente: ClienteRef.current.value,
@@ -184,6 +181,15 @@ const Contratos = () => {
       catch (error) {
         console.error(error)
       }
+      try {
+        const { error } = await supabase
+          .from('propiedad')
+          .update({ idEstado: 'alquilada' })
+          .eq('id', `${datos.propiedad}`)
+        if (error) throw error
+      } catch (error) {
+        console.error(error)
+      }
     }
     else if (Contrato.tipoOp === 'temporario') {
       try {
@@ -198,7 +204,47 @@ const Contratos = () => {
       catch (error) {
         console.error(error)
       }
+      try {
+        const { error } = await supabase
+          .from('propiedad')
+          .update({ idEstado: 'alquilada' })
+          .eq('id', `${datos.propiedad}`)
+        if (error) throw error
+      } catch (error) {
+        console.error(error)
+      }
     }
+    else {
+      try {
+        const { error } = await supabase
+          .from('propiedad')
+          .update({ idEstado: 'alquilada' })
+          .eq('id', `${datos.propiedad}`)
+        if (error) throw error
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    try {
+      const { error } = await supabase
+        .from('propiedad')
+        .update({ idEstado: 'alquilada' })
+        .eq('id', `${datos.propiedad}`)
+      if (error) throw error
+    } catch (error) {
+      console.error(error)
+    }
+
+    try {
+      const { error } = await supabase
+        .from('operacion_solicitud')
+        .update({ activo: false })
+        .eq('id', `${datos.solicitudID}`)
+      if (error) throw error
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   const handleChange = (prop) => (event) => {
@@ -222,7 +268,7 @@ const Contratos = () => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={tempReserva}
+            value={tempSolicitud}
             label="buscar solicitud previa"
             onChange={handleTempReserva}
           >
@@ -233,40 +279,107 @@ const Contratos = () => {
         </FormControl>
         <div className='grid grid-cols-2 gap-10'>
           {
-            tempReserva !== '' &&
+            tempSolicitud !== '' &&
             propiedades.filter(item => item.id === tempPropiedad[0]).map((value) => (
-              <section className="flex flex-col py-3">
-                <label className="pb-2">
-                  Nombre propietario:
-                </label>
-                <input
-                  type="text"
-                  placeholder="Importe"
-                  readOnly
-                  ref={PropietarioRef}
-                  value={value.propietario}
-                  className='p-4 border-y border-x rounded-md'
-                />
+              <section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Propiedad solicitada
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    value={value.idTipo + " en " + value.direccion}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Estado de la  propiedad
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    value={value.idEstado === "activa" ? "Disponible" : value.idEstado}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Direccion
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    value={value.direccion + ", " + value.ciudad}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Nombre propietario
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    ref={PropietarioRef}
+                    value={value.propietario}
+                    onChange={handleChange('propietario')}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
               </section>
+
             ))
           }
           {
-            tempReserva !== '' &&
+            tempSolicitud !== '' &&
             contactos.filter(item => item.id === tempLead[0]).map((value) => (
-              <section className="flex flex-col py-3">
-                <label className="pb-2">
-                  Nombre propietario:
-                </label>
-                <input
-                  type="text"
-                  placeholder="Importe"
-                  readOnly
-                  ref={ClienteRef}
-                  value={value.nombre}
-                  onChange={handleChange('cliente')}
-                  className='p-4 border-y border-x rounded-md'
-                />
+              <section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Nombre cliente
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    ref={ClienteRef}
+                    value={value.nombre}
+                    onChange={handleChange('cliente')}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    Correo electronico
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    value={value.correo}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
+                <section className="flex flex-col py-3">
+                  <label className="pb-2">
+                    telefono/celular
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Importe"
+                    readOnly
+                    value={value.telefono}
+                    className='p-4 border-y border-x rounded-md'
+                  />
+                </section>
               </section>
+
             ))
           }
         </div>

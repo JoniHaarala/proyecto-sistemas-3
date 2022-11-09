@@ -22,10 +22,10 @@ export default function Lead() {
   })
   const [intereses, setIntereses] = useState({
     zonaInteres: '',
-    precioMin: '',
-    precioMax: '',
-    numHab: '',
-    numBaños: '',
+    precioMin: 0,
+    precioMax: 0,
+    numHab: 0,
+    numBaños: 0,
     compartido: false,
     mascotas: false,
     notas: ''
@@ -39,18 +39,18 @@ export default function Lead() {
     const data = { ...newLead, ...intereses, fechaContacto }
     console.log(data)
     try {
-
       const { error } = await supabase
         .from('operacion_lead')
         .insert([
           data,
         ])
       if (error) throw error
-      alert("guardado con exito")
+      console.log("success")
     }
     catch (error) {
       console.error(error)
     }
+    alert("guardado con exito")
   }
 
   const handleClose = (e) => {

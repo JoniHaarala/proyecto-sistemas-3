@@ -17,12 +17,14 @@ export default function Solicitud() {
 
   const [lead, setLead] = useState([])
   const [propiedadData, setPropiedadData] = useState([])
+  const [TipoOp, setTipoOp] = useState('')
 
   const getLeads = async () => {
     try {
       let { data: operacion_lead, error } = await supabase
         .from('operacion_lead')
         .select('*')
+        .eq('activo', true)
       if (error) throw error
       if (operacion_lead) setLead(operacion_lead)
     } catch (error) {
@@ -34,8 +36,8 @@ export default function Solicitud() {
 
       let { data: propiedad, error } = await supabase
         .from('propiedad')
-        .select('id,direccion')
-
+        .select('id,direccion,idCatVenta, idTipo')
+        .eq('idEstado', 'activa')
       if (error) throw error
       if (propiedad) setPropiedadData(propiedad)
     } catch (error) {
@@ -67,14 +69,36 @@ export default function Solicitud() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const datos = { ...NewSolicitud, fechaSoli }
-    console.log(datos)
     try {
-
       const { error } = await supabase
         .from('operacion_solicitud')
         .insert([
           datos,
         ])
+
+      if (error) throw error
+      console.log("success")
+    }
+    catch (error) {
+      console.error(error)
+    }
+
+    try {
+      const { error } = await supabase
+        .from('operacion_lead')
+        .update({ activo: false })
+        .eq('id', `${NewSolicitud.leadID}`)
+
+      if (error) throw error
+    }
+    catch (error) {
+      console.error(error)
+    }
+    try {
+      const { error } = await supabase
+        .from('propiedad')
+        .update({ idEstado: 'bajo oferta' })
+        .eq('id', `${NewSolicitud.propiedadID}`)
 
       if (error) throw error
       alert("guardado con exito")
@@ -93,17 +117,32 @@ export default function Solicitud() {
 
       <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 w-full flex flex-col gap-5 rounded-lg">
         <FormControl required fullWidth>
-          <InputLabel id="demo-simple-select-label">Asigna un lead</InputLabel>
+          <InputLabel id="demo-simple-select-label">Asignar un contacto</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={NewSolicitud.leadID}
-            label="Asigna un lead"
+            label="Asigna un contacto"
             onChange={handleChange('leadID')}
           >
             {lead.map((value) => (
               <MenuItem value={value.id}>{value.nombre}</MenuItem>
             ))}
+          </Select>
+        </FormControl>
+
+        <FormControl required fullWidth>
+          <InputLabel id="demo-simple-select-label">Tipo de operacion</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={TipoOp}
+            label="Tipo de operacion"
+            onChange={e => setTipoOp(e.target.value)}
+          >
+            <MenuItem value={"venta"}>Compra</MenuItem>
+            <MenuItem value={"alquiler"}>Alquiler</MenuItem>
+            <MenuItem value={"temporario"}>Temporario</MenuItem>
           </Select>
         </FormControl>
 
@@ -116,8 +155,8 @@ export default function Solicitud() {
             label="Asigna un inmueble"
             onChange={handleChange('propiedadID')}
           >
-            {propiedadData.map((value) => (
-              <MenuItem value={value.id}>{value.direccion}</MenuItem>
+            {propiedadData.filter(item => item.idCatVenta === TipoOp).map((value) => (
+              <MenuItem value={value.id}>{value.idTipo + ' en ' + value.direccion}</MenuItem>
             ))}
           </Select>
         </FormControl>
