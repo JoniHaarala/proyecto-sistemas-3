@@ -5,6 +5,7 @@ export { default as Navbar } from './Navbar';
 export { default as Footer } from './Footer';
 export { default as Card } from './Card';
 export { default as Chat } from './Chat';
+export { default as Button } from './Button';
 export { default as Notification } from './Notification';
 export { default as SparkLine } from './Charts/SparkLine';
 export { default as LineChart } from './Charts/LineChart';
