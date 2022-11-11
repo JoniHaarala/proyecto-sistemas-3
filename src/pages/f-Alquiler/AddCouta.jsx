@@ -30,8 +30,9 @@ export default function AddCouta() {
         estado: 'pendiente',
     })
 
-    const [TempPropiedad, setTempPropiedad] = useState([])    
+    const [TempPropiedad, setTempPropiedad] = useState([])
     const [dataPropiedad, setDataPropiedad] = useState('')
+    const [infCuotas, setInfCuotas] = useState([])
 
     const [operacion, setOperacion] = useState([])
     const [contactos, setContactos] = useState([])
@@ -81,11 +82,24 @@ export default function AddCouta() {
             console.error(error)
         }
     }
+    const getInfoCuotas = async () => {
+        try {
+            let { data: operacion_cuotas, error } = await supabase
+                .from('operacion_cuotas')
+                .select('*')
+            if (error) throw error
+            if (operacion_cuotas) setInfCuotas(operacion_cuotas)
+        } catch (error) {
+
+        }
+    }
+    
 
     useEffect(() => {
         getOperacion()
         getContacto()
         getPropiedad()
+        getInfoCuotas()
     }, [])
 
 
@@ -113,17 +127,17 @@ export default function AddCouta() {
         }
         console.log(datos)
         try {
-          const { error } = await supabase
-            .from('operacion_cuotas')
-            .insert([
-              datos,
-            ])
+            const { error } = await supabase
+                .from('operacion_cuotas')
+                .insert([
+                    datos,
+                ])
 
-          if (error) throw error
-          alert("creado con exito")
+            if (error) throw error
+            alert("creado con exito")
         }
         catch (error) {
-          console.error(error)
+            console.error(error)
         }
     }
 
@@ -167,13 +181,37 @@ export default function AddCouta() {
                         label="propiedad vinculada"
                         onChange={handlePropData}
                     >
-                        {operacion.map((value) => (
-                            <MenuItem value={value.id}>OpAlq-0{value.id}</MenuItem>
+                        {TempPropiedad.map((value) => (
+                            <MenuItem value={value.id}>{value.idTipo + ' en ' + value.direccion}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <FormControl required fullWidth className=" col-span-2">
+                    <InputLabel id="demo-simple-select-label">seleccione operacion</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={Cuota.idOperacion}
+                        label="seleccione operacion"
+                        onChange={handleChange('idOperacion')}
+                    >
+                        {operacion.filter(item => item.cliente === Cuota.cliente).map((value) => (
+                            <MenuItem value={value.id}>opIdn°{value.id}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
 
-                <TextField value={Cuota.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
+                {
+                    infCuotas.cuota
+                        ?
+                        <TextField value={Cuota.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
+                        :
+                        infCuotas.map(item => (
+                            <TextField value={item.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
+                            ))
+                }
+                {console.log(Cuota.cuota)}
+
 
                 <div className='grid grid-cols-2 gap-10'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>

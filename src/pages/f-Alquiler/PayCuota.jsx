@@ -110,7 +110,7 @@ export default function PayCuota() {
     console.log(pagoFactura);
   }
 
-  let CuotasDatos = dataCuota.filter((value) => value.cliente === `${dataPago.cliente}`);
+  let CuotasDatos = dataCuota.filter((value) => value.cliente === `${dataPago.cliente}` && value.saldo !== 0);
 
   /* Creating a new component called Alert that is a forwardRef. */
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -133,6 +133,7 @@ export default function PayCuota() {
             onChange={handlePagoCuota('cliente')}
             className="p-4 border-y border-x rounded-md"
           >
+            <option value={0}>Seleccione una cliente</option>
             {dataCliente.map((item) => (
               <option value={item.nombre}>{item.nombre}</option>
             ))}
@@ -148,6 +149,7 @@ export default function PayCuota() {
             onChange={handlePagoCuota('propiedad')}
             className="p-4 border-y border-x rounded-md"
           >
+            <option value={0}>Seleccione una propiedad</option>
             {PropData.map((item) => (
               <option value={item.id}>{item.idTipo + " en " + item.direccion}</option>
             ))}
@@ -164,7 +166,7 @@ export default function PayCuota() {
             onChange={handlePagoCuota('idcuota')}
             className="p-4 border-y border-x rounded-md"
           >
-            <option value={0}>Seleccione una factura</option>
+            <option value={0}>Seleccione una cuota</option>
             {
               CuotasDatos.map((item) => (
                 <option value={item.id}>Cuota n°{item.cuota}</option>
@@ -176,74 +178,61 @@ export default function PayCuota() {
             <div id="datos de la factura" className='grid grid-cols-2'>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
-                  Cliente
+                  monto a pagar
                 </label>
                 <input
                   type="text"
                   placeholder="Importe"
                   readOnly
-                  value={item}
+                  value={item.monto}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
-                  Propiedad
+                  Saldo
                 </label>
                 <input
                   type="text"
                   placeholder="Importe"
                   readOnly
-                  value={item}
+                  value={item.saldo}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
-                  Tipo operacion
+                  Total
                 </label>
                 <input
                   type="text"
                   placeholder="Importe"
                   readOnly
-                  value={item}
+                  value={item.total}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
-                  Importe
+                  vencimiento
                 </label>
                 <input
                   type="text"
                   placeholder="Importe"
                   readOnly
-                  value={item}
-                  className='p-4 border-y border-x rounded-md'
-                />
-              </section>
-
-              <section className="flex flex-col py-3">
-                <label className="pb-2">
-
-                </label>
-                <input
-                  type="text"
-                  placeholder="Importe"
-                  readOnly
-                  value={item}
+                  value={item.vencimiento}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
-                  Nombre propietario:
+                  Estado
                 </label>
                 <input
                   type="text"
                   placeholder="Importe"
                   readOnly
-                  value={item}
+                  value={item.estado}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
