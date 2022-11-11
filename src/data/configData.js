@@ -405,7 +405,7 @@ export const areaCustomSeries = [
 
     },
     {
-        dataSource: areaChartData[2],
+        dataSource: areaChartData[1],
         xName: 'x',
         yName: 'y',
         name: 'Ingresos',
