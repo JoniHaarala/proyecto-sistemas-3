@@ -9,14 +9,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import BarChartIcon from '@mui/icons-material/BarChart';
+// import ShowChartIcon from '@mui/icons-material/ShowChart';
+// import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
+// import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+// import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
-import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
+// import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
 import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -269,31 +269,31 @@ export const links = [
     {
         title: 'Charts',
         links: [
-            {
-                name: 'line',
-                icon: <ShowChartIcon />,
-            },
+            // {
+            //     name: 'line',
+            //     icon: <ShowChartIcon />,
+            // },
             {
                 name: 'area',
                 icon: <AssessmentIcon />,
             },
 
-            {
-                name: 'bar',
-                icon: <BarChartIcon />,
-            },
+            // {
+            //     name: 'bar',
+            //     icon: <BarChartIcon />,
+            // },
             {
                 name: 'pie',
                 icon: <PieChartIcon />,
             },
-            {
-                name: 'financial',
-                icon: <CandlestickChartIcon />,
-            },
-            {
-                name: 'color-mapping',
-                icon: <SignalCellularAltIcon />,
-            },
+            // {
+            //     name: 'financial',
+            //     icon: <CandlestickChartIcon />,
+            // },
+            // {
+            //     name: 'color-mapping',
+            //     icon: <SignalCellularAltIcon />,
+            // },
             // {
             //     name: 'pyramid',
             //     icon: <ChangeHistoryIcon />,
@@ -333,50 +333,11 @@ export const kanbanGrid = [
     },
 ];
 
-const gridEmployeeProfile = (props) => (
-    <div className="flex items-center gap-2">
-        <img
-            className="rounded-full w-10 h-10"
-            src={props.EmployeeImage}
-            alt="employee"
-        />
-        <p>{props.Name}</p>
-    </div>
-);
-
-const gridEmployeeCountry = (props) => (
-    <div className="flex items-center justify-center gap-2">
-        {/* <GrLocation /> */}
-        <span>{props.Country}</span>
-    </div>
-);
-
-const customerGridImage = (props) => (
-    <div className="image flex gap-4">
-        <img
-            className="rounded-full w-10 h-10"
-            src={props.CustomerImage}
-            alt="employee"
-        />
-        <div>
-            <p>{props.CustomerName}</p>
-            <p>{props.CustomerEmail}</p>
-        </div>
-    </div>
-);
-
-const customerGridStatus = (props) => (
-    <div className="flex gap-2 justify-center items-center text-gray-700 capitalize">
-        <p style={{ background: props.StatusBg }} className="rounded-full h-3 w-3" />
-        <p>{props.Status}</p>
-    </div>
-);
-
 export const areaPrimaryXAxis = {
     valueType: 'DateTime',
     labelFormat: 'y',
     majorGridLines: { width: 0 },
-    intervalType: 'Years',
+    intervalType: 'days',
     edgeLabelPlacement: 'Shift',
     labelStyle: { color: 'gray' },
 };
@@ -407,40 +368,40 @@ export const barPrimaryYAxis = {
 
 const areaChartData = [
     [
-        { x: new Date(2002, 0, 1), y: 2.2 },
-        { x: new Date(2003, 0, 1), y: 3.4 },
-        { x: new Date(2004, 0, 1), y: 2.8 },
-        { x: new Date(2005, 0, 1), y: 1.6 },
-        { x: new Date(2006, 0, 1), y: 2.3 },
-        { x: new Date(2007, 0, 1), y: 2.5 },
-        { x: new Date(2008, 0, 1), y: 2.9 },
-        { x: new Date(2009, 0, 1), y: 3.8 },
-        { x: new Date(2010, 0, 1), y: 1.4 },
-        { x: new Date(2011, 0, 1), y: 3.1 },
+        { x: new Date(2022, 11, 1), y: 2.2 },
+        { x: new Date(2022, 11, 1), y: 3.4 },
+        { x: new Date(2022, 11, 1), y: 2.8 },
+        { x: new Date(2022, 11, 1), y: 1.6 },
+        { x: new Date(2022, 11, 1), y: 2.3 },
+        { x: new Date(2022, 11, 1), y: 2.5 },
+        { x: new Date(2022, 11, 1), y: 2.9 },
+        { x: new Date(2022, 11, 1), y: 3.8 },
+        { x: new Date(2022, 11, 1), y: 1.4 },
+        { x: new Date(2022, 11, 1), y: 3.1 },
     ],
     [
-        { x: new Date(2002, 0, 1), y: 2 },
-        { x: new Date(2003, 0, 1), y: 1.7 },
-        { x: new Date(2004, 0, 1), y: 1.8 },
-        { x: new Date(2005, 0, 1), y: 2.1 },
-        { x: new Date(2006, 0, 1), y: 2.3 },
-        { x: new Date(2007, 0, 1), y: 1.7 },
-        { x: new Date(2008, 0, 1), y: 1.5 },
-        { x: new Date(2009, 0, 1), y: 2.8 },
-        { x: new Date(2010, 0, 1), y: 1.5 },
-        { x: new Date(2011, 0, 1), y: 2.3 },
+        { x: new Date(2022, 11, 1), y: 2 },
+        { x: new Date(2022, 11, 2), y: 1.7 },
+        { x: new Date(2022, 11, 3), y: 1.8 },
+        { x: new Date(2022, 11, 4), y: 2.1 },
+        { x: new Date(2022, 11, 5), y: 2.3 },
+        { x: new Date(2022, 11, 6), y: 1.7 },
+        { x: new Date(2022, 11, 7), y: 1.5 },
+        { x: new Date(2022, 11, 8), y: 2.8 },
+        { x: new Date(2022, 11, 9), y: 1.5 },
+        { x: new Date(2022, 11, 10), y: 2.3 },
     ],
     [
-        { x: new Date(2002, 0, 1), y: 0.8 },
-        { x: new Date(2003, 0, 1), y: 1.3 },
-        { x: new Date(2004, 0, 1), y: 1.1 },
-        { x: new Date(2005, 0, 1), y: 1.6 },
-        { x: new Date(2006, 0, 1), y: 2 },
-        { x: new Date(2007, 0, 1), y: 1.7 },
-        { x: new Date(2008, 0, 1), y: 2.3 },
-        { x: new Date(2009, 0, 1), y: 2.7 },
-        { x: new Date(2010, 0, 1), y: 1.1 },
-        { x: new Date(2011, 0, 1), y: 2.3 },
+        { x: new Date(2022, 11, 1), y: 0.8 },
+        { x: new Date(2022, 11, 2), y: 1.3 },
+        { x: new Date(2022, 11, 3), y: 1.1 },
+        { x: new Date(2022, 11, 4), y: 1.6 },
+        { x: new Date(2022, 11, 5), y: 2 },
+        { x: new Date(2022, 11, 6), y: 1.7 },
+        { x: new Date(2022, 11, 7), y: 2.3 },
+        { x: new Date(2022, 11, 8), y: 2.7 },
+        { x: new Date(2022, 11, 9), y: 1.1 },
+        { x: new Date(2022, 11, 10), y: 2.3 },
     ],
 ];
 
@@ -885,24 +846,24 @@ export const userProfileData = [
 export const scheduleData = [
     {
         Id: 1,
-        Subject: 'Explosion of Betelgeuse Star',
-        Location: 'Space Center USA',
+        Subject: 'Quedar con cliente casa Pilar 400',
+        Location: 'Pilar, Buenos Aires',
         StartTime: '2022-11-10T04:00:00.000Z',
         EndTime: '2022-11-10T05:30:00.000Z',
         CategoryColor: '#1aaa55',
     },
     {
         Id: 2,
-        Subject: 'Thule Air Crash Report',
-        Location: 'Newyork City',
+        Subject: 'Crear reportes varios',
+        Location: 'Local',
         StartTime: '2022-11-08T11:30:00.000Z',
         EndTime: '2022-11-08T12:30:00.000Z',
         CategoryColor: '#357cd2',
     },
     {
         Id: 3,
-        Subject: 'Blue Moon Eclipse',
-        Location: 'Space Center USA',
+        Subject: 'Pagar Facturas de noviembre',
+        Location: 'Local',
         StartTime: '2022-11-12T04:00:00.000Z',
         EndTime: '2022-11-12T05:30:00.000Z',
         CategoryColor: '#7fa900',
@@ -943,14 +904,14 @@ export const lineChartData = [
 export const dropdownData = [
     {
         Id: '1',
-        Time: 'March 2021',
+        Time: 'octubre 2022',
     },
     {
         Id: '2',
-        Time: 'April 2021',
+        Time: 'noviembre 2022',
     }, {
         Id: '3',
-        Time: 'May 2021',
+        Time: 'diciembre 2022',
     },
 ];
 
