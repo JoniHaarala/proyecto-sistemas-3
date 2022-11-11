@@ -120,16 +120,18 @@ const Contratos = () => {
     }
     console.log(datos)
 
+    const setCliente = contactos.filter(item => item.nombre === datos.cliente)
+
     const clienteData =
     {
-      nombre: contactos[0].nombre,
-      nombreCompleto: contactos[0].nombre,
-      correo: contactos[0].correo,
-      telefono: contactos[0].telefono,
-      direccionActual: contactos[0].direccionActual,
-      fechaNacimiento: contactos[0].fechaNacimiento,
+      nombre: setCliente[0].nombre,
+      nombreCompleto: setCliente[0].nombre,
+      correo: setCliente[0].correo,
+      telefono: setCliente[0].telefono,
+      direccionActual: setCliente[0].direccionActual,
+      fechaNacimiento: setCliente[0].fechaNacimiento,
       nacionalidad: "Argentina",
-      dni: contactos[0].dni,
+      dni: setCliente[0].dni,
       cuit: '22-12345678-1'
     };
 

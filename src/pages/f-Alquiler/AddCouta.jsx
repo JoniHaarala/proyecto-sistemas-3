@@ -26,7 +26,7 @@ export default function AddCouta() {
     const [Cuota, setCuota] = useState({
         idOperacion: '',
         cliente: '',
-        cuota: '',
+        cuota: 1,
         estado: 'pendiente',
     })
 
@@ -207,7 +207,7 @@ export default function AddCouta() {
                         <TextField value={Cuota.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
                         :
                         infCuotas.map(item => (
-                            <TextField value={item.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
+                            <TextField value={item.cuota + 1} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
                             ))
                 }
                 {console.log(Cuota.cuota)}
