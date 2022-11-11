@@ -335,7 +335,7 @@ export const kanbanGrid = [
 
 export const areaPrimaryXAxis = {
     valueType: 'DateTime',
-    labelFormat: 'y',
+    labelFormat: 'd',
     majorGridLines: { width: 0 },
     intervalType: 'Days',
     edgeLabelPlacement: 'Shift',
