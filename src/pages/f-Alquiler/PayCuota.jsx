@@ -126,7 +126,7 @@ export default function PayCuota() {
       <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 w-full flex flex-col gap-5 rounded-lg">
         <section className="flex flex-col py-3">
           <label className="pb-4">
-            Seleccione la cuota a pagar:
+            Seleccione el cliente:
           </label>
           <select
             value={dataPago.cliente}
@@ -141,7 +141,7 @@ export default function PayCuota() {
 
         <section className="flex flex-col py-3">
           <label className="pb-4">
-            Seleccione la cuota a pagar:
+            Seleccione propiedad correspondiente:
           </label>
           <select
             value={dataPago.propiedad}
