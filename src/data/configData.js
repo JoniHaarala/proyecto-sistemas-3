@@ -337,7 +337,7 @@ export const areaPrimaryXAxis = {
     valueType: 'DateTime',
     labelFormat: 'y',
     majorGridLines: { width: 0 },
-    intervalType: 'days',
+    intervalType: 'Days',
     edgeLabelPlacement: 'Shift',
     labelStyle: { color: 'gray' },
 };
