@@ -111,7 +111,7 @@ export default function PayCuota() {
   }
 
   let CuotasDatos = dataCuota.filter((value) => value.cliente === `${dataPago.cliente}` && value.saldo !== 0);
-
+  console.log(CuotasDatos)
   /* Creating a new component called Alert that is a forwardRef. */
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={5} ref={ref} variant="filled" {...props} />;
