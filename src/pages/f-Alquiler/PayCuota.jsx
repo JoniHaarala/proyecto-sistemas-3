@@ -174,7 +174,7 @@ export default function PayCuota() {
           </select>
         </section>
         {
-          CuotasDatos.filter((item) => item.id === `${dataPago.idcuota}`).map((item) => (
+          CuotasDatos.filter((item) => item.id === dataPago.idcuota).map((item) => (
             <div id="datos de la factura" className='grid grid-cols-2'>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
