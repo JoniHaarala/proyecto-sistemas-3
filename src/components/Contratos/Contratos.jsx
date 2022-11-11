@@ -92,9 +92,10 @@ const Contratos = () => {
 
   const handleTempReserva = (e) => {
     setTempSolicitud(e.target.value)
-    setTempPropiedad(solicitudes.map(item => item.propiedadID))
-    setTempLead(solicitudes.map(item => item.leadID))
+    setTempPropiedad(solicitudes.filter(item => item.id === tempSolicitud).map(item => item.propiedadID))
+    setTempLead(solicitudes.filter(item => item.id === tempSolicitud).map(item => item.leadID))
   }
+  console.log(tempLead, tempPropiedad)
 
   const handleClose = () => {
     setOpen(false)
