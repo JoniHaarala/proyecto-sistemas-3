@@ -93,7 +93,7 @@ export default function AddCouta() {
 
         }
     }
-    
+
 
     useEffect(() => {
         getOperacion()
@@ -120,7 +120,7 @@ export default function AddCouta() {
             mesCuota: value.$M + 1,
             añoCuota: value.$y,
             monto: CuotaRef.current.value,
-            saldo: CuotaRef.current.value,
+            saldo: (CuotaRef.current.value + (CuotaRef.current.value * 0.3)),
             total: (CuotaRef.current.value + (CuotaRef.current.value * 0.3)),
             inicio,
             vencimiento: fechaVencimiento
@@ -130,7 +130,7 @@ export default function AddCouta() {
             const { error } = await supabase
                 .from('operacion_cuotas')
                 .insert([
-                    datos,
+                    datos
                 ])
 
             if (error) throw error
@@ -201,15 +201,9 @@ export default function AddCouta() {
                     </Select>
                 </FormControl>
 
-                {
-                    infCuotas.cuota
-                        ?
-                        <TextField value={Cuota.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
-                        :
-                        infCuotas.map(item => (
-                            <TextField value={item.cuota + 1} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
-                            ))
-                }
+
+                <TextField value={Cuota.cuota} onChange={handleChange('cuota')} type="number" label="n° de cuota" variant="outlined" />
+
                 {console.log(Cuota.cuota)}
 
 
@@ -239,7 +233,6 @@ export default function AddCouta() {
                                 <input
                                     type="text"
                                     placeholder="Importe"
-                                    readOnly
                                     ref={CuotaRef}
                                     value={value.rentaMensual}
                                     className='p-4 border-y border-x rounded-md'
@@ -252,7 +245,6 @@ export default function AddCouta() {
                                 <input
                                     type="text"
                                     placeholder="Importe"
-                                    readOnly
                                     ref={FianzaRef}
                                     value={value.fianza}
                                     className='p-4 border-y border-x rounded-md'
@@ -265,7 +257,6 @@ export default function AddCouta() {
                                 <input
                                     type="text"
                                     placeholder="Importe"
-                                    readOnly
                                     ref={PagoRef}
                                     value={value.pago}
                                     className='p-4 border-y border-x rounded-md'
