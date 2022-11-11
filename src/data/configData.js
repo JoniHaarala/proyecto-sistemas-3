@@ -345,7 +345,7 @@ export const areaPrimaryYAxis = {
     labelFormat: '{value}',
     lineStyle: { width: 0 },
     maximum: 200,
-    interval: 10,
+    interval: 20,
     majorTickLines: { width: 0 },
     minorTickLines: { width: 0 },
     labelStyle: { color: 'gray' },

@@ -12,7 +12,7 @@ class Kanban extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className='flex flex-col m-2 md:m-10 mt-24 p-2 md:p-10 bg-white dark:bg-gray-700 dark:text-gray-50 rounded-3xl'>
         <Header category="Apps" title="Kanban" />
         <KanbanComponent id="kanban" keyField="Status" dataSource={this.data} cardSettings={{ contentField: "Summary", headerField: "Id" }}>
           <ColumnsDirective>

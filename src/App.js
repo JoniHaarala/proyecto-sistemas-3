@@ -18,6 +18,7 @@ import Reserva from './components/Reservas/Reserva';
 import Contratos from './components/Contratos/Contratos';
 import TableContratos from './pages/f-Contratos/TableContratos';
 import TableCuotas from './pages/f-Contratos/TableCuotas';
+import PayCuota from './pages/f-Alquiler/PayCuota';
 
 function App() {
 
@@ -34,25 +35,25 @@ function App() {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let subscribe = true;
+  // useEffect(() => {
+  //   let subscribe = true;
 
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (subscribe) {
-        if (!session) {
-          navigate(<Auth></Auth>)
-        }
-        else {
-          navigate('/')
-        }
-        console.log(event, session)
-      }
-    })
+  //   supabase.auth.onAuthStateChange((event, session) => {
+  //     if (subscribe) {
+  //       if (!session) {
+  //         navigate(<Auth></Auth>)
+  //       }
+  //       else {
+  //         navigate('/')
+  //       }
+  //       console.log(event, session)
+  //     }
+  //   })
 
-    return () => {
-      subscribe = false;
-    }
-  }, [navigate])
+  //   return () => {
+  //     subscribe = false;
+  //   }
+  // }, [navigate])
 
   return (
     // recordar cambiar la negacion de la condicion de !supabase.auth.user() por supabase.auth.user() para volver a la normalidad
@@ -121,6 +122,7 @@ function App() {
                   <Route path="/listCuotas" element={<TableCuotas />} />
                   <Route path="/addContrato" element={<Contratos />} />
                   <Route path="/addCuota" element={<AddCuota />} />
+                  <Route path="/payCuota" element={<PayCuota />} />
 
                   {/* Clientes */}
                   <Route path="/Clientes" element={<Empleados />} />
@@ -166,7 +168,7 @@ function App() {
                   <Route path="/piramid" element={<Pyramid />} />
                   <Route path="/stacked" element={<Stacked />} />
                 </Routes>
-                
+
               </section>
               <Footer />
             </div>

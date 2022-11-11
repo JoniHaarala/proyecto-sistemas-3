@@ -107,23 +107,24 @@ export default function AddCouta() {
             añoCuota: value.$y,
             monto: CuotaRef.current.value,
             saldo: CuotaRef.current.value,
-            total: (CuotaRef.current.value) * 1.3,
+            total: (CuotaRef.current.value + (CuotaRef.current.value * 0.3)),
             inicio,
             vencimiento: fechaVencimiento
         }
         console.log(datos)
-        // try {
-        //   const { error } = await supabase
-        //     .from('operacion_cuotas')
-        //     .insert([
-        //       { some_column: 'someValue', other_column: 'otherValue' },
-        //     ])
+        try {
+          const { error } = await supabase
+            .from('operacion_cuotas')
+            .insert([
+              datos,
+            ])
 
-        //   if (error) throw error
-        // }
-        // catch (error) {
-        //   console.error(error)
-        // }
+          if (error) throw error
+          alert("creado con exito")
+        }
+        catch (error) {
+          console.error(error)
+        }
     }
 
     const handleChange = (prop) => (event) => {
@@ -195,7 +196,7 @@ export default function AddCouta() {
                         <div className='flex gap-10'>
                             <section className="flex flex-col py-3">
                                 <label className="pb-2">
-                                    Nombre propietario:
+                                    cuota:
                                 </label>
                                 <input
                                     type="text"
@@ -208,7 +209,7 @@ export default function AddCouta() {
                             </section>
                             <section className="flex flex-col py-3">
                                 <label className="pb-2">
-                                    Nombre propietario:
+                                    honorario:
                                 </label>
                                 <input
                                     type="text"
@@ -221,7 +222,7 @@ export default function AddCouta() {
                             </section>
                             <section className="flex flex-col py-3">
                                 <label className="pb-2">
-                                    Nombre propietario:
+                                    total:
                                 </label>
                                 <input
                                     type="text"

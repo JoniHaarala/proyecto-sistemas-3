@@ -218,7 +218,7 @@ const Contratos = () => {
       try {
         const { error } = await supabase
           .from('propiedad')
-          .update({ idEstado: 'alquilada' })
+          .update({ idEstado: 'vendida' })
           .eq('id', `${datos.propiedad}`)
         if (error) throw error
       } catch (error) {

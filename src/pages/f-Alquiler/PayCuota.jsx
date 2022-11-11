@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../components/Head';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -12,81 +12,68 @@ import { supabase } from '../../supabase/client'
 
 export default function PayCuota() {
 
-  const [ProvData, setProvData] = useState([])
-  const [facturas, setFacturas] = useState([])
-  const [Cuentas, setCuentas] = useState([])
+  const [PropData, setPropData] = useState([])
+  const [dataCliente, setDataCliente] = useState([])
+  const [dataCuota, setDataCuota] = useState([])
 
-  const getProveedor = async () => {
-    try {
-      let { data: proveedor, error } = await supabase
-        .from('proveedor')
-        .select('*')
-
-      if (error) throw error
-      if (proveedor) setProvData(proveedor)
-
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  const getCuenta = async () => {
+  const getCliente = async () => {
     try {
 
-      let { data: cuenta_bancaria, error } = await supabase
-        .from('cuenta_bancaria')
+      let { data: clientes, error } = await supabase
+        .from('clientes')
         .select('*')
 
       if (error) throw error;
-      if (cuenta_bancaria) setCuentas(cuenta_bancaria);
+      if (clientes) setDataCliente(clientes);
 
     } catch (error) {
       console.log(error)
     }
   }
-  const getFactura = async () => {
-    try {
-      let { data: factura, error } = await supabase
-        .from('factura')
-        .select("*")
-        .eq('estado', 'pendiente')
 
-      if (error) throw error;
-      if (factura) setFacturas(factura);
-    }
-    catch (error) {
+  const getPropiedad = async () => {
+    try {
+
+      let { data: propiedad, error } = await supabase
+        .from('propiedad')
+        .select('*')
+
+      if (error) throw error
+      if (propiedad) setPropData(propiedad)
+
+    } catch (error) {
       console.error(error)
     }
   }
+  const getCuotas = async () => {
+    try {
+
+      let { data: operacion_cuotas, error } = await supabase
+        .from('operacion_cuotas')
+        .select('*')
+      if (error) throw error
+      if (operacion_cuotas) setDataCuota(operacion_cuotas)
+    } catch (error) {
+
+    }
+  }
+
   useEffect(() => {
-    getProveedor();
-    getFactura();
-    getCuenta();
+    getPropiedad();
+    getCliente();
+    getCuotas()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Esta info es para cuando no obtener un valor de un input porque no obtiene valores de forma controlada (ej: usando el .map())
-  /* A way to get the value of an uncontrolled input field in React: */
-  // Initialize a ref using the useRef hook.
-  // Set the ref prop on the input field.
-  // Access the value of the input field as ref.current.value
-  const ImporteRef = useRef(undefined);
-  const CbuRef = useRef(undefined);
-  const SaldoRef = useRef(undefined);
-  const CategoriaRef = useRef(undefined);
-  const SucursalRef = useRef(undefined);
-  const FechaVencimientoRef = useRef(undefined);
-  const EstadoRef = useRef(undefined);
-
-  const max = 11111111;
-  const min = 99999999;
-
   const [Open, setOpen] = useState(false)
   const [dataPago, setDataPago] = useState({
-    id: Math.floor(Math.random() * (max - min + 1) + min),
-    idfactura: '',
-    proveedor: '',
+    idcuota: '',
+    propiedad: '',
+    cliente: '',
     banco: '',
     tipoPago: '',
+    cbu: '',
+    tarjeta: '',
   })
 
   console.log(dataPago.proveedor)
@@ -106,47 +93,24 @@ export default function PayCuota() {
     event.preventDefault();
     const pagoFactura = {
       ...dataPago,
-      cuenta: CbuRef.current.value,
-      importe: ImporteRef.current.value
     }
-    try {
-      const { error } = await supabase
-        .from('pagos')
-        .insert([
-          pagoFactura
-        ])
-      if (error) throw error;
 
+    try {
+
+      const { error } = await supabase
+        .from('operacion_cuotas')
+        .update({ saldo: 0 })
+        .eq('id', `${pagoFactura.idcuota}`)
+      if (error) throw error;
+      alert("pago realizado")
     } catch (error) {
       console.error(error)
     }
-    try {
-      const { error } = await supabase
-        .from('factura')
-        .update({ estado: 'pagado' })
-        // .match({ estado: 'pendiente' })
-        .eq('id', `${pagoFactura.idfactura}`)
 
-      if (error) throw error;
-    }
-    catch (error) {
-      console.error(error)
-    }
-    try {
-      const { error } = await supabase
-        .from('factura')
-        .update({ saldo: 0 })
-        .match({ id: `${dataPago.idfactura}` })
-
-      if (error) throw error;
-    }
-    catch (error) {
-      console.error(error)
-    }
     console.log(pagoFactura);
   }
 
-  let dataFactura = facturas.filter((value) => value.proveedor === `${dataPago.proveedor}`);
+  let CuotasDatos = dataCuota.filter((value) => value.cliente === `${dataPago.cliente}`);
 
   /* Creating a new component called Alert that is a forwardRef. */
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -160,41 +124,55 @@ export default function PayCuota() {
 
       {/* The above code is a form that is used to pay a bill. */}
       <form onSubmit={handleSubmit} className="mt-5 py-5 px-10 w-full flex flex-col gap-5 rounded-lg">
-        <FormControl required fullWidth className=" col-span-2">
-          <InputLabel id="demo-simple-select-label">buscar Cliente</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={dataPago.proveedor}
-            label="buscar Cliente"
-            onChange={handlePagoCuota('proveedor')}
+        <section className="flex flex-col py-3">
+          <label className="pb-4">
+            Seleccione la cuota a pagar:
+          </label>
+          <select
+            value={dataPago.cliente}
+            onChange={handlePagoCuota('cliente')}
+            className="p-4 border-y border-x rounded-md"
           >
-            <option value={0}>Seleccione el cliente</option>
-            {ProvData.map((item) => (
+            {dataCliente.map((item) => (
               <option value={item.nombre}>{item.nombre}</option>
             ))}
-          </Select>
-        </FormControl>
+          </select>
+        </section>
+
+        <section className="flex flex-col py-3">
+          <label className="pb-4">
+            Seleccione la cuota a pagar:
+          </label>
+          <select
+            value={dataPago.propiedad}
+            onChange={handlePagoCuota('propiedad')}
+            className="p-4 border-y border-x rounded-md"
+          >
+            {PropData.map((item) => (
+              <option value={item.id}>{item.idTipo + " en " + item.direccion}</option>
+            ))}
+          </select>
+        </section>
 
         {/* Creating a dropdown menu with the id of the invoices that are pending. */}
         <section className="flex flex-col py-3">
           <label className="pb-4">
-            Seleccione la factura a pagar:
+            Seleccione la cuota a pagar:
           </label>
           <select
-            value={dataPago.idfactura}
-            onChange={handlePagoCuota('idfactura')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            value={dataPago.idcuota}
+            onChange={handlePagoCuota('idcuota')}
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione una factura</option>
             {
-              dataFactura.map((item) => (
-                <option value={item.id}>{item.id}</option>
+              CuotasDatos.map((item) => (
+                <option value={item.id}>Cuota n°{item.cuota}</option>
               ))}
           </select>
         </section>
         {
-          dataFactura.filter((item) => item.proveedor === `${dataPago.proveedor}` && item.id === `${dataPago.idfactura}`).map((item) => (
+          CuotasDatos.filter((item) => item.id === `${dataPago.idcuota}`).map((item) => (
             <div id="datos de la factura" className='grid grid-cols-2'>
               <section className="flex flex-col py-3">
                 <label className="pb-2">
@@ -204,7 +182,7 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
@@ -216,7 +194,7 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
@@ -228,7 +206,7 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
@@ -240,7 +218,7 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
@@ -253,7 +231,7 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
@@ -265,64 +243,13 @@ export default function PayCuota() {
                   type="text"
                   placeholder="Importe"
                   readOnly
-
+                  value={item}
                   className='p-4 border-y border-x rounded-md'
                 />
               </section>
             </div>
           ))
         }
-
-        {/* estos campos se van a rellenar solos cuando se seleccione el id de la factura */}
-        <section className="flex flex-col py-3">
-          {/* Creating a dropdown menu with the data from the bancoData array. */}
-          <label className="pb-4">
-            Banco Seleccionado:
-          </label>
-          <select
-            value={dataPago.banco}
-            onChange={handlePagoCuota('banco')}
-            className="p-4 mr-10 rounded-lg shadow-md"
-          >
-            <option value={0}>Seleccione una banco</option>
-            {Cuentas.map((item) => (
-              <option value={item.banco}>{item.banco}</option>
-            ))}
-          </select>
-        </section>
-        {Cuentas.filter((item) => item.banco === `${dataPago.banco}`).map((value) => (
-          <div>
-            <section className="flex flex-col py-3">
-              <label className="pb-4">
-                numero de cuenta:
-              </label>
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Num. de cuenta"
-                value={value.id}
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-            </section>
-            <section className="flex flex-col py-3">
-              <label className="pb-4">
-                CBU:
-              </label>
-              <input
-                type="text"
-                maxLength={22}
-                placeholder="Num. de cuenta"
-                ref={CbuRef}
-                value={value.cbu}
-                onChange={handlePagoCuota('cuenta')}
-                readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
-              />
-            </section>
-          </div>
-        ))}
-
 
         <section className="flex flex-col py-3">
           {/* Creating a dropdown menu with the options of "tarjeta de credito/debito" and "transferencia Bancaria" */}
@@ -332,16 +259,16 @@ export default function PayCuota() {
           <select
             value={dataPago.tipoPago}
             onChange={handlePagoCuota('tipoPago')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione un metodo de pago</option>
-            <option value='transferencia bancaria'>transferencia Bancaria</option>
-            {/* <option value={2}>tarjeta de credito/debito</option> */}
+            <option value={1}>transferencia Bancaria</option>
+            <option value={2}>tarjeta de credito/debito</option>
           </select>
         </section>
-        {/* {
+        {
           //A ternary operator. It is a conditional operator that assigns a value to a variable based on some condition.
-          pago == 2
+          dataPago.tipoPago == 2
             ?
             <section className="flex flex-col py-3">
               <label className="pb-4 ml-20">
@@ -354,16 +281,42 @@ export default function PayCuota() {
                 maxLength={16}
                 placeholder="Numero de tarjeta"
                 required
-                value={txtTarjeta}
-                onChange={handleChangetxtTarjeta}
-                className='p-4 mr-10 ml-20 rounded-lg shadow-md'
+                value={dataPago.tarjeta}
+                onChange={handlePagoCuota('tarjeta')}
+                className='p-4 border-y border-x rounded-md'
               />
 
             </section>
             :
-            // esto en resumen no nuestra ni agrega etiqueta alguna al codigo
-            <></>
-        } */}
+            <div>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  numero de cuenta:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Num. de cuenta"
+                  value={dataPago.banco}
+                  onChange={handlePagoCuota('banco')}
+                  className='p-4 border-y border-x rounded-md'
+                />
+              </section>
+              <section className="flex flex-col py-3">
+                <label className="pb-4">
+                  CBU:
+                </label>
+                <input
+                  type="text"
+                  maxLength={22}
+                  placeholder="Num. de cuenta"
+                  value={dataPago.cbu}
+                  onChange={handlePagoCuota('cbu')}
+                  className='p-4 border-y border-x rounded-md'
+                />
+              </section>
+            </div>
+        }
 
         <input type="submit" value="Pagar" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
@@ -379,7 +332,7 @@ export default function PayCuota() {
 
         <Snackbar open={Open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'botton', horizontal: 'left' }}>
           {
-            (dataPago.idfactura !== '' && dataPago.tipoPago !== '' && dataPago.banco !== '')
+            (dataPago.idcuota !== '' && dataPago.tipoPago !== '' && dataPago.banco !== '')
               ?
               <Alert onClose={handleClose} sx={{ width: '100%' }} severity="success">Transaccion realizada con exito!</Alert>
               :
