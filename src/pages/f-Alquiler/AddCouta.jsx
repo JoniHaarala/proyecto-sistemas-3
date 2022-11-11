@@ -119,9 +119,9 @@ export default function AddCouta() {
             ...Cuota,
             mesCuota: value.$M + 1,
             añoCuota: value.$y,
-            monto: CuotaRef.current.value,
-            saldo: (CuotaRef.current.value + (CuotaRef.current.value * 0.3)),
-            total: (CuotaRef.current.value + (CuotaRef.current.value * 0.3)),
+            monto: parseInt(CuotaRef.current.value),
+            saldo: parseInt(CuotaRef.current.value) + parseInt(CuotaRef.current.value) * 0.3,
+            total: parseInt(CuotaRef.current.value) + parseInt(CuotaRef.current.value) * 0.3,
             inicio,
             vencimiento: fechaVencimiento
         }
