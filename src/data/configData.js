@@ -335,7 +335,7 @@ export const kanbanGrid = [
 
 export const areaPrimaryXAxis = {
     valueType: 'DateTime',
-    labelFormat: 'd',
+    labelFormat: 'yMd',
     majorGridLines: { width: 0 },
     intervalType: 'Days',
     edgeLabelPlacement: 'Shift',
@@ -345,8 +345,8 @@ export const areaPrimaryXAxis = {
 export const areaPrimaryYAxis = {
     labelFormat: '{value}%',
     lineStyle: { width: 0 },
-    maximum: 4,
-    interval: 1,
+    maximum: 200,
+    interval: 10,
     majorTickLines: { width: 0 },
     minorTickLines: { width: 0 },
     labelStyle: { color: 'gray' },
@@ -410,7 +410,7 @@ export const areaCustomSeries = [
         dataSource: areaChartData[0],
         xName: 'x',
         yName: 'y',
-        name: 'USA',
+        name: 'Gastos',
         opacity: '0.8',
         type: 'SplineArea',
         width: '2',
@@ -429,7 +429,7 @@ export const areaCustomSeries = [
         dataSource: areaChartData[2],
         xName: 'x',
         yName: 'y',
-        name: 'Germany',
+        name: 'Ingresos',
         opacity: '0.8',
         type: 'SplineArea',
         width: '2',
@@ -628,27 +628,27 @@ export const chatData = [
 export const earningData = [
     {
         // icon: <MdOutlineSupervisorAccount />,
-        amount: '39,354',
-        percentage: '-4%',
-        title: 'Customers',
+        amount: '230',
+        percentage: '+16%',
+        title: 'Clientes',
         iconColor: '#03C9D7',
         iconBg: '#E5FAFB',
         pcColor: 'red-600',
     },
     {
         // icon: <BsBoxSeam />,
-        amount: '4,396',
+        amount: '150',
         percentage: '+23%',
-        title: 'Products',
+        title: 'Propiedades',
         iconColor: 'rgb(255, 244, 229)',
         iconBg: 'rgb(254, 201, 15)',
         pcColor: 'green-600',
     },
     {
         // icon: <FiBarChart />,
-        amount: '423,39',
+        amount: '2,900',
         percentage: '+38%',
-        title: 'Sales',
+        title: 'transacciones',
         iconColor: 'rgb(228, 106, 118)',
         iconBg: 'rgb(255, 244, 229)',
 
@@ -657,8 +657,8 @@ export const earningData = [
     {
         // icon: <HiOutlineRefresh />,
         amount: '39,354',
-        percentage: '-12%',
-        title: 'Refunds',
+        percentage: '+8%',
+        title: 'visitas',
         iconColor: 'rgb(0, 194, 146)',
         iconBg: 'rgb(235, 250, 242)',
         pcColor: 'red-600',
@@ -668,16 +668,16 @@ export const earningData = [
 export const recentTransactions = [
     {
         // icon: <BsCurrencyDollar />,
-        amount: '+$350',
+        amount: '+2%',
         title: 'Paypal Transfer',
-        desc: 'Money Added',
+        desc: 'Payment Added',
         iconColor: '#03C9D7',
         iconBg: '#E5FAFB',
         pcColor: 'green-600',
     },
     {
         // icon: <BsShield />,
-        amount: '-$560',
+        amount: '-3.3%',
         desc: 'Bill Payment',
         title: 'Wallet',
         iconColor: 'rgb(0, 194, 146)',
@@ -686,7 +686,7 @@ export const recentTransactions = [
     },
     {
         // icon: <FiCreditCard />,
-        amount: '+$350',
+        amount: '+38%',
         title: 'Credit Card',
         desc: 'Money reversed',
         iconColor: 'rgb(255, 244, 229)',
@@ -696,7 +696,7 @@ export const recentTransactions = [
     },
     {
         // icon: <TiTick />,
-        amount: '+$350',
+        amount: '+5%',
         title: 'Bank Transfer',
         desc: 'Money Added',
 
@@ -706,7 +706,7 @@ export const recentTransactions = [
     },
     {
         // icon: <BsCurrencyDollar />,
-        amount: '-$50',
+        amount: '-0.9%',
         percentage: '+38%',
         title: 'Refund',
         desc: 'Payment Sent',

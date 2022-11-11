@@ -8,9 +8,9 @@ import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 import { Button,PieChart, SparkLine, LineChart, Stacked as StackedChart } from '../components'
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/configData';
+import { earningData, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/configData';
 import { useStateContext } from '../context/ContextProvider';
-import product9 from '../data/dashboard-template.jpg';
+import product9 from '../data/publi-inmobiliaria.jpg';
 
 const DropDown = ({ currentMode }) => (
   <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
@@ -35,8 +35,8 @@ const Home = () => {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
             <div>
-              <p className="font-bold text-gray-400">Earnings</p>
-              <p className="text-2xl">$63,448.78</p>
+              <p className="font-bold text-gray-400">Ganacias</p>
+              <p className="text-2xl">$63,448.00</p>
             </div>
             <button
               type="button"
@@ -86,13 +86,13 @@ const Home = () => {
                 <span>
                   <GoPrimitiveDot />
                 </span>
-                <span>Expense</span>
+                <span>Gastos</span>
               </p>
               <p className="flex items-center gap-2 text-green-400 hover:drop-shadow-xl">
                 <span>
                   <GoPrimitiveDot />
                 </span>
-                <span>Budget</span>
+                <span>Ingreso</span>
               </p>
             </div>
           </div>
@@ -105,12 +105,12 @@ const Home = () => {
                     23%
                   </span>
                 </p>
-                <p className="text-gray-500 mt-1">Budget</p>
+                <p className="text-gray-500 mt-1">Ingresos</p>
               </div>
               <div className="mt-8">
                 <p className="text-3xl font-semibold">$48,487</p>
 
-                <p className="text-gray-500 mt-1">Expense</p>
+                <p className="text-gray-500 mt-1">Gastos</p>
               </div>
 
               <div className="mt-5">
@@ -136,11 +136,11 @@ const Home = () => {
             style={{ backgroundColor: currentColor }}
           >
             <div className="flex justify-between items-center ">
-              <p className="font-semibold text-white text-2xl">Earnings</p>
+              <p className="font-semibold text-white text-2xl">Ingresos</p>
 
               <div>
-                <p className="text-2xl text-white font-semibold mt-8">$63,448.78</p>
-                <p className="text-gray-200">Monthly revenue</p>
+                <p className="text-2xl text-white font-semibold mt-8">$63,448.00</p>
+                <p className="text-gray-200">Ingresos mensuales</p>
               </div>
             </div>
 
@@ -151,8 +151,8 @@ const Home = () => {
 
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
             <div>
-              <p className="text-2xl font-semibold ">$43,246</p>
-              <p className="text-gray-400">Yearly sales</p>
+              <p className="text-2xl font-semibold ">$5,040,246</p>
+              <p className="text-gray-400">Ventas anuales</p>
             </div>
 
             <div className="w-40">
@@ -260,16 +260,15 @@ const Home = () => {
           </div>
           <div className="mt-10">
             <img
-              className="md:w-96 h-50 "
+              className="md:w-96 h-50 rounded-md"
               src={product9}
-              alt=""
+              alt="publicity"
             />
             <div className="mt-8">
-              <p className="font-semibold text-lg">React 18 coming soon!</p>
-              <p className="text-gray-400 ">By Johnathan Doe</p>
+              <p className="font-semibold text-lg">Real Estate summit 2022!</p>
+              <p className="text-gray-400 ">By Forex Inc.</p>
               <p className="mt-8 text-sm text-gray-400">
-                This will be the small description for the news you have shown
-                here. There could be some great info.
+                Conferencia sobre el entorno inmobiliario dentro del internet<br/> y como optimizar busquedas.
               </p>
               <div className="mt-3">
                 <Button
