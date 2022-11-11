@@ -298,7 +298,7 @@ export default function AddCouta() {
                     </LocalizationProvider>
                 </section>
 
-                <input type="submit" value="Generar contrato" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
+                <input type="submit" value="Generar cuota" className="w-60 self-center rounded-lg bg-green-500 font-bold p-3 mx-3 mt-5 cursor-pointer hover:shadow-md" onClick={handleToggle} />
 
                 {/* The above code is a React component that is used to display a loading screen while the user is waiting for the data to be loaded. */}
                 <Backdrop
