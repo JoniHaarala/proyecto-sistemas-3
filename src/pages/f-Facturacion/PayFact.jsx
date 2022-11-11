@@ -157,7 +157,7 @@ export default function PayFact() {
       <Header category="Facturas" title="Pagar factura" />
 
       {/* The above code is a form that is used to pay a bill. */}
-      <form onSubmit={handleSubmit} className="bg-gray-100 mt-5 py-5 pl-10 flex flex-col gap-5 rounded-lg">
+      <form onSubmit={handleSubmit} className="mt-5 py-3 pr-10 flex flex-col gap-5 rounded-lg">
         <section className="flex flex-col py-3">
           <label className="pb-4">
             Proveedor:
@@ -165,7 +165,7 @@ export default function PayFact() {
           <select
             value={dataPago.proveedor}
             onChange={handlePagoFacturaDatos('proveedor')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione el proveedor</option>
             {ProvData.map((item) => (
@@ -182,7 +182,7 @@ export default function PayFact() {
           <select
             value={dataPago.idfactura}
             onChange={handlePagoFacturaDatos('idfactura')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione una factura</option>
             {
@@ -193,7 +193,7 @@ export default function PayFact() {
         </section>
         {
           dataFactura.filter((item) => item.proveedor === `${dataPago.proveedor}` && item.id === `${dataPago.idfactura}`).map((item) => (
-            <div id="datos de la factura" className='grid grid-cols-2'>
+            <div id="datos de la factura" className='grid grid-cols-2 gap-x-10'>
               <section className="flex flex-col py-3">
                 <label className="pb-4">
                   Importe total:
@@ -205,7 +205,7 @@ export default function PayFact() {
                   readOnly
                   ref={ImporteRef}
                   value={item.total}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
@@ -219,7 +219,7 @@ export default function PayFact() {
                   readOnly
                   ref={SaldoRef}
                   value={item.saldo}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
@@ -233,7 +233,7 @@ export default function PayFact() {
                   readOnly
                   ref={CategoriaRef}
                   value={item.tipo}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
@@ -247,7 +247,7 @@ export default function PayFact() {
                   readOnly
                   ref={SucursalRef}
                   value={item.sucursal}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
@@ -261,7 +261,7 @@ export default function PayFact() {
                   readOnly
                   ref={FechaVencimientoRef}
                   value={item.fechaVencimiento}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
               <section className="flex flex-col py-3">
@@ -275,7 +275,7 @@ export default function PayFact() {
                   readOnly
                   ref={EstadoRef}
                   value={item.estado}
-                  className='p-4 mr-10 rounded-lg shadow-md'
+                  className='p-4 border-y border-x rounded-md'
                 />
               </section>
             </div>
@@ -291,7 +291,7 @@ export default function PayFact() {
           <select
             value={dataPago.banco}
             onChange={handlePagoFacturaDatos('banco')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione una banco</option>
             {Cuentas.map((item) => (
@@ -300,7 +300,7 @@ export default function PayFact() {
           </select>
         </section>
         {Cuentas.filter((item) => item.banco === `${dataPago.banco}`).map((value) => (
-          <div>
+          <div className='grid md:grid-cols-2 gap-x-10'>
             <section className="flex flex-col py-3">
               <label className="pb-4">
                 numero de cuenta:
@@ -311,7 +311,7 @@ export default function PayFact() {
                 placeholder="Num. de cuenta"
                 value={value.id}
                 readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
+                className='p-4 border-y border-x rounded-md'
               />
             </section>
             <section className="flex flex-col py-3">
@@ -326,7 +326,7 @@ export default function PayFact() {
                 value={value.cbu}
                 onChange={handlePagoFacturaDatos('cuenta')}
                 readOnly
-                className='p-4 mr-10 rounded-lg shadow-md'
+                className='p-4 border-y border-x rounded-md'
               />
             </section>
           </div>
@@ -341,7 +341,7 @@ export default function PayFact() {
           <select
             value={dataPago.tipoPago}
             onChange={handlePagoFacturaDatos('tipoPago')}
-            className="p-4 mr-10 rounded-lg shadow-md"
+            className="p-4 border-y border-x rounded-md"
           >
             <option value={0}>Seleccione un metodo de pago</option>
             <option value='transferencia bancaria'>transferencia Bancaria</option>

@@ -135,7 +135,7 @@ export default function FormCreateFactura() {
 
       <Header category="facturas" title="Registrar factura" />
 
-      <form onSubmit={handleFacturaSubmit} className="bg-gray-100 mt-5 py-5 pl-10 flex flex-col gap-5 rounded-lg">
+      <form onSubmit={handleFacturaSubmit} className="mt-5 py-5 pr-10 flex flex-col gap-5 rounded-lg">
 
         <section className="flex flex-col py-3">
           {/* A ternary operator how handle two types of inputs: if the input doesn't recieve a value is default, else it will show supplier Name */}
@@ -147,11 +147,11 @@ export default function FormCreateFactura() {
             placeholder='numero de factura...'
             value={dataFactura.id}
             onChange={handleDataFactura('id')}
-            className='p-4 mr-10 rounded-lg shadow-md bg-white'
+            className='p-4 border-y border-x rounded-md'
           />
         </section>
 
-        <div className='flex'>
+        <div className='flex gap-10'>
           <section className="flex flex-col py-3">
             <label className="pb-4">
               Categoria:
@@ -159,7 +159,7 @@ export default function FormCreateFactura() {
             <select
               value={dataFactura.tipo}
               onChange={handleDataFactura('tipo')}
-              className='p-4 mr-10 rounded-lg shadow-md bg-white'
+              className='p-4 border-y border-x rounded-md'
             >
               <option value={null}>Seleccione Categoria</option>
               <option value={'A'}>A</option>
@@ -178,7 +178,7 @@ export default function FormCreateFactura() {
               maxLength={4}
               value={dataFactura.sucursal}
               onChange={handleDataFactura('sucursal')}
-              className='p-4 mr-10 rounded-lg shadow-md bg-white'
+              className='p-4 border-y border-x rounded-md'
             />
           </section>
         </div>
@@ -190,7 +190,7 @@ export default function FormCreateFactura() {
           <select
             value={dataFactura.proveedor}
             onChange={handleDataFactura('proveedor')}
-            className='p-4 mr-10 rounded-lg shadow-md bg-white'
+            className='p-4 border-y border-x rounded-md'
           >
             <option value={''}>Nombre del proveedor...</option>
             {prov.map((item) => (
@@ -207,7 +207,7 @@ export default function FormCreateFactura() {
                 label="Seleccione una fecha"
                 value={fechaRegistro}
                 inputFormat={'MM/DD/YYYY'}
-                className="bg-white shadow-lg"
+                className="bg-white shadow-md"
                 onChange={(newValue) => {
                   setfechaRegistro(newValue);
                 }}
@@ -223,7 +223,7 @@ export default function FormCreateFactura() {
                 disablePast={true}
                 value={fechaVencimiento}
                 inputFormat={'MM/DD/YYYY'}
-                className="bg-white shadow-lg"
+                className="bg-white shadow-md"
                 onChange={(newValue) => {
                   setFechaVencimiento(newValue);
                 }}
@@ -243,7 +243,7 @@ export default function FormCreateFactura() {
             disabled
             readOnly
             value={dataFactura.estado}
-            className='p-4 mr-10 rounded-lg shadow-md bg-white'
+            className='p-4 border-y border-x rounded-md'
           />
         </section>
         <DataTable value={detalleFact} responsiveLayout="scroll">
@@ -254,7 +254,7 @@ export default function FormCreateFactura() {
         </DataTable>
         <PropDetalleFact idfactura={dataFactura.id} detalleFact={detalleFact} setDetalleFact={setDetalleFact} />
 
-        <div className='flex justify-end'>
+        <div className='flex justify-end gap-10'>
           <section className="flex flex-col">
             <label className="pb-4">Total:</label>
             <input
@@ -263,7 +263,7 @@ export default function FormCreateFactura() {
               placeholder='Importe a pagar....'
               value={sum}
               onChange={handleDataFactura('total')}
-              className='p-4 mr-10 rounded-lg shadow-md bg-white'
+              className='p-4 border-y border-x rounded-md'
             />
           </section>
           <section className="flex flex-col">
@@ -274,7 +274,7 @@ export default function FormCreateFactura() {
               placeholder='Importe a pagar....'
               value={sum}
               onChange={handleDataFactura('saldo')}
-              className='p-4 mr-10 rounded-lg shadow-md bg-white'
+              className='p-4 border-y border-x rounded-md'
             />
           </section>
         </div>
