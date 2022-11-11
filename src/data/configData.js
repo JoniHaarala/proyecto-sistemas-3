@@ -68,11 +68,6 @@ export const subLinks = [
                 name: '',
                 subname: 'listar contable',
             },
-            {
-                id: 4,
-                name: '',
-                subname: 'cancelar contable',
-            },
         ],
     },
     {
@@ -98,7 +93,11 @@ export const subLinks = [
                 name: 'addCuota',
                 subname: 'Generar cuota',
             },
-            
+            {
+                id: 5,
+                name: 'payCuota',
+                subname: 'Cobrar cuota',
+            },
         ],
     },
     {
@@ -368,28 +367,28 @@ export const barPrimaryYAxis = {
 
 const areaChartData = [
     [
-        { x: new Date(2022, 11, 1), y: 0.5 },
-        { x: new Date(2022, 11, 2), y: 0.5 },
+        { x: new Date(2022, 11, 1), y: -0.5 },
+        { x: new Date(2022, 11, 2), y: -0.5 },
         { x: new Date(2022, 11, 3), y: 15 },
         { x: new Date(2022, 11, 4), y: 25 },
-        { x: new Date(2022, 11, 5), y: 0.5 },
-        { x: new Date(2022, 11, 6), y: 0.5 },
+        { x: new Date(2022, 11, 5), y: -0.5 },
+        { x: new Date(2022, 11, 6), y: -0.5 },
         { x: new Date(2022, 11, 7), y: 85 },
-        { x: new Date(2022, 11, 8), y: 0.5 },
+        { x: new Date(2022, 11, 8), y: -0.5 },
         { x: new Date(2022, 11, 9), y: 125 },
-        { x: new Date(2022, 11, 10), y: 0.5 },
+        { x: new Date(2022, 11, 10), y: -0.5 },
     ],
     [
-        { x: new Date(2022, 11, 1), y: 0.5 },
+        { x: new Date(2022, 11, 1), y: -0.5 },
         { x: new Date(2022, 11, 2), y: 150 },
         { x: new Date(2022, 11, 3), y: 15 },
         { x: new Date(2022, 11, 4), y: 18 },
-        { x: new Date(2022, 11, 5), y: 0.5 },
-        { x: new Date(2022, 11, 6), y: 0.5 },
-        { x: new Date(2022, 11, 7), y: 0.5 },
+        { x: new Date(2022, 11, 5), y: -0.5 },
+        { x: new Date(2022, 11, 6), y: -0.5 },
+        { x: new Date(2022, 11, 7), y: -0.5 },
         { x: new Date(2022, 11, 8), y: 69 },
-        { x: new Date(2022, 11, 9), y: 0.5 },
-        { x: new Date(2022, 11, 10), y: 0.5 },
+        { x: new Date(2022, 11, 9), y: -0.5 },
+        { x: new Date(2022, 11, 10), y: -0.5 },
     ],
 ];
 
