@@ -91,19 +91,20 @@ export default function PayCuota() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const pagoFactura = {
       ...dataPago,
     }
 
     try {
-
       const { error } = await supabase
         .from('operacion_cuotas')
         .update({ saldo: 0 })
         .eq('id', `${pagoFactura.idcuota}`)
       if (error) throw error;
       alert("pago realizado")
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error)
     }
 
